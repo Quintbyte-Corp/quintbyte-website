@@ -1,0 +1,4 @@
+.env*
+!.env.example
+.claude
+design_handoff_quintbyte_website
