@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,300,0,0" rel="stylesheet">
+<script src="./image-slot.js"></script>
+<style>
+html,body{margin:0;padding:0;background:#05080d;}
+*{box-sizing:border-box;}
+body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased;}
+a{color:#22c7ff;text-decoration:none;}
+a:hover{color:#7fdfff;}
+.material-symbols-outlined{font-family:'Material Symbols Outlined';font-weight:300;font-style:normal;line-height:1;letter-spacing:normal;text-transform:none;display:inline-block;white-space:nowrap;-webkit-font-smoothing:antialiased;}
+</style>
+</helmet>
+
+<div style="background:#05080d;color:#eef4f8;min-height:100vh;overflow-x:hidden;">
+
+  <!-- NAV -->
+  <header style="position:sticky;top:0;z-index:50;background:rgba(5,8,13,0.82);backdrop-filter:blur(14px);border-bottom:1px solid rgba(34,199,255,0.1);">
+    <div style="max-width:1280px;margin:0 auto;padding:18px clamp(20px,4vw,48px);display:flex;align-items:center;justify-content:space-between;gap:24px;">
+      <a href="#top" style="display:flex;align-items:center;gap:10px;color:#eef4f8;">
+        <span style="font-weight:800;font-size:30px;letter-spacing:-2px;color:#eef4f8;text-shadow:0 0 18px rgba(34,199,255,0.55);line-height:1;">qb</span>
+        <span style="font-weight:700;font-size:19px;letter-spacing:-0.3px;"><span style="color:#eef4f8;">quint</span><span style="color:#22c7ff;">byte</span></span>
+      </a>
+      <sc-if value="{{ showLinks }}" hint-placeholder-val="{{ true }}">
+        <nav style="display:flex;align-items:center;gap:34px;font-size:14px;font-weight:500;">
+          <a href="#top" style="color:#22c7ff;">Home</a>
+          <a href="#services" style="color:#c9d4dc;" style-hover="color:#fff;">Services</a>
+          <a href="#how" style="color:#c9d4dc;" style-hover="color:#fff;">How It Works</a>
+          <a href="#ecosystem" style="color:#c9d4dc;" style-hover="color:#fff;">About</a>
+          <a href="#contact" style="color:#c9d4dc;" style-hover="color:#fff;">Contact</a>
+        </nav>
+        <a href="#contact" style="display:flex;align-items:center;gap:8px;background:#22c7ff;color:#03131c;font-weight:700;font-size:14px;padding:12px 22px;border-radius:999px;box-shadow:0 0 28px rgba(34,199,255,0.35);" style-hover="background:#5ad6ff;color:#03131c;">Talk to QuintByte <span class="material-symbols-outlined" style="font-size:18px;">arrow_forward</span></a>
+      </sc-if>
+      <sc-if value="{{ showBurger }}" hint-placeholder-val="{{ false }}">
+        <button onClick="{{ toggleMenu }}" style="background:transparent;border:1px solid rgba(255,255,255,0.15);color:#eef4f8;width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;cursor:pointer;">
+          <span class="material-symbols-outlined" style="font-size:24px;">{{ menuIcon }}</span>
+        </button>
+      </sc-if>
+    </div>
+    <sc-if value="{{ mobileMenuOpen }}" hint-placeholder-val="{{ false }}">
+      <nav style="display:flex;flex-direction:column;gap:4px;padding:8px 20px 24px;border-top:1px solid rgba(255,255,255,0.06);">
+        <a href="#top" onClick="{{ closeMenu }}" style="color:#22c7ff;padding:14px 4px;font-size:17px;font-weight:600;">Home</a>
+        <a href="#services" onClick="{{ closeMenu }}" style="color:#eef4f8;padding:14px 4px;font-size:17px;font-weight:600;">Services</a>
+        <a href="#how" onClick="{{ closeMenu }}" style="color:#eef4f8;padding:14px 4px;font-size:17px;font-weight:600;">How It Works</a>
+        <a href="#ecosystem" onClick="{{ closeMenu }}" style="color:#eef4f8;padding:14px 4px;font-size:17px;font-weight:600;">About</a>
+        <a href="#contact" onClick="{{ closeMenu }}" style="color:#eef4f8;padding:14px 4px;font-size:17px;font-weight:600;">Contact</a>
+        <a href="#contact" onClick="{{ closeMenu }}" style="margin-top:10px;text-align:center;background:#22c7ff;color:#03131c;font-weight:700;font-size:15px;padding:15px;border-radius:999px;">Talk to QuintByte →</a>
+      </nav>
+    </sc-if>
+  </header>
+
+  <!-- HERO -->
+  <section id="top" data-screen-label="Hero" style="position:relative;background:radial-gradient(ellipse 60% 70% at 72% 45%, rgba(34,150,255,0.16), transparent 70%);">
+    <div style="max-width:1280px;margin:0 auto;padding:clamp(48px,7vw,96px) clamp(20px,4vw,48px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr));gap:clamp(40px,5vw,72px);align-items:center;">
+      <div style="display:flex;flex-direction:column;gap:28px;align-items:flex-start;">
+        <span style="font-size:12px;font-weight:600;letter-spacing:1.4px;color:#c9d4dc;border:1px solid rgba(255,255,255,0.14);background:rgba(255,255,255,0.04);padding:8px 16px;border-radius:999px;">BUSINESS MANAGEMENT SERVICES</span>
+        <h1 style="margin:0;font-size:clamp(42px,5.6vw,76px);line-height:1.02;letter-spacing:-0.035em;font-weight:800;text-wrap:balance;">Your business has enough <span style="color:#22c7ff;">moving parts.</span></h1>
+        <p style="margin:0;font-size:clamp(16px,1.4vw,19px);line-height:1.6;color:#b7c3cc;max-width:520px;text-wrap:pretty;">You shouldn't have to manage all of them alone. QuintByte brings together the people, systems, and support your business needs — managed through one coordinated partnership.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:14px;">
+          <a href="#contact" style="display:flex;align-items:center;gap:8px;background:#22c7ff;color:#03131c;font-weight:700;font-size:15px;padding:15px 26px;border-radius:999px;box-shadow:0 0 32px rgba(34,199,255,0.35);" style-hover="background:#5ad6ff;color:#03131c;">Talk to QuintByte <span class="material-symbols-outlined" style="font-size:18px;">arrow_forward</span></a>
+          <a href="#services" style="display:flex;align-items:center;color:#eef4f8;font-weight:600;font-size:15px;padding:15px 26px;border-radius:999px;border:1px solid rgba(255,255,255,0.22);" style-hover="border-color:#22c7ff;color:#fff;">Explore Services</a>
+        </div>
+      </div>
+
+      <sc-if value="{{ heroOrbit }}" hint-placeholder-val="{{ true }}">
+        <div style="position:relative;width:100%;max-width:600px;aspect-ratio:1;margin:0 auto;container-type:inline-size;">
+          <div style="position:absolute;inset:14%;border-radius:50%;border:1px solid rgba(34,199,255,0.18);"></div>
+          <div style="position:absolute;inset:4%;border-radius:50%;border:1px dashed rgba(34,199,255,0.12);"></div>
+          <sc-for list="{{ orbit }}" as="n" hint-placeholder-count="10">
+            <div style="position:absolute;left:50%;top:50%;width:40%;height:1px;transform-origin:0 0;transform:{{ n.lineTransform }};background:linear-gradient(90deg, rgba(34,199,255,0.5), rgba(34,199,255,0.05));"></div>
+          </sc-for>
+          <div style="position:absolute;left:50%;top:50%;width:38%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle at 50% 40%, #0e3a58 0%, #071a2a 55%, #040a12 100%);border:1px solid rgba(34,199,255,0.55);box-shadow:0 0 60px rgba(34,199,255,0.45), inset 0 0 40px rgba(34,199,255,0.25);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2cqw;">
+            <span style="font-weight:800;font-size:14cqw;letter-spacing:-0.08em;line-height:0.85;color:#22c7ff;text-shadow:0 0 24px rgba(34,199,255,0.8);">qb</span>
+            <span style="font-weight:700;font-size:3.4cqw;color:#eef4f8;">quintbyte</span>
+          </div>
+          <sc-for list="{{ orbit }}" as="n" hint-placeholder-count="10">
+            <div style="position:absolute;left:{{ n.left }};top:{{ n.top }};transform:translate(-50%,-50%);width:17%;aspect-ratio:1/0.92;border-radius:3cqw;background:rgba(8,20,32,0.92);border:1px solid rgba(34,199,255,0.4);box-shadow:0 0 22px rgba(34,199,255,0.18);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.2cqw;text-align:center;padding:1cqw;" style-hover="border-color:#22c7ff;box-shadow:0 0 30px rgba(34,199,255,0.45);">
+              <span class="material-symbols-outlined" style="font-size:5.4cqw;color:#22c7ff;">{{ n.icon }}</span>
+              <span style="font-size:2.3cqw;font-weight:600;line-height:1.15;color:#eef4f8;">{{ n.label }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+      <sc-if value="{{ heroImage }}" hint-placeholder-val="{{ false }}">
+        <div style="position:relative;width:100%;aspect-ratio:1;max-width:600px;margin:0 auto;">
+          <image-slot id="hero-visual" shape="rounded" radius="28" placeholder="Hero visual — QuintByte orbit render"></image-slot>
+        </div>
+      </sc-if>
+    </div>
+  </section>
+
+  <!-- BUSINESS BEHIND THE BUSINESS -->
+  <section data-screen-label="Business behind" style="background:#f4f6f8;color:#0b1118;">
+    <div style="max-width:1280px;margin:0 auto;padding:clamp(56px,7vw,96px) clamp(20px,4vw,48px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:clamp(36px,5vw,64px);align-items:center;">
+      <div style="display:flex;flex-direction:column;gap:22px;">
+        <span style="font-size:12px;font-weight:700;letter-spacing:1.4px;color:#0a8fc2;">THE BUSINESS BEHIND THE BUSINESS</span>
+        <h2 style="margin:0;font-size:clamp(30px,3.4vw,46px);line-height:1.1;letter-spacing:-0.03em;font-weight:800;text-wrap:balance;">Running a business means managing more than the business itself.</h2>
+        <p style="margin:0;font-size:17px;line-height:1.6;color:#4a5864;max-width:540px;">There's always something that needs to be done — and it can quickly become overwhelming.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:6px;">
+          <sc-for list="{{ chips }}" as="c" hint-placeholder-count="12">
+            <span style="display:flex;align-items:center;gap:8px;background:#fff;border:1px solid #dde3e8;border-radius:10px;padding:10px 14px;font-size:14px;font-weight:600;color:#1b2630;">
+              <span class="material-symbols-outlined" style="font-size:18px;color:#0a8fc2;">{{ c.icon }}</span>{{ c.label }}
+            </span>
+          </sc-for>
+        </div>
+      </div>
+      <div style="position:relative;width:100%;aspect-ratio:4/3;border-radius:24px;overflow:hidden;background:#0b1118;">
+        <image-slot id="business-owner" shape="rect" src="assets/business-owner.png" placeholder="Photo — business owner at laptop, dark office"></image-slot>
+        <div style="position:absolute;top:10%;left:8%;display:flex;flex-direction:column;gap:12px;pointer-events:none;">
+          <sc-for list="{{ floatTags }}" as="t" hint-placeholder-count="6">
+            <span style="display:flex;align-items:center;gap:8px;width:max-content;margin-left:{{ t.offset }};background:rgba(6,16,26,0.85);border:1px solid rgba(34,199,255,0.45);color:#eef4f8;border-radius:8px;padding:7px 12px;font-size:13px;font-weight:600;box-shadow:0 0 18px rgba(34,199,255,0.25);">
+              <span class="material-symbols-outlined" style="font-size:16px;color:#22c7ff;">{{ t.icon }}</span>{{ t.label }}
+            </span>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="how" data-screen-label="How it works" style="background:#fff;color:#0b1118;border-top:1px solid #e6eaee;">
+    <div style="max-width:1280px;margin:0 auto;padding:clamp(56px,7vw,96px) clamp(20px,4vw,48px);display:flex;flex-direction:column;gap:48px;">
+      <div style="display:flex;flex-direction:column;gap:16px;max-width:720px;">
+        <span style="font-size:12px;font-weight:700;letter-spacing:1.4px;color:#0a8fc2;">HOW IT WORKS</span>
+        <h2 style="margin:0;font-size:clamp(30px,3.4vw,46px);line-height:1.1;letter-spacing:-0.03em;font-weight:800;">Simple for you.<br>Structured behind the scenes.</h2>
+        <p style="margin:0;font-size:17px;line-height:1.6;color:#4a5864;">We follow a clear process to make sure you get the right support, the right people, and the right results.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,170px),1fr));gap:28px;">
+        <sc-for list="{{ steps }}" as="s" hint-placeholder-count="6">
+          <div style="display:flex;flex-direction:column;gap:14px;">
+            <div style="display:flex;align-items:center;gap:12px;">
+              <span style="font-family:'JetBrains Mono',monospace;font-size:24px;font-weight:500;color:#0b1118;border:1px solid #d6dde3;border-radius:999px;padding:6px 14px;">{{ s.num }}</span>
+              <span style="flex:1;height:1px;background:repeating-linear-gradient(90deg,#b8c3cc 0 4px,transparent 4px 8px);"></span>
+            </div>
+            <span class="material-symbols-outlined" style="font-size:34px;color:#0b1118;">{{ s.icon }}</span>
+            <div style="display:flex;flex-direction:column;gap:6px;">
+              <span style="font-size:17px;font-weight:700;">{{ s.title }}</span>
+              <span style="font-size:14px;line-height:1.55;color:#4a5864;text-wrap:pretty;">{{ s.desc }}</span>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- ECOSYSTEM -->
+  <section id="ecosystem" data-screen-label="Ecosystem" style="background:radial-gradient(ellipse 50% 70% at 75% 55%, rgba(34,150,255,0.14), transparent 70%), #05080d;">
+    <div style="max-width:1280px;margin:0 auto;padding:clamp(64px,8vw,112px) clamp(20px,4vw,48px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:clamp(40px,5vw,72px);align-items:center;">
+      <div style="display:flex;flex-direction:column;gap:22px;align-items:flex-start;">
+        <span style="font-size:12px;font-weight:700;letter-spacing:1.4px;color:#c9d4dc;">ONE PARTNER, MULTIPLE <span style="color:#22c7ff;">CAPABILITIES.</span></span>
+        <h2 style="margin:0;font-size:clamp(32px,3.8vw,52px);line-height:1.06;letter-spacing:-0.03em;font-weight:800;text-wrap:balance;">A complete business support ecosystem.</h2>
+        <p style="margin:0;font-size:17px;line-height:1.6;color:#b7c3cc;max-width:500px;text-wrap:pretty;">Instead of coordinating multiple freelancers or providers, you get one business partner with the right specialists, clear processes, and accountable delivery.</p>
+        <a href="#services" style="display:flex;align-items:center;gap:8px;font-weight:700;font-size:15px;color:#22c7ff;">Learn More <span class="material-symbols-outlined" style="font-size:18px;">arrow_forward</span></a>
+      </div>
+      <div style="position:relative;width:100%;max-width:560px;aspect-ratio:1.25;margin:0 auto;container-type:inline-size;">
+        <div style="position:absolute;left:50%;top:62%;width:96%;aspect-ratio:1;transform:translate(-50%,-50%) scaleY(0.5) rotate(45deg);border-radius:4cqw;background:repeating-linear-gradient(0deg,rgba(34,199,255,0.07) 0 1px,transparent 1px 7%),repeating-linear-gradient(90deg,rgba(34,199,255,0.07) 0 1px,transparent 1px 7%);border:1px solid rgba(34,199,255,0.18);mask-image:radial-gradient(circle,#000 30%,transparent 70%);-webkit-mask-image:radial-gradient(circle,#000 30%,transparent 70%);"></div>
+        <div style="position:absolute;left:50%;top:60%;width:62%;aspect-ratio:1;transform:translate(-50%,-50%) scaleY(0.5) rotate(45deg);border-radius:5cqw;border:1.5px solid rgba(34,199,255,0.55);box-shadow:0 0 50px rgba(34,199,255,0.45), inset 0 0 40px rgba(34,199,255,0.2);"></div>
+        <div style="position:absolute;left:50%;top:48%;width:42%;aspect-ratio:1;transform:translate(-50%,-50%) scaleY(0.5) rotate(45deg);border-radius:4cqw;background:#050d16;border:1px solid rgba(34,199,255,0.45);box-shadow:0 0 30px rgba(34,199,255,0.35);"></div>
+        <div style="position:absolute;left:50%;top:44.5%;width:42%;aspect-ratio:1;transform:translate(-50%,-50%) scaleY(0.5) rotate(45deg);border-radius:4cqw;background:#06111c;border:1px solid rgba(34,199,255,0.55);box-shadow:0 0 30px rgba(34,199,255,0.35);"></div>
+        <div style="position:absolute;left:50%;top:41%;width:42%;aspect-ratio:1;transform:translate(-50%,-50%) scaleY(0.5) rotate(45deg);border-radius:4cqw;background:#081624;border:1px solid rgba(34,199,255,0.65);box-shadow:0 0 34px rgba(34,199,255,0.4);"></div>
+        <div style="position:absolute;left:50%;top:37%;width:42%;aspect-ratio:1;transform:translate(-50%,-50%) scaleY(0.5) rotate(45deg);border-radius:4cqw;background:radial-gradient(circle at 50% 50%,#12324a 0%,#0a1c2c 60%,#07131f 100%);border:1.5px solid #3fd2ff;box-shadow:0 0 60px rgba(34,199,255,0.55), inset 0 0 30px rgba(34,199,255,0.3);display:flex;align-items:center;justify-content:center;">
+          <span style="transform:rotate(-45deg);font-weight:800;font-size:12cqw;letter-spacing:-0.08em;line-height:1;color:#8fe6ff;text-shadow:0 0 12px rgba(34,199,255,0.9), 0 0 30px rgba(34,199,255,0.6);">qb</span>
+        </div>
+        <div style="position:absolute;left:0;top:44%;width:30%;display:flex;flex-direction:column;align-items:flex-start;gap:0.8cqw;background:linear-gradient(180deg,rgba(14,30,46,0.96),rgba(6,14,22,0.96));border:1px solid rgba(34,199,255,0.55);border-radius:2.5cqw;padding:3cqw 3.2cqw;text-align:left;box-shadow:0 0 28px rgba(34,199,255,0.28), inset 0 1px 0 rgba(143,230,255,0.25);z-index:2;">
+          <span class="material-symbols-outlined" style="font-size:5.5cqw;color:#22c7ff;">groups</span>
+          <span style="font-size:3.4cqw;font-weight:700;">People</span>
+          <span style="font-size:2.5cqw;color:#9fb0bc;">Right Specialists</span>
+        </div>
+        <div style="position:absolute;right:0;top:44%;width:30%;display:flex;flex-direction:column;align-items:flex-start;gap:0.8cqw;background:linear-gradient(180deg,rgba(14,30,46,0.96),rgba(6,14,22,0.96));border:1px solid rgba(34,199,255,0.55);border-radius:2.5cqw;padding:3cqw 3.2cqw;text-align:left;box-shadow:0 0 28px rgba(34,199,255,0.28), inset 0 1px 0 rgba(143,230,255,0.25);z-index:2;">
+          <span class="material-symbols-outlined" style="font-size:5.5cqw;color:#22c7ff;">account_tree</span>
+          <span style="font-size:3.4cqw;font-weight:700;">Processes</span>
+          <span style="font-size:2.5cqw;color:#9fb0bc;">Clear Workflows</span>
+        </div>
+        <div style="position:absolute;left:50%;bottom:4%;transform:translateX(-50%);width:30%;display:flex;flex-direction:column;align-items:flex-start;gap:0.8cqw;background:linear-gradient(180deg,rgba(14,30,46,0.96),rgba(6,14,22,0.96));border:1px solid rgba(34,199,255,0.55);border-radius:2.5cqw;padding:3cqw 3.2cqw;text-align:left;box-shadow:0 0 28px rgba(34,199,255,0.28), inset 0 1px 0 rgba(143,230,255,0.25);z-index:2;">
+          <span class="material-symbols-outlined" style="font-size:5.5cqw;color:#22c7ff;">dns</span>
+          <span style="font-size:3.4cqw;font-weight:700;">Systems</span>
+          <span style="font-size:2.5cqw;color:#9fb0bc;">The Right Tools</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services" data-screen-label="Services" style="background:#070b11;border-top:1px solid rgba(255,255,255,0.05);">
+    <div style="max-width:1280px;margin:0 auto;padding:clamp(64px,8vw,104px) clamp(20px,4vw,48px);display:flex;flex-direction:column;gap:44px;">
+      <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:20px;">
+        <div style="display:flex;flex-direction:column;gap:16px;max-width:680px;">
+          <span style="font-size:12px;font-weight:700;letter-spacing:1.4px;color:#c9d4dc;">OUR SERVICES</span>
+          <h2 style="margin:0;font-size:clamp(30px,3.4vw,46px);line-height:1.1;letter-spacing:-0.03em;font-weight:800;text-wrap:balance;">Comprehensive support for a better running business.</h2>
+        </div>
+        <a href="#services" style="display:flex;align-items:center;gap:8px;font-weight:700;font-size:15px;color:#22c7ff;">View All Services <span class="material-symbols-outlined" style="font-size:18px;">arrow_forward</span></a>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:16px;">
+        <sc-for list="{{ services }}" as="s" hint-placeholder-count="9">
+          <div style="display:flex;flex-direction:column;gap:14px;background:#0c131c;border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:26px;min-height:170px;cursor:pointer;transition:border-color .2s, transform .2s;" style-hover="border-color:rgba(34,199,255,0.5);transform:translateY(-2px);">
+            <span class="material-symbols-outlined" style="font-size:30px;color:{{ s.color }};">{{ s.icon }}</span>
+            <div style="display:flex;flex-direction:column;gap:6px;">
+              <span style="font-size:17px;font-weight:700;color:#eef4f8;">{{ s.title }}</span>
+              <span style="font-size:14px;line-height:1.55;color:#9fb0bc;text-wrap:pretty;">{{ s.desc }}</span>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section id="contact" data-screen-label="CTA" style="background:#f4f6f8;color:#0b1118;">
+    <div style="max-width:1280px;margin:0 auto;padding:clamp(56px,7vw,96px) clamp(20px,4vw,48px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:clamp(36px,5vw,64px);align-items:center;">
+      <div style="display:flex;flex-direction:column;gap:20px;align-items:flex-start;">
+        <h2 style="margin:0;font-size:clamp(32px,3.8vw,52px);line-height:1.06;letter-spacing:-0.03em;font-weight:800;">Ready to get started?</h2>
+        <p style="margin:0;font-size:17px;line-height:1.6;color:#4a5864;max-width:480px;text-wrap:pretty;">You don't need to know exactly which service you need. Tell us what you're trying to achieve — we'll help define the right support.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:14px;margin-top:6px;">
+          <a href="#contact" style="display:flex;align-items:center;gap:8px;background:#22c7ff;color:#03131c;font-weight:700;font-size:15px;padding:15px 26px;border-radius:999px;" style-hover="background:#5ad6ff;color:#03131c;">Talk to QuintByte <span class="material-symbols-outlined" style="font-size:18px;">arrow_forward</span></a>
+          <a href="mailto:hello@quintbyte.com" style="display:flex;align-items:center;color:#0b1118;font-weight:600;font-size:15px;padding:15px 26px;border-radius:999px;border:1px solid #c5ced6;" style-hover="border-color:#0b1118;color:#0b1118;">Contact Us</a>
+        </div>
+      </div>
+      <div style="position:relative;width:100%;aspect-ratio:16/10;border-radius:24px;overflow:hidden;">
+        <image-slot id="office" shape="rect" src="assets/office.png" placeholder="Photo — QuintByte office with logo wall"></image-slot>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="background:#05080d;border-top:1px solid rgba(255,255,255,0.06);">
+    <div style="max-width:1280px;margin:0 auto;padding:56px clamp(20px,4vw,48px) 28px;display:flex;flex-direction:column;gap:44px;">
+      <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:40px;">
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:28px;">
+          <span style="display:flex;align-items:center;gap:10px;">
+            <span style="font-weight:800;font-size:34px;letter-spacing:-2px;color:#eef4f8;text-shadow:0 0 18px rgba(34,199,255,0.55);line-height:1;">qb</span>
+            <span style="font-weight:700;font-size:19px;"><span style="color:#eef4f8;">quint</span><span style="color:#22c7ff;">byte</span></span>
+          </span>
+          <span style="font-size:14px;line-height:1.6;color:#9fb0bc;">One business partner.<br>The right specialists.<br>Clear accountability.</span>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:56px;font-size:14px;">
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <a href="#services" style="color:#eef4f8;font-weight:600;">Services</a>
+            <a href="#how" style="color:#9fb0bc;">How It Works</a>
+            <a href="#ecosystem" style="color:#9fb0bc;">About Us</a>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <a href="#how" style="color:#eef4f8;font-weight:600;">How It Works</a>
+            <a href="#contact" style="color:#9fb0bc;">Contact</a>
+          </div>
+          <div style="display:flex;gap:10px;align-items:flex-start;">
+            <sc-for list="{{ socials }}" as="so" hint-placeholder-count="4">
+              <a href="#" style="width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,255,255,0.14);display:flex;align-items:center;justify-content:center;color:#eef4f8;font-size:13px;font-weight:700;" style-hover="border-color:#22c7ff;color:#22c7ff;">{{ so }}</a>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;padding-top:22px;border-top:1px solid rgba(255,255,255,0.06);font-size:13px;color:#7d8d99;">
+        <span>© 2026 QuintByte Corp. All rights reserved.</span>
+        <div style="display:flex;gap:24px;">
+          <a href="#" style="color:#7d8d99;">Privacy Policy</a>
+          <a href="#" style="color:#7d8d99;">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;heroVisual&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;orbit&quot;,&quot;image&quot;],&quot;default&quot;:&quot;orbit&quot;,&quot;tsType&quot;:&quot;'orbit'|'image'&quot;,&quot;section&quot;:&quot;Hero&quot;}}">
+class Component extends DCLogic {
+  state = { w: typeof window !== 'undefined' ? window.innerWidth : 1280, open: false };
+  componentDidMount() {
+    this.onR = () => this.setState({ w: window.innerWidth });
+    window.addEventListener('resize', this.onR);
+  }
+  componentWillUnmount() { window.removeEventListener('resize', this.onR); }
+  renderVals() {
+    const narrow = this.state.w < 900;
+    const nodes = [
+      ['Executive Support','person'],['CRM & Sales','bar_chart'],['Marketing','campaign'],['Creative','palette'],
+      ['IT & Tech','computer'],['AI & Automation','smart_toy'],['Finance','database'],['HR & People','groups'],
+      ['Customer Support','forum'],['Operations','settings']
+    ];
+    const orbit = nodes.map(([label, icon], i) => {
+      const a = -90 + i * 36, r = a * Math.PI / 180;
+      return { label, icon, left: (50 + 40 * Math.cos(r)) + '%', top: (50 + 40 * Math.sin(r)) + '%', lineTransform: `rotate(${a}deg)` };
+    });
+    const c = h => `oklch(0.76 0.14 ${h})`;
+    const visual = this.props.heroVisual ?? 'orbit';
+    return {
+      showLinks: !narrow, showBurger: narrow, mobileMenuOpen: narrow && this.state.open,
+      menuIcon: this.state.open ? 'close' : 'menu',
+      toggleMenu: () => this.setState(s => ({ open: !s.open })),
+      closeMenu: () => this.setState({ open: false }),
+      heroOrbit: visual === 'orbit', heroImage: visual === 'image',
+      orbit,
+      chips: [['Inbox','inbox'],['Meetings','calendar_month'],['Customers','groups'],['Leads','person_add'],['Payroll','payments'],['CRM','contacts'],['Marketing','campaign'],['IT & Systems','dns'],['Documents','description'],['Processes','account_tree'],['Reports','assessment'],['Projects','folder']].map(([label, icon]) => ({ label, icon })),
+      floatTags: [['Follow-ups','reply','40%'],['Reports','assessment','0%'],['Contracts','contract','30%'],['Marketing','campaign','4%'],['Expenses','receipt_long','26%'],['Payroll','payments','14%']].map(([label, icon, offset]) => ({ label, icon, offset })),
+      steps: [
+        ['01','Understand','search','We identify what your business actually needs.'],
+        ['02','Scope','description','We define responsibilities, skills, outputs, and requirements.'],
+        ['03','Confirm','task_alt','We confirm capability, capacity, pricing, and delivery conditions.'],
+        ['04','Assign','groups','We connect the work with the appropriate specialist or team member.'],
+        ['05','Deliver','play_circle','We perform the work while coordinating delivery.'],
+        ['06','Review','visibility','We maintain visibility, address issues, and review the work.']
+      ].map(([num, title, icon, desc]) => ({ num, title, icon, desc })),
+      services: [
+        ['Executive Assistance','person','Calendar, emails, travel, meetings and more.',225],
+        ['Operations Support','settings','Documentation, coordination, internal systems.',250],
+        ['CRM & Sales Support','bar_chart','Manage leads, pipeline and sales activities.',240],
+        ['Customer Support','forum','Email, chat, inquiries and client care.',290],
+        ['Marketing Support','campaign','Social media, content, campaigns.',45],
+        ['Creative Production','palette','Graphic design, branding and visual assets.',340],
+        ['IT & Technical Support','computer','Systems, tools and technical assistance.',215],
+        ['Website & Digital Solutions','language','Websites, apps and digital products.',185],
+        ['AI & Automation','smart_toy','Automate workflows and reduce manual work.',85]
+      ].map(([title, icon, desc, h]) => ({ title, icon, desc, color: c(h) })),
+      socials: ['f','in','yt','x']
+    };
+  }
+}
+</script>
+</body>
+</html>

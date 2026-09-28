@@ -1,0 +1,190 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   QuintByte design tokens — from design_handoff_quintbyte_website/README.md
+   ========================================================================== */
+@theme {
+  /* Breakpoint where the nav collapses to the hamburger (README §1) */
+  --breakpoint-nav: 56.25rem; /* 900px */
+
+  /* Dark surfaces */
+  --color-bg: #05080d;
+  --color-bg-2: #070b11; /* services */
+  --color-card: #0c131c;
+  --color-node: rgb(8 20 32 / 0.92);
+
+  /* Light surfaces and borders */
+  --color-light: #f4f6f8;
+  --color-line: #dde3e8;
+  --color-line-2: #e6eaee;
+  --color-line-3: #c5ced6;
+  --color-line-step: #d6dde3;
+  --color-dash: #b8c3cc;
+
+  /* Ink on dark */
+  --color-ink: #eef4f8;
+  --color-mute: #b7c3cc;
+  --color-mute-2: #9fb0bc;
+  --color-mute-3: #c9d4dc;
+  --color-foot: #7d8d99;
+
+  /* Ink on light */
+  --color-ink-dark: #0b1118;
+  --color-mute-light: #4a5864;
+  --color-chip: #1b2630;
+
+  /* Accent */
+  --color-accent: #22c7ff;
+  --color-accent-hover: #5ad6ff;
+  --color-accent-soft: #8fe6ff;
+  --color-accent-light: #0a8fc2; /* icons on light surfaces */
+  /* Eyebrow text on light surfaces. The design's #0a8fc2 is 3.4:1 on #f4f6f8, below
+     WCAG AA for 12px text; this is the nearest shade that reaches 4.5:1. */
+  --color-accent-light-text: #0779a6;
+  --color-on-accent: #03131c;
+
+  --font-sans: var(--font-jakarta), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+
+  --radius-card: 16px;
+  --radius-chip: 10px;
+  --radius-frame: 24px;
+  --radius-tag: 8px;
+  --radius-icon: 12px;
+
+  --shadow-glow: 0 0 28px rgb(34 199 255 / 0.35);
+  --shadow-glow-lg: 0 0 32px rgb(34 199 255 / 0.35);
+  --shadow-node: 0 0 22px rgb(34 199 255 / 0.18);
+  --shadow-node-hover: 0 0 30px rgb(34 199 255 / 0.45);
+  --shadow-tag: 0 0 18px rgb(34 199 255 / 0.25);
+
+  --animate-orbit-spin: orbit-spin 140s linear infinite;
+  --animate-glow-pulse: glow-pulse 5s ease-in-out infinite;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-menu-in: menu-in 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+
+  @keyframes menu-in {
+    from {
+      opacity: 0;
+      transform: translateY(-6px);
+    }
+  }
+
+  @keyframes orbit-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes glow-pulse {
+    0%,
+    100% {
+      opacity: 0.75;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-4px);
+    }
+  }
+}
+
+/* Content container: max-width 1280, fluid gutters (README "Global Layout") */
+@utility shell {
+  width: 100%;
+  max-width: 1280px;
+  margin-inline: auto;
+  padding-inline: clamp(20px, 4vw, 48px);
+}
+
+/* Two-column sections stack on mobile */
+@utility split {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 440px), 1fr));
+  gap: clamp(36px, 5vw, 64px);
+  align-items: center;
+}
+
+@utility section-y {
+  padding-block: clamp(56px, 7vw, 96px);
+}
+
+@utility section-y-lg {
+  padding-block: clamp(64px, 8vw, 112px);
+}
+
+/* Isometric plate transform used by every layer of the ecosystem visual */
+@utility iso {
+  transform: translate(-50%, -50%) scaleY(0.5) rotate(45deg);
+}
+
+@layer base {
+  html {
+    background: var(--color-bg);
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background: var(--color-bg);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: clip;
+  }
+
+  /* Sticky header must not cover anchor targets */
+  :target,
+  [id] {
+    scroll-margin-top: 88px;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  ::selection {
+    background: rgb(34 199 255 / 0.35);
+    color: #fff;
+  }
+
+  /* Scroll reveal (see components/motion). Only hidden when scripting is available, so
+     content is always visible without JavaScript. */
+  @media (scripting: enabled) {
+    [data-reveal] {
+      transition:
+        opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0s),
+        transform 0.6s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0s);
+    }
+    [data-reveal]:not([data-revealed]) {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    /* Reveals appear in place, without movement */
+    [data-reveal] {
+      transform: none !important;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}

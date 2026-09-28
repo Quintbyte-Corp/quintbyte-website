@@ -1,0 +1,7 @@
+node_modules
+.next
+design_handoff_quintbyte_website
+src/components/icons/paths.ts
+src/components/brand/logo-paths.ts
+package-lock.json
+src/components/icons/ui-paths.ts
