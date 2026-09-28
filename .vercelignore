@@ -1,4 +1,19 @@
+# When this file exists the Vercel CLI uses it INSTEAD of .gitignore, so it must
+# repeat the build/dependency exclusions as well as the deploy-only ones.
+
+# Dependencies and build output (Vercel installs and builds remotely)
+node_modules
+.next
+out
+build
+*.tsbuildinfo
+next-env.d.ts
+
+# Local environment files
 .env*
 !.env.example
+
+# Local tooling and the design reference package
+.vercel
 .claude
 design_handoff_quintbyte_website
