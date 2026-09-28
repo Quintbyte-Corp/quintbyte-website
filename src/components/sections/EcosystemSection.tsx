@@ -32,9 +32,8 @@ export function EcosystemSection({ showLink = true }: { showLink?: boolean }) {
           {showLink ? <ArrowLink href="/about">Learn More</ArrowLink> : null}
         </Reveal>
 
-        <Reveal delay={0.1}>
-          <EcosystemVisual />
-        </Reveal>
+        {/* Not wrapped in <Reveal>: the visual runs its own build-up animation */}
+        <EcosystemVisual />
       </div>
     </section>
   );

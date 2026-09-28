@@ -58,7 +58,6 @@
   --shadow-node-hover: 0 0 30px rgb(34 199 255 / 0.45);
   --shadow-tag: 0 0 18px rgb(34 199 255 / 0.25);
 
-  --animate-orbit-spin: orbit-spin 140s linear infinite;
   --animate-glow-pulse: glow-pulse 5s ease-in-out infinite;
   --animate-float: float 6s ease-in-out infinite;
   --animate-menu-in: menu-in 0.25s cubic-bezier(0.22, 1, 0.36, 1);
@@ -70,11 +69,6 @@
     }
   }
 
-  @keyframes orbit-spin {
-    to {
-      transform: rotate(360deg);
-    }
-  }
   @keyframes glow-pulse {
     0%,
     100% {
@@ -186,5 +180,227 @@
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
     }
+  }
+}
+
+/* ==========================================================================
+   Ecosystem build — the isometric platform assembles itself on first view.
+   Steps and delays (--d) are set in components/sections/EcosystemVisual.tsx.
+   Plates keep their isometric `transform`; the drop uses the separate
+   `translate` property so the two compose instead of fighting.
+   ========================================================================== */
+@media (scripting: enabled) {
+  [data-build]:not([data-revealed]) :is(.eco-floor, .eco-ring, .eco-plate, .eco-logo, .eco-card) {
+    opacity: 0;
+  }
+}
+
+[data-build][data-revealed] {
+  --eco-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --eco-land: cubic-bezier(0.34, 1.45, 0.64, 1);
+
+  .eco-floor {
+    animation: eco-floor-in 0.9s var(--eco-ease) var(--d) both;
+  }
+  .eco-ring {
+    animation:
+      eco-ring-in 0.8s var(--eco-ease) var(--d) both,
+      eco-pulse 5s ease-in-out calc(var(--d) + 0.8s) infinite;
+  }
+  .eco-plate {
+    animation: eco-drop 0.6s var(--eco-land) var(--d) both;
+  }
+  .eco-top {
+    animation:
+      eco-drop 0.6s var(--eco-land) var(--d) both,
+      eco-float 5s ease-in-out calc(var(--d) + 1.4s) infinite;
+  }
+  .eco-logo {
+    animation: eco-logo-in 0.7s var(--eco-land) var(--d) both;
+  }
+  .eco-card {
+    animation: eco-card-in 0.6s var(--eco-ease) var(--d) both;
+  }
+}
+
+@keyframes eco-floor-in {
+  from {
+    opacity: 0;
+    scale: 0.85;
+  }
+}
+
+@keyframes eco-ring-in {
+  from {
+    opacity: 0;
+    scale: 0.4;
+  }
+}
+
+@keyframes eco-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* Falls onto the stack, overshoots slightly, and flashes as it lands */
+@keyframes eco-drop {
+  from {
+    opacity: 0;
+    translate: 0 -70px;
+  }
+  55% {
+    opacity: 1;
+  }
+  75% {
+    filter: brightness(1.7);
+  }
+  to {
+    translate: 0 0;
+    filter: brightness(1);
+  }
+}
+
+/* Gentle hover of the finished top plate */
+@keyframes eco-float {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -5px;
+  }
+}
+
+@keyframes eco-logo-in {
+  from {
+    opacity: 0;
+    scale: 0.5;
+  }
+}
+
+@keyframes eco-card-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.96);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-build] * {
+    animation: none !important;
+  }
+}
+
+/* ==========================================================================
+   Hero orbit — assembles on page load, then signals travel to each service.
+   Delays (--d, --p) and angles (--a) are set in components/home/OrbitDiagram.tsx.
+   Only opacity/transform-family properties animate, so there is no layout shift.
+   ========================================================================== */
+.orbit {
+  --orbit-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --orbit-land: cubic-bezier(0.34, 1.5, 0.64, 1);
+
+  .orbit-centre {
+    animation: orbit-pop 0.8s var(--orbit-land) var(--d) both;
+  }
+  .orbit-logo {
+    animation: orbit-logo-in 0.7s var(--orbit-ease) var(--d) both;
+  }
+  .orbit-ring {
+    animation: orbit-expand 0.9s var(--orbit-ease) var(--d) both;
+  }
+  .orbit-ring-outer {
+    animation:
+      orbit-expand 1.1s var(--orbit-ease) var(--d) both,
+      orbit-rotate 140s linear calc(var(--d) + 1.1s) infinite;
+  }
+  .orbit-line {
+    animation: orbit-draw 0.45s var(--orbit-ease) var(--d) both;
+  }
+  /* The signal: a dot that sits at the start of the connector and slides to its end.
+     The pseudo-element spans the connector, so translateX(100%) = one connector length. */
+  .orbit-line::after {
+    content: "";
+    position: absolute;
+    inset: -2px auto -2px 0;
+    width: 100%;
+    background: radial-gradient(circle at 2.5px 50%, #8fe6ff 0 2px, transparent 3px);
+    filter: drop-shadow(0 0 4px rgb(34 199 255 / 0.9));
+    opacity: 0;
+    animation: orbit-signal 6s linear var(--p) infinite;
+  }
+  .orbit-node {
+    animation: orbit-pop 0.55s var(--orbit-land) var(--d) both;
+  }
+}
+
+@keyframes orbit-pop {
+  from {
+    opacity: 0;
+    scale: 0.5;
+  }
+}
+
+@keyframes orbit-logo-in {
+  from {
+    opacity: 0;
+    scale: 0.8;
+  }
+}
+
+@keyframes orbit-expand {
+  from {
+    opacity: 0;
+    scale: 0.7;
+  }
+}
+
+@keyframes orbit-rotate {
+  to {
+    rotate: 360deg;
+  }
+}
+
+@keyframes orbit-draw {
+  from {
+    opacity: 0;
+    transform: rotate(var(--a)) scaleX(0);
+  }
+  to {
+    opacity: 1;
+    transform: rotate(var(--a)) scaleX(1);
+  }
+}
+
+@keyframes orbit-signal {
+  0% {
+    opacity: 0;
+    transform: translateX(0);
+  }
+  3% {
+    opacity: 1;
+  }
+  17% {
+    opacity: 1;
+  }
+  20%,
+  100% {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orbit *,
+  .orbit *::after {
+    animation: none !important;
+  }
+  .orbit-line::after {
+    display: none;
   }
 }
