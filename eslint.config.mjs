@@ -14,6 +14,8 @@ const eslintConfig = defineConfig([
     "next-env.d.ts",
     // Design reference package (prototype code, not part of the app)
     "design_handoff_quintbyte_website/**",
+    // Showreel renderer (standalone Node project with its own tooling)
+    "marketing/**",
   ]),
 ]);
 

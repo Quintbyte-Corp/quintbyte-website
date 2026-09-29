@@ -1,0 +1,16 @@
+{
+  "name": "quintbyte-showreel",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "20-second QuintByte motion-graphics showreel, rendered from code (canvas + synthesized audio + ffmpeg).",
+  "scripts": {
+    "fonts": "node scripts/fetch-fonts.mjs",
+    "preview": "node src/preview.mjs",
+    "audio": "node src/audio.mjs",
+    "render": "node src/render.mjs"
+  },
+  "dependencies": {
+    "@napi-rs/canvas": "^1.0.9"
+  }
+}

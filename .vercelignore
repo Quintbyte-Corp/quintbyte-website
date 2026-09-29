@@ -17,3 +17,6 @@ next-env.d.ts
 .vercel
 .claude
 design_handoff_quintbyte_website
+
+# Marketing assets (rendered separately)
+marketing
