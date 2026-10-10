@@ -19,6 +19,7 @@ import {
   LIMITS,
   NOT_SURE,
 } from "@/lib/contact/constants";
+import { readCampaign, track } from "@/lib/analytics";
 import { failureMessage, privacyHref } from "@/lib/contact/messages";
 
 const initialState: ContactState = { status: "idle" };
@@ -33,6 +34,12 @@ const field = (form: FormData, key: string) => {
  * keep what the person typed (GDE-005 §5.1).
  */
 async function submitOrReportFailure(prev: ContactState, form: FormData): Promise<ContactState> {
+  // Attribution travels with the enquiry (GDE-005 B2): campaign tags and the page
+  const campaign = readCampaign();
+  for (const key of ["utm_source", "utm_medium", "utm_campaign"] as const) {
+    if (campaign[key]) form.set(key, campaign[key]);
+  }
+  form.set("page", window.location.pathname);
   try {
     return await submitContact(prev, form);
   } catch {
@@ -124,7 +131,10 @@ export function ContactForm({
 
   // Move focus to the outcome so keyboard and screen-reader users hear it
   useEffect(() => {
-    if (state.status === "success") successRef.current?.focus();
+    if (state.status === "success") {
+      successRef.current?.focus();
+      track("form_submit_success");
+    }
     if (state.status === "error") errorRef.current?.focus();
   }, [state]);
 

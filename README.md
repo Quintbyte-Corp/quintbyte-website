@@ -76,8 +76,9 @@ Validated on the server; spam is filtered with a honeypot and a minimum fill tim
 
 Delivery is configured by environment variables (see `.env.example`):
 
-- **Supabase** (`SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`) stores submissions — run the files in `supabase/migrations/` in order first.
-- **Resend** (`RESEND_API_KEY`, `CONTACT_EMAIL_FROM`, `CONTACT_EMAIL_TO`) emails a notification with reply-to set to the sender.
+- **Supabase** (`SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`) stores enquiries with their campaign source and enforces 5 per IP per hour (hashed with `IP_HASH_SECRET`) — run the files in `supabase/migrations/` in order first.
+- **Resend** (`RESEND_API_KEY`, `CONTACT_EMAIL_FROM`, `CONTACT_EMAIL_TO`) emails a notification with reply-to set to the sender, plus an auto-reply when `CONTACT_AUTOREPLY=on`.
+- Both are required: until both are set, the production form asks people to email instead.
 
 With neither configured, development logs submissions to the console and production shows a
 "form unavailable" message — a submission is never silently dropped.
@@ -92,6 +93,6 @@ With neither configured, development logs submissions to the console and product
 
 These are deliberately empty and hidden in the UI until confirmed — nothing is invented:
 
-- Public contact email (`NEXT_PUBLIC_CONTACT_EMAIL`; the design used `hello@quintbyte.com` pending confirmation)
+- Public contact email: `info@quintbyte.com` by default (GDE-005 §13); `NEXT_PUBLIC_CONTACT_EMAIL` overrides it
 - Social profile URLs (`src/config/site.ts` → `socials`)
 - Privacy Policy and Terms of Service pages (`src/config/site.ts` → `legal`)

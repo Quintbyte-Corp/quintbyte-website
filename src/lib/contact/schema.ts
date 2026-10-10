@@ -58,3 +58,21 @@ export function parseContact(form: FormData): { values: ContactFields; errors: F
 
 export const interestLabel = (value: string) =>
   interestOptions.find((o) => o.value === value)?.label ?? "Not sure yet";
+
+/** Campaign tags: short, plain tokens only (e.g. "linkedin", "brochure_intl") */
+const TAG_RE = /^[\w.+-]{1,100}$/;
+const tag = (form: FormData, key: string) => {
+  const v = text(form, key).toLowerCase();
+  return TAG_RE.test(v) ? v : null;
+};
+
+/** Where the enquiry came from, as sent by the form (GDE-005 B2); invalid values are dropped */
+export function parseAttribution(form: FormData) {
+  const page = text(form, "page");
+  return {
+    source: tag(form, "utm_source"),
+    medium: tag(form, "utm_medium"),
+    campaign: tag(form, "utm_campaign"),
+    page: /^\/[\w\-/]{0,200}$/.test(page) ? page : null,
+  };
+}

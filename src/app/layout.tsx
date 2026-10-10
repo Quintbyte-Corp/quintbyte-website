@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { JetBrains_Mono, Plus_Jakarta_Sans } from "next/font/google";
+import { SiteTracking } from "@/components/analytics/SiteTracking";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { RevealObserver } from "@/components/motion/RevealObserver";
@@ -69,6 +70,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </main>
         <Footer />
         <RevealObserver />
+        <SiteTracking />
         <JsonLd data={[organizationSchema, websiteSchema]} />
       </body>
     </html>

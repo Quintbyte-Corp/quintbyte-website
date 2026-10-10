@@ -104,6 +104,8 @@ export function ServiceCard({
   return (
     <Link
       href={`/services/${service.slug}`}
+      data-event="service_card_click"
+      data-event-label={service.slug}
       className={`flex w-full rounded-card border border-white/7 bg-card transition-[border-color,transform] duration-200 hover:-translate-y-0.5 hover:border-accent/50 focus-visible:border-accent/50 ${
         compact ? "items-start gap-3.5 p-[18px]" : "min-h-[170px] flex-col gap-3.5 p-[26px]"
       }`}
