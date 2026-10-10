@@ -14,11 +14,13 @@ export function CtaSection({
   title = "Ready to get started?",
   body = "You don't need to know exactly which service you need. Tell us what you're trying to achieve — we'll help define the right support.",
 }: CtaSectionProps) {
-  // "Contact Us" is a direct email link once the address is confirmed; until then it
-  // points to the contact page so it never uses an unverified address.
-  const contactHref = siteConfig.contactEmail
-    ? `mailto:${siteConfig.contactEmail}`
-    : siteConfig.cta.href;
+  // Secondary action: the message form when "Book a call" leads, otherwise a direct email
+  // link once the address is confirmed (never an unverified address).
+  const secondary = siteConfig.bookingUrl
+    ? siteConfig.messageCta
+    : siteConfig.contactEmail
+      ? { label: "Email us", href: `mailto:${siteConfig.contactEmail}` }
+      : null;
 
   return (
     <section id="get-started" aria-labelledby="cta-title" className="bg-light text-ink-dark">
@@ -37,9 +39,11 @@ export function CtaSection({
             <ButtonLink href={siteConfig.cta.href} arrow>
               {siteConfig.cta.label}
             </ButtonLink>
-            <ButtonLink href={contactHref} variant="outline-light">
-              Contact Us
-            </ButtonLink>
+            {secondary ? (
+              <ButtonLink href={secondary.href} variant="outline-light">
+                {secondary.label}
+              </ButtonLink>
+            ) : null}
           </div>
         </Reveal>
 

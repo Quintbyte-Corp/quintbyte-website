@@ -4,7 +4,7 @@ import { interestLabel } from "./schema";
 /**
  * Delivery channels for contact submissions. Both are optional and configured by
  * environment variables (see .env.example):
- *   - Supabase: stores the submission in `contact_submissions` (system of record)
+ *   - Supabase: stores the enquiry in `enquiries` (system of record)
  *   - Resend:   emails a notification to the QuintByte inbox
  * Plain REST calls keep the SDKs out of the bundle.
  */
@@ -29,7 +29,7 @@ export const deliveryConfigured = () => Boolean(supabaseEnv() || resendEnv());
 async function storeInSupabase(values: ContactFields, meta: SubmissionMeta): Promise<Result> {
   const env = supabaseEnv();
   if (!env) return { ok: true };
-  const res = await fetch(`${env.url}/rest/v1/contact_submissions`, {
+  const res = await fetch(`${env.url}/rest/v1/enquiries`, {
     method: "POST",
     headers: {
       apikey: env.key,
@@ -41,16 +41,40 @@ async function storeInSupabase(values: ContactFields, meta: SubmissionMeta): Pro
       name: values.name,
       company: values.company || null,
       email: values.email,
-      interest: values.interest,
+      service: values.interest,
       message: values.message,
-      source_path: meta.sourcePath,
+      page: pagePath(meta.sourcePath),
       user_agent: meta.userAgent,
     }),
     cache: "no-store",
   });
   return res.ok
     ? { ok: true }
-    : { ok: false, error: `Supabase ${res.status}: ${await res.text()}` };
+    : { ok: false, error: `Supabase ${res.status}${await errorCode(res)}` };
+}
+
+/**
+ * Error bodies can echo the submitted row (e.g. a failed check constraint), so only the
+ * status and error code are logged, never personal data.
+ */
+async function errorCode(res: Response): Promise<string> {
+  try {
+    const body: unknown = await res.json();
+    const code = body && typeof body === "object" && "code" in body ? body.code : null;
+    return code ? ` (${String(code)})` : "";
+  } catch {
+    return "";
+  }
+}
+
+/** The page the form was sent from, as a path (the referer minus origin and query) */
+function pagePath(referer: string | null): string | null {
+  if (!referer) return null;
+  try {
+    return new URL(referer).pathname;
+  } catch {
+    return null;
+  }
 }
 
 async function notifyByEmail(values: ContactFields): Promise<Result> {
@@ -71,12 +95,14 @@ async function notifyByEmail(values: ContactFields): Promise<Result> {
       from: env.from,
       to: env.to,
       reply_to: values.email,
-      subject: `New enquiry — ${interestLabel(values.interest)} — ${values.name}`,
+      subject: `New enquiry: ${interestLabel(values.interest)} | ${values.name}`,
       text: lines.join("\n"),
     }),
     cache: "no-store",
   });
-  return res.ok ? { ok: true } : { ok: false, error: `Resend ${res.status}: ${await res.text()}` };
+  return res.ok
+    ? { ok: true }
+    : { ok: false, error: `Resend ${res.status}${await errorCode(res)}` };
 }
 
 export type SubmissionMeta = { sourcePath: string | null; userAgent: string | null };

@@ -4,22 +4,20 @@ import { QBLoop } from "@/components/mascot/QBLoop";
 import { Reveal } from "@/components/motion/Reveal";
 import { JsonLd, breadcrumbSchema } from "@/components/seo/JsonLd";
 import { CtaSection } from "@/components/sections/CtaSection";
+import { FaqSection } from "@/components/sections/FaqSection";
 import { PageHero } from "@/components/sections/PageHero";
-import { ProcessSection } from "@/components/sections/ProcessSection";
 import { ButtonLink } from "@/components/ui/Button";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { siteConfig } from "@/config/site";
+import { pageMetadata } from "@/lib/metadata";
 import { processObjective, processSteps } from "@/data/process";
 
-const description =
-  "We follow a clear process to make sure you get the right support, the right people, and the right results: Understand, Scope, Confirm, Assign, Deliver, Review.";
-
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "How It Works",
-  description,
-  alternates: { canonical: "/how-it-works" },
-  openGraph: { title: "How It Works | QuintByte", description, url: "/how-it-works" },
-};
+  description:
+    "Understand, Scope, Confirm, Assign, Deliver, Review: the one clear process QuintByte follows for every engagement.",
+  path: "/how-it-works",
+});
 
 export default function HowItWorksPage() {
   return (
@@ -45,17 +43,10 @@ export default function HowItWorksPage() {
         aside={<QBLoop className="mx-auto max-w-[720px]" />}
       />
 
-      <ProcessSection
-        id="steps"
-        eyebrow="Six steps"
-        title="Understand. Scope. Confirm. Assign. Deliver. Review."
-        body="Every engagement moves through the same structure, whether it is one specific service, a project-based solution, or a combination of functions."
-      />
-
       <section aria-labelledby="detail-title" className="bg-light text-ink-dark">
         <div className="shell grid grid-cols-[repeat(auto-fit,minmax(min(100%,400px),1fr))] items-start gap-[clamp(36px,5vw,72px)] section-y">
           <Reveal className="flex flex-col gap-5 nav:sticky nav:top-28">
-            <Eyebrow tone="light">In detail</Eyebrow>
+            <Eyebrow tone="light">Six steps</Eyebrow>
             <h2
               id="detail-title"
               className="text-[clamp(30px,3.4vw,46px)] leading-[1.1] font-extrabold tracking-[-0.03em] text-balance"
@@ -108,6 +99,7 @@ export default function HowItWorksPage() {
         </div>
       </section>
 
+      <FaqSection page="how-it-works" />
       <CtaSection />
 
       <JsonLd

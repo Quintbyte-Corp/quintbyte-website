@@ -34,27 +34,52 @@ const socials: SocialLink[] = [
 ];
 
 const legal: LinkItem[] = [
-  // Add once the policy pages exist; entries with an empty href are not rendered.
-  { label: "Privacy Policy", href: "" },
-  { label: "Terms of Service", href: "" },
+  // Entries with an empty href are not rendered (and the form consent line follows Privacy).
+  { label: "Privacy Notice", href: "/privacy" },
+  { label: "Terms of Service", href: "/terms" },
 ];
+
+/**
+ * Booking page (Google Calendar appointment page). Every "Book a call" button stays
+ * hidden until NEXT_PUBLIC_BOOKING_URL holds an https link (GDE-005 A4).
+ */
+function resolveBookingUrl(): string {
+  const raw = process.env.NEXT_PUBLIC_BOOKING_URL?.trim() ?? "";
+  return raw.startsWith("https://") ? raw : "";
+}
+
+const bookingUrl = resolveBookingUrl();
+const messageCta: LinkItem = { label: "Send a message", href: "/contact" };
 
 export const siteConfig = {
   name: "QuintByte",
   legalName: "QuintByte Corp.",
+  /** SEC Certificate of Incorporation (GDE-003 §1.1). The BIR TIN is never published. */
+  secRegNo: "2026080262425-18",
+  /** City only, by decision of the CEO (GDE-005 §13): no street address anywhere */
+  location: "San Pablo City, Laguna, Philippines",
   url: resolveSiteUrl(),
   tagline: "One business partner. The right specialists. Clear accountability.",
   /** BMS Service Description — "Short Client-Facing Version" */
   description:
     "QuintByte is a Business Management Services company that helps businesses manage the work behind the business — coordinating the right people, processes, and deliverables under one accountable service relationship.",
+  /** Search and share snippet for the home page; draft for CEO approval (GDE-005 D1) */
+  metaDescription:
+    "QuintByte is a Business Management Services team. Get the right specialists, coordinated under one accountable partner.",
   /** BMS Service Description — operating principle */
   principle: [
     "Understand the business first.",
     "Build the right support around it.",
     "Deliver only what we can responsibly manage.",
   ],
-  /** Public enquiry address. The design used hello@quintbyte.com pending confirmation. */
-  contactEmail: process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "",
+  /**
+   * Public contact details, as decided in GDE-005 §13 and task A1. NEXT_PUBLIC_CONTACT_EMAIL
+   * can override the address per environment.
+   */
+  contactEmail: process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@quintbyte.com",
+  phone: { display: "+63 995 236 7138", href: "tel:+639952367138" },
+  hours: "Monday to Friday, 9:00 AM to 6:00 PM Philippine Time",
+  serving: "Serving the United States, Australia and the Philippines",
   nav: [
     { label: "Home", href: "/" },
     { label: "Services", href: "/services" },
@@ -62,16 +87,17 @@ export const siteConfig = {
     { label: "About", href: "/about" },
     { label: "Contact", href: "/contact" },
   ] satisfies LinkItem[],
-  cta: { label: "Talk to QuintByte", href: "/contact" } satisfies LinkItem,
-  /** Footer link columns, as laid out in the design */
+  bookingUrl,
+  /** Main call to action: "Book a call" once the booking link is set, else "Send a message" */
+  cta: (bookingUrl ? { label: "Book a call", href: bookingUrl } : messageCta) satisfies LinkItem,
+  /** The contact form; the secondary action wherever "Book a call" is the main one */
+  messageCta,
+  /** Footer link columns (the contact details block sits beside them) */
   footerColumns: [
     [
       { label: "Services", href: "/services" },
       { label: "How It Works", href: "/how-it-works" },
       { label: "About Us", href: "/about" },
-    ],
-    [
-      { label: "How It Works", href: "/how-it-works" },
       { label: "Contact", href: "/contact" },
     ],
   ] satisfies LinkItem[][],

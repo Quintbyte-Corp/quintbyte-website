@@ -96,6 +96,8 @@ export function EcosystemVisual() {
               <span className="text-[15px] font-bold text-ink @min-[480px]:text-[3.4cqw]">
                 {pillar.label}
               </span>
+              {/* Keeps label and caption apart when read as plain text ("People: Right Specialists") */}
+              <span className="sr-only">: </span>
               <span className="text-[13px] text-mute-2 @min-[480px]:text-[2.5cqw]">
                 {pillar.caption}
               </span>

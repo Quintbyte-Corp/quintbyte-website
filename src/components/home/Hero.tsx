@@ -19,19 +19,20 @@ export function Hero() {
             id="hero-title"
             className="text-[clamp(42px,5.6vw,76px)] leading-[1.02] font-extrabold tracking-[-0.035em] text-balance"
           >
-            Your business has enough <span className="text-accent">moving parts.</span>
+            Hire one person. <span className="text-accent">Get a whole company behind them.</span>
           </h1>
+          {/* Headline and sub-line: GDE-005 C1 */}
           <p className="max-w-[520px] text-[clamp(16px,1.4vw,19px)] leading-[1.6] text-pretty text-mute">
-            You shouldn&rsquo;t have to manage all of them alone. QuintByte brings together the
-            people, systems, and support your business needs — managed through one coordinated
-            partnership.
+            QuintByte is a Business Management Services team. Instead of hiring and managing
+            separate freelancers, you get the right specialists coordinated under one accountable
+            partner.
           </p>
           <div className="flex flex-wrap gap-3.5">
             <ButtonLink href={siteConfig.cta.href} glow arrow>
               {siteConfig.cta.label}
             </ButtonLink>
-            <ButtonLink href="#services" variant="outline-dark">
-              Explore Services
+            <ButtonLink href="/how-it-works" variant="outline-dark">
+              See how it works
             </ButtonLink>
           </div>
         </div>

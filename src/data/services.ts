@@ -488,11 +488,27 @@ export const services = [
 
 export type ServiceSlug = (typeof services)[number]["slug"];
 
-/** The nine services featured on the home page, in the design's order */
-export const featuredServices: readonly Service[] = services.slice(0, 9);
-
 export const getService = (slug: string): Service | undefined =>
   services.find((s) => s.slug === slug);
+
+/**
+ * "Start here": the three entry services (GDE-005 A6). Operations Coordination is the
+ * entry offer of Business Operations & Management Support (GDE-003 §6.4).
+ */
+const startHereSlugs: readonly ServiceSlug[] = [
+  "executive-assistance",
+  "crm-sales-support",
+  "business-operations-management-support",
+];
+
+export const startHereServices: readonly Service[] = startHereSlugs.map((slug) =>
+  services.find((s) => s.slug === slug)!,
+);
+
+/** "Also available": every other service, in document order */
+export const otherServices: readonly Service[] = services.filter(
+  (s) => !startHereSlugs.includes(s.slug),
+);
 
 /** Icon colour from the design's token scheme: oklch(0.76 0.14 H) */
 export const serviceColor = (service: Pick<Service, "hue">) => `oklch(0.76 0.14 ${service.hue})`;

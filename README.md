@@ -64,7 +64,7 @@ src/
   data/home.ts         orbit nodes, chips, floating tags, ecosystem pillars
   lib/contact/         validation and delivery (Supabase + Resend)
   assets/              official logo SVG and optimized photos
-supabase/migrations/   contact_submissions table (RLS on, service-role inserts only)
+supabase/migrations/   enquiries table (RLS on, service-role access only)
 ```
 
 To change a service, edit `src/data/services.ts`; every page, card, form option, sitemap entry and schema item follows.
@@ -76,7 +76,7 @@ Validated on the server; spam is filtered with a honeypot and a minimum fill tim
 
 Delivery is configured by environment variables (see `.env.example`):
 
-- **Supabase** (`SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`) stores submissions — run `supabase/migrations/0001_contact_submissions.sql` first.
+- **Supabase** (`SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`) stores submissions — run the files in `supabase/migrations/` in order first.
 - **Resend** (`RESEND_API_KEY`, `CONTACT_EMAIL_FROM`, `CONTACT_EMAIL_TO`) emails a notification with reply-to set to the sender.
 
 With neither configured, development logs submissions to the console and production shows a

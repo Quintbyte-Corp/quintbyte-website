@@ -15,6 +15,8 @@ type HeaderNavProps = { logo: ReactNode; cta: ReactNode; mobileCta: ReactNode };
 export function HeaderNav({ logo, cta, mobileCta }: HeaderNavProps) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  // No button may link to the page it is on (GDE-005 A5): drop the CTA where it points here
+  const showCta = pathname !== siteConfig.cta.href;
   // Close the menu whenever the route changes (derived-state pattern, no effect needed)
   const [lastPath, setLastPath] = useState(pathname);
   if (pathname !== lastPath) {
@@ -68,7 +70,7 @@ export function HeaderNav({ logo, cta, mobileCta }: HeaderNavProps) {
         </nav>
 
         {/* Wrapper owns the visibility so it can't conflict with the button's display */}
-        <div className="hidden nav:block">{cta}</div>
+        {showCta ? <div className="hidden nav:block">{cta}</div> : null}
 
         <button
           type="button"
@@ -104,7 +106,7 @@ export function HeaderNav({ logo, cta, mobileCta }: HeaderNavProps) {
                 </Link>
               );
             })}
-            {mobileCta}
+            {showCta ? mobileCta : null}
           </div>
         </nav>
       ) : null}

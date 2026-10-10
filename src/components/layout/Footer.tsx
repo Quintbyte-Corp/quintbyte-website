@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { LogoLockup } from "@/components/brand/Logo";
+import { ContactDetails } from "@/components/contact/ContactDetails";
 import { BrandIcon } from "@/components/icons/Icon";
 import { siteConfig } from "@/config/site";
 
@@ -43,6 +44,8 @@ export function Footer() {
               </nav>
             ))}
 
+            <ContactDetails className="max-w-[300px]" />
+
             {siteConfig.socials.length > 0 ? (
               <ul className="flex items-start gap-2.5" aria-label="QuintByte on social media">
                 {siteConfig.socials.map((social) => (
@@ -64,8 +67,10 @@ export function Footer() {
         </div>
 
         <div className="flex flex-wrap justify-between gap-4 border-t border-white/6 pt-[22px] text-[13px] text-foot">
+          {/* Legal line as specified in GDE-005 A2 */}
           <p>
-            © {year} {siteConfig.legalName} All rights reserved.
+            © {year} {siteConfig.legalName} | SEC Reg. No. {siteConfig.secRegNo} |{" "}
+            {siteConfig.location}
           </p>
           {siteConfig.legal.length > 0 ? (
             <ul className="flex gap-6">

@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { type ReactNode, useActionState, useEffect, useRef } from "react";
 import { submitContact } from "@/app/contact/actions";
 import { SvgIcon } from "@/components/icons/SvgIcon";
@@ -18,8 +19,36 @@ import {
   LIMITS,
   NOT_SURE,
 } from "@/lib/contact/constants";
+import { failureMessage, privacyHref } from "@/lib/contact/messages";
 
 const initialState: ContactState = { status: "idle" };
+
+const field = (form: FormData, key: string) => {
+  const v = form.get(key);
+  return typeof v === "string" ? v : "";
+};
+
+/**
+ * A dropped connection rejects the server action; report it like any failed send and
+ * keep what the person typed (GDE-005 §5.1).
+ */
+async function submitOrReportFailure(prev: ContactState, form: FormData): Promise<ContactState> {
+  try {
+    return await submitContact(prev, form);
+  } catch {
+    return {
+      status: "error",
+      message: failureMessage(),
+      values: {
+        name: field(form, "name"),
+        company: field(form, "company"),
+        email: field(form, "email"),
+        interest: field(form, "interest"),
+        message: field(form, "message"),
+      },
+    };
+  }
+}
 
 const inputClass =
   "w-full rounded-chip border bg-white px-4 py-3 text-[15px] text-ink-dark placeholder:text-mute-light/70 transition-colors outline-none focus:border-accent-light focus:ring-3 focus:ring-accent/25";
@@ -89,7 +118,7 @@ export function ContactForm({
   options: readonly InterestOption[];
   defaultInterest?: string;
 }) {
-  const [state, formAction, pending] = useActionState(submitContact, initialState);
+  const [state, formAction, pending] = useActionState(submitOrReportFailure, initialState);
   const successRef = useRef<HTMLDivElement>(null);
   const errorRef = useRef<HTMLParagraphElement>(null);
 
@@ -110,12 +139,13 @@ export function ContactForm({
         <span className="flex size-12 items-center justify-center rounded-full bg-accent/15">
           <SvgIcon d={checkCircle} className="text-[28px] text-accent-light" />
         </span>
+        {/* Success wording: GDE-005 §5.1 */}
         <h2 className="text-2xl font-extrabold tracking-[-0.02em]">
-          Thank you{state.name ? `, ${state.name.split(" ")[0]}` : ""}.
+          Thank you, we have your message.
         </h2>
         <p className="text-[17px] leading-[1.6] text-mute-light">
-          We&rsquo;ve received your message. The first step is to understand what your business
-          actually needs — we&rsquo;ll be in touch to talk it through.
+          A member of the QuintByte team will reply within one business day with a few questions or
+          times for a short call.
         </p>
       </div>
     );
@@ -237,7 +267,7 @@ export function ContactForm({
         }}
       />
 
-      <div className="flex flex-wrap items-center gap-4 pt-1">
+      <div className="flex flex-col items-start gap-3 pt-1">
         <button
           type="submit"
           disabled={pending}
@@ -255,8 +285,22 @@ export function ContactForm({
             </>
           )}
         </button>
-        <p className="text-[13px] text-mute-light">
-          We use these details only to respond to your enquiry.
+        {/* Consent line (GDE-005 §5.1) once the Privacy Notice is published */}
+        <p className="text-[13px] leading-[1.55] text-mute-light">
+          {privacyHref ? (
+            <>
+              By sending this you agree to our{" "}
+              <Link
+                href={privacyHref}
+                className="font-semibold text-ink-dark underline decoration-line-3 underline-offset-4 hover:decoration-ink-dark"
+              >
+                Privacy Notice
+              </Link>
+              . We use your details only to reply to your enquiry.
+            </>
+          ) : (
+            "We use your details only to reply to your enquiry."
+          )}
         </p>
       </div>
     </form>

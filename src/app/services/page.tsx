@@ -2,21 +2,23 @@ import type { Metadata } from "next";
 import { JsonLd, breadcrumbSchema, organizationId } from "@/components/seo/JsonLd";
 import { CtaSection } from "@/components/sections/CtaSection";
 import { EngagementSection } from "@/components/sections/EngagementSection";
+import { FaqSection } from "@/components/sections/FaqSection";
 import { PageHero } from "@/components/sections/PageHero";
 import { ServicesSection } from "@/components/sections/ServicesSection";
 import { ButtonLink } from "@/components/ui/Button";
 import { absoluteUrl, siteConfig } from "@/config/site";
+import { pageMetadata } from "@/lib/metadata";
 import { services } from "@/data/services";
 
 const description =
   "QuintByte provides flexible Business Management Services designed to help businesses operate more efficiently, stay organized, and access the right support without having to manage multiple separate freelancers or service providers.";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Services",
-  description,
-  alternates: { canonical: "/services" },
-  openGraph: { title: "Services | QuintByte", description, url: "/services" },
-};
+  description:
+    "Executive assistance, CRM and sales, operations, bookkeeping, web and more: 14 service categories coordinated through one accountable partner.",
+  path: "/services",
+});
 
 export default function ServicesPage() {
   return (
@@ -46,13 +48,13 @@ export default function ServicesPage() {
         }
       />
       <ServicesSection
-        services={services}
         id="all-services"
         eyebrow={`${services.length} service categories`}
         title="The right specialists, coordinated through one partner."
         showAllLink={false}
       />
       <EngagementSection />
+      <FaqSection page="services" />
       <CtaSection />
 
       <JsonLd

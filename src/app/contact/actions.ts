@@ -3,10 +3,11 @@
 import { headers } from "next/headers";
 import { deliverContact, deliveryConfigured } from "@/lib/contact/deliver";
 import type { ContactState } from "@/lib/contact/constants";
+import { failureMessage } from "@/lib/contact/messages";
 import { parseContact } from "@/lib/contact/schema";
 
 /** Submissions faster than this after the form rendered are almost certainly automated */
-const MIN_FILL_MS = 1500;
+const MIN_FILL_MS = 3000;
 
 export async function submitContact(_prev: ContactState, form: FormData): Promise<ContactState> {
   const { values, errors } = parseContact(form);
@@ -40,11 +41,7 @@ export async function submitContact(_prev: ContactState, form: FormData): Promis
     console.error(
       "[contact] No delivery channel configured (set Supabase and/or Resend env vars).",
     );
-    return {
-      status: "error",
-      message: "Sorry — the contact form isn't available right now. Please try again later.",
-      values,
-    };
+    return { status: "error", message: failureMessage(), values };
   }
 
   const h = await headers();
@@ -54,11 +51,7 @@ export async function submitContact(_prev: ContactState, form: FormData): Promis
   });
 
   if (!result.ok) {
-    return {
-      status: "error",
-      message: "Sorry — we couldn't send your message. Please try again in a moment.",
-      values,
-    };
+    return { status: "error", message: failureMessage(), values };
   }
   return { status: "success", name: values.name };
 }

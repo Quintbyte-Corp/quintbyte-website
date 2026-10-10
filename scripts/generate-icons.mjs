@@ -66,6 +66,11 @@ const MATERIAL = [
   "task_alt",
   "play_circle",
   "visibility",
+  // Contact details
+  "call",
+  "location_on",
+  "schedule",
+  "public",
 ];
 
 const SIMPLE_ICONS = { facebook: "facebook", youtube: "youtube", x: "x" };

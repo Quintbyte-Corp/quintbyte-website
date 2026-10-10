@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
+import { ContactDetails } from "@/components/contact/ContactDetails";
 import { ContactForm } from "@/components/contact/ContactForm";
 import { Icon } from "@/components/icons/Icon";
 import { JsonLd, breadcrumbSchema } from "@/components/seo/JsonLd";
+import { FaqSection } from "@/components/sections/FaqSection";
 import { PageHero } from "@/components/sections/PageHero";
 import { Eyebrow } from "@/components/ui/Eyebrow";
-import { siteConfig } from "@/config/site";
+import { pageMetadata } from "@/lib/metadata";
 import { processSteps } from "@/data/process";
 import { NOT_SURE } from "@/lib/contact/constants";
 import { interestOptions } from "@/lib/contact/schema";
@@ -12,12 +14,12 @@ import { interestOptions } from "@/lib/contact/schema";
 const description =
   "You don't need to know exactly which service you need. Tell us what you're trying to achieve — we'll help define the right support.";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Contact",
-  description,
-  alternates: { canonical: "/contact" },
-  openGraph: { title: "Talk to QuintByte", description, url: "/contact" },
-};
+  description:
+    "Tell us what you're trying to achieve. We reply within one business day with a few questions or times for a short call.",
+  path: "/contact",
+});
 
 /** The first three steps are what happens after someone gets in touch */
 const nextSteps = processSteps.slice(0, 3);
@@ -70,21 +72,15 @@ export default async function ContactPage(props: PageProps<"/contact">) {
                 </li>
               ))}
             </ol>
-            {siteConfig.contactEmail ? (
-              <p className="flex items-center gap-2.5 border-t border-line pt-5 text-[15px] text-mute-light">
-                <Icon name="mail" className="text-xl text-accent-light" />
-                Prefer email?{" "}
-                <a
-                  href={`mailto:${siteConfig.contactEmail}`}
-                  className="font-semibold text-ink-dark underline decoration-line-3 underline-offset-4 hover:decoration-ink-dark"
-                >
-                  {siteConfig.contactEmail}
-                </a>
-              </p>
-            ) : null}
+            <div className="flex flex-col gap-4 border-t border-line pt-6">
+              <h2 className="text-lg font-extrabold tracking-[-0.01em]">Contact details</h2>
+              <ContactDetails tone="light" className="text-[15px]" />
+            </div>
           </aside>
         </div>
       </section>
+
+      <FaqSection page="contact" />
 
       <JsonLd
         data={breadcrumbSchema([

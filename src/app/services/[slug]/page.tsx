@@ -11,6 +11,7 @@ import { ButtonLink } from "@/components/ui/Button";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { absoluteUrl, siteConfig } from "@/config/site";
 import { getService, relatedServices, serviceColor, services } from "@/data/services";
+import { metaDescription, pageMetadata } from "@/lib/metadata";
 
 export const dynamicParams = false;
 
@@ -22,17 +23,11 @@ export async function generateMetadata(props: PageProps<"/services/[slug]">): Pr
   const { slug } = await props.params;
   const service = getService(slug);
   if (!service) return {};
-  const path = `/services/${service.slug}`;
-  return {
+  return pageMetadata({
     title: service.title,
-    description: service.description,
-    alternates: { canonical: path },
-    openGraph: {
-      title: `${service.title} | QuintByte`,
-      description: service.description,
-      url: path,
-    },
-  };
+    description: metaDescription(service.description),
+    path: `/services/${service.slug}`,
+  });
 }
 
 export default async function ServicePage(props: PageProps<"/services/[slug]">) {
@@ -63,8 +58,19 @@ export default async function ServicePage(props: PageProps<"/services/[slug]">) 
         lead={<p>{service.description}</p>}
         actions={
           <>
-            <ButtonLink href={`${siteConfig.cta.href}?service=${service.slug}`} glow arrow>
-              {siteConfig.cta.label}
+            {siteConfig.bookingUrl ? (
+              <ButtonLink href={siteConfig.bookingUrl} glow arrow>
+                Book a call
+              </ButtonLink>
+            ) : null}
+            {/* The message form opens with this service pre-selected */}
+            <ButtonLink
+              href={`${siteConfig.messageCta.href}?service=${service.slug}`}
+              variant={siteConfig.bookingUrl ? "outline-dark" : "primary"}
+              glow={!siteConfig.bookingUrl}
+              arrow={!siteConfig.bookingUrl}
+            >
+              {siteConfig.messageCta.label}
             </ButtonLink>
             <ButtonLink href="/services" variant="outline-dark">
               All Services

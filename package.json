@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "typecheck": "next typegen && tsc --noEmit",
+    "check:release": "node scripts/check-release.mjs",
     "format": "prettier --write .",
     "icons": "node scripts/generate-icons.mjs",
     "logo": "node scripts/generate-logo.mjs"

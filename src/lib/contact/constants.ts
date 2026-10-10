@@ -5,7 +5,9 @@
 
 export const NOT_SURE = "not-sure";
 
-export const LIMITS = { name: 120, company: 160, email: 254, message: 5000 } as const;
+/** Field limits (GDE-005 §5.1: message 10 to 2,000 characters) */
+export const LIMITS = { name: 120, company: 160, email: 254, message: 2000 } as const;
+export const MESSAGE_MIN = 10;
 
 export type InterestOption = { value: string; label: string };
 

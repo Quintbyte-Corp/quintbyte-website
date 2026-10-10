@@ -10,6 +10,7 @@ import { PageHero } from "@/components/sections/PageHero";
 import { ButtonLink } from "@/components/ui/Button";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { siteConfig } from "@/config/site";
+import { pageMetadata } from "@/lib/metadata";
 import {
   availabilityNote,
   clientFacingSummary,
@@ -17,12 +18,12 @@ import {
   separateRoles,
 } from "@/data/company";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "About",
-  description: `${clientFacingSummary[0]} ${clientFacingSummary[2]}`,
-  alternates: { canonical: "/about" },
-  openGraph: { title: "About | QuintByte", description: clientFacingSummary[0], url: "/about" },
-};
+  description:
+    "QuintByte helps businesses manage the work behind the business, coordinating the right people, processes and deliverables under one accountable partner.",
+  path: "/about",
+});
 
 const principleIcons: IconName[] = ["search", "extension", "task_alt"];
 

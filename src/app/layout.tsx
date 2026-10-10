@@ -5,6 +5,7 @@ import { Header } from "@/components/layout/Header";
 import { RevealObserver } from "@/components/motion/RevealObserver";
 import { JsonLd, organizationSchema, websiteSchema } from "@/components/seo/JsonLd";
 import { siteConfig } from "@/config/site";
+import { openGraphBase } from "@/lib/metadata";
 import "./globals.css";
 
 const jakarta = Plus_Jakarta_Sans({
@@ -25,21 +26,19 @@ const defaultTitle = "QuintByte — Business Management Services";
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: { default: defaultTitle, template: "%s | QuintByte" },
-  description: siteConfig.description,
+  description: siteConfig.metaDescription,
   applicationName: siteConfig.name,
   alternates: { canonical: "/" },
   openGraph: {
-    type: "website",
-    siteName: siteConfig.name,
-    locale: "en_US",
+    ...openGraphBase,
     title: defaultTitle,
-    description: siteConfig.description,
+    description: siteConfig.metaDescription,
     url: "/",
   },
   twitter: {
     card: "summary_large_image",
     title: defaultTitle,
-    description: siteConfig.description,
+    description: siteConfig.metaDescription,
   },
   formatDetection: { telephone: false, email: false, address: false },
 };
