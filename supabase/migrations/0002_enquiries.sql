@@ -28,11 +28,16 @@ create index if not exists enquiries_ip_hash_created_at_idx
 -- Only the service role (server-side, bypasses RLS) inserts and reads rows.
 alter table public.enquiries enable row level security;
 
--- contact_submissions was never used in production; drop it only if it holds no rows.
+-- contact_submissions (0001) was never used in production; drop it only if it exists and
+-- holds no rows. Dynamic SQL, so a project that never had the table doesn't fail here.
 do $$
+declare
+  has_rows boolean;
 begin
-  if to_regclass('public.contact_submissions') is not null
-     and not exists (select 1 from public.contact_submissions) then
-    drop table public.contact_submissions;
+  if to_regclass('public.contact_submissions') is not null then
+    execute 'select exists (select 1 from public.contact_submissions)' into has_rows;
+    if not has_rows then
+      execute 'drop table public.contact_submissions';
+    end if;
   end if;
 end $$;
