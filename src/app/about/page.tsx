@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ModelEquation } from "@/components/about/ModelEquation";
+import { TeamSection } from "@/components/about/TeamSection";
 import { LogoMark } from "@/components/brand/Logo";
 import { Icon, type IconName } from "@/components/icons/Icon";
 import { Reveal } from "@/components/motion/Reveal";
@@ -171,6 +172,8 @@ export default function AboutPage() {
           </p>
         </div>
       </section>
+
+      <TeamSection />
 
       <CtaSection
         title="You focus on running your business."

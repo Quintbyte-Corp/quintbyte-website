@@ -5,6 +5,7 @@ import { EngagementSection } from "@/components/sections/EngagementSection";
 import { FaqSection } from "@/components/sections/FaqSection";
 import { PageHero } from "@/components/sections/PageHero";
 import { ServicesSection } from "@/components/sections/ServicesSection";
+import { WaysToStart } from "@/components/sections/WaysToStart";
 import { ButtonLink } from "@/components/ui/Button";
 import { absoluteUrl, siteConfig } from "@/config/site";
 import { pageMetadata } from "@/lib/metadata";
@@ -47,6 +48,7 @@ export default function ServicesPage() {
           </>
         }
       />
+      <WaysToStart />
       <ServicesSection
         id="all-services"
         eyebrow={`${services.length} service categories`}
