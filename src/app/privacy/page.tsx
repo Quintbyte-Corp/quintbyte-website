@@ -1,9 +1,9 @@
 /*
  * DRAFT, PENDING LAWYER REVIEW (GDE-005 A3). Publish only after the CEO says go.
  *
- * Every statement comes from GDE-003 §3 or GDE-005 §5.1 and §13. Held back until
- * confirmed: the marketing-email statement (GDE-003 §3 "[CONFIRM]") and the analytics
- * provider's name (decision D-06). Lawyer to check: US and Australian privacy rules.
+ * Every statement comes from GDE-003 §3 or GDE-005 §5.1 and §13; the analytics provider is
+ * Plausible (decision D-06). Held back until confirmed: the marketing-email statement
+ * (GDE-003 §3 "[CONFIRM]"). Lawyer to check: US and Australian privacy rules.
  */
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -65,8 +65,8 @@ export default function PrivacyPage() {
           <p>
             To know which campaign brought you here, the site keeps that link in your
             browser&rsquo;s session storage until you close the tab. We count visits and clicks with
-            analytics that does not use cookies and does not identify you. This website does not use
-            advertising cookies or advertising pixels.
+            Plausible Analytics, which does not use cookies and does not identify you. This website
+            does not use advertising cookies or advertising pixels.
           </p>
         </LegalSection>
 

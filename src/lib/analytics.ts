@@ -1,7 +1,8 @@
 /**
- * Website events (GDE-005 B3), sent to cookie-free analytics. No provider script is
- * loaded until decision D-06 (Vercel Web Analytics or Plausible); until then track()
- * is a no-op and nothing leaves the browser.
+ * Website events (GDE-005 B3), sent to Plausible (decision D-06), which uses no cookies.
+ * The script loads on the production site only (components/analytics/Plausible.tsx);
+ * elsewhere track() is a no-op and nothing leaves the browser. Each event name needs a
+ * matching custom-event goal in Plausible before it appears in the dashboard.
  */
 
 export type EventName =
