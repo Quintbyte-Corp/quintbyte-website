@@ -77,7 +77,7 @@ export function ButtonLink({
   );
 }
 
-/** Cyan text link with a trailing arrow ("Learn More →", "View All Services →") */
+/** Cyan text link with a trailing arrow ("More about QuintByte →", "View All Services →") */
 export function ArrowLink({
   href,
   children,

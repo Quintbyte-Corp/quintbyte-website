@@ -29,7 +29,7 @@ export function EcosystemSection({ showLink = true }: { showLink?: boolean }) {
             Instead of coordinating multiple freelancers or providers, you get one business partner
             with the right specialists, clear processes, and accountable delivery.
           </p>
-          {showLink ? <ArrowLink href="/about">Learn More</ArrowLink> : null}
+          {showLink ? <ArrowLink href="/about">More about QuintByte</ArrowLink> : null}
         </Reveal>
 
         {/* Not wrapped in <Reveal>: the visual runs its own build-up animation */}

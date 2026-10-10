@@ -24,8 +24,24 @@ export const organizationSchema: Thing = {
   logo: absoluteUrl("/apple-icon.png"),
   slogan: siteConfig.tagline,
   description: siteConfig.description,
-  ...(siteConfig.contactEmail ? { email: siteConfig.contactEmail } : {}),
-  ...(siteConfig.socials.length > 0 ? { sameAs: siteConfig.socials.map((s) => s.href) } : {}),
+  // GDE-005 §7.2: legal name and SEC number; the BIR TIN is never included
+  identifier: {
+    "@type": "PropertyValue",
+    propertyID: "SEC Reg. No.",
+    value: siteConfig.secRegNo,
+  },
+  foundingDate: siteConfig.foundingDate,
+  email: siteConfig.contactEmail,
+  telephone: siteConfig.phone.display,
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "San Pablo City",
+    addressRegion: "Laguna",
+    addressCountry: "PH",
+  },
+  areaServed: siteConfig.areaServed,
+  // Social profiles are added here automatically once their URLs are set in site.ts
+  sameAs: siteConfig.socials.map((s) => s.href),
 };
 
 export const websiteSchema: Thing = {

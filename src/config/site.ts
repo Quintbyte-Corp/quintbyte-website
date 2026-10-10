@@ -58,6 +58,10 @@ export const siteConfig = {
   secRegNo: "2026080262425-18",
   /** City only, by decision of the CEO (GDE-005 §13): no street address anywhere */
   location: "San Pablo City, Laguna, Philippines",
+  /** Date of incorporation on the SEC certificate (GDE-003 §1.1) */
+  foundingDate: "2026-08-04",
+  /** Countries served, as ISO codes for structured data (GDE-003 §1.1) */
+  areaServed: ["US", "AU", "PH"],
   url: resolveSiteUrl(),
   tagline: "One business partner. The right specialists. Clear accountability.",
   /** BMS Service Description — "Short Client-Facing Version" */
