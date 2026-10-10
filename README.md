@@ -76,7 +76,7 @@ Validated on the server; spam is filtered with a honeypot and a minimum fill tim
 
 Delivery is configured by environment variables (see `.env.example`):
 
-- **Supabase** (`SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`) stores enquiries with their campaign source and enforces 5 per IP per hour (hashed with `IP_HASH_SECRET`) — run the files in `supabase/migrations/` in order first.
+- **Supabase** (`SUPABASE_URL`, `SUPABASE_SECRET_KEY`) stores enquiries with their campaign source and enforces 5 per IP per hour (hashed with `IP_HASH_SECRET`) — run the files in `supabase/migrations/` in order first.
 - **Resend** (`RESEND_API_KEY`, `CONTACT_EMAIL_FROM`, `CONTACT_EMAIL_TO`) emails a notification with reply-to set to the sender, plus an auto-reply when `CONTACT_AUTOREPLY=on`.
 - Both are required: until both are set, the production form asks people to email instead.
 

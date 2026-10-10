@@ -26,7 +26,8 @@ export type SubmissionMeta = Attribution & {
 
 const supabaseEnv = () => {
   const url = process.env.SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  // A secret key (sb_secret_…); the legacy service_role JWT still works until Supabase retires it
+  const key = process.env.SUPABASE_SECRET_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY;
   return url && key ? { url: url.replace(/\/+$/, ""), key } : null;
 };
 
@@ -47,9 +48,10 @@ export const deliveryConfigured = () => Boolean(supabaseEnv() && resendEnv());
 /** The auto-reply ships switched off until the CEO approves it (decision D-09) */
 const autoReplyEnabled = () => process.env.CONTACT_AUTOREPLY === "on";
 
+/** Secret keys go on the apikey header only (they are not JWTs); legacy JWT keys also as Bearer */
 const supabaseHeaders = (key: string) => ({
   apikey: key,
-  Authorization: `Bearer ${key}`,
+  ...(key.startsWith("sb_") ? {} : { Authorization: `Bearer ${key}` }),
   "Content-Type": "application/json",
 });
 

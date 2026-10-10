@@ -18,7 +18,10 @@ const RATE_LIMIT_PER_HOUR = 5;
  * itself. Keyed with IP_HASH_SECRET, falling back to the (server-only) Supabase key.
  */
 function hashIp(ip: string | null): string | null {
-  const secret = process.env.IP_HASH_SECRET || process.env.SUPABASE_SERVICE_ROLE_KEY;
+  const secret =
+    process.env.IP_HASH_SECRET ||
+    process.env.SUPABASE_SECRET_KEY ||
+    process.env.SUPABASE_SERVICE_ROLE_KEY;
   if (!ip || !secret) return null;
   return createHmac("sha256", secret).update(ip).digest("hex");
 }
