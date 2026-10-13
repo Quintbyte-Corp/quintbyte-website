@@ -107,7 +107,7 @@ export function QBLoop({ className = "" }: { className?: string }) {
       <canvas
         ref={canvasRef}
         role="img"
-        aria-label="Animation: QB, the QuintByte mascot, wakes up, waves, walks to a desk and turns a paper document into organised data."
+        aria-label="Animation: QB, the QuintByte mascot, wakes up, waves, walks to a desk and turns a paper document into organized data."
         className="block w-full"
         style={{ aspectRatio: `${VIEW.w} / ${VIEW.h}` }}
       />

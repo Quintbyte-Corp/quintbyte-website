@@ -11,7 +11,14 @@ import { ButtonLink } from "@/components/ui/Button";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { absoluteUrl, siteConfig } from "@/config/site";
 import { offerFor } from "@/data/offers";
-import { getService, relatedServices, serviceColor, services } from "@/data/services";
+import {
+  ON_REQUEST_LABEL,
+  getService,
+  isOnRequest,
+  relatedServices,
+  serviceColor,
+  services,
+} from "@/data/services";
 import { metaDescription, pageMetadata } from "@/lib/metadata";
 
 export const dynamicParams = false;
@@ -57,7 +64,16 @@ export default async function ServicePage(props: PageProps<"/services/[slug]">) 
           </span>
         }
         title={service.title}
-        lead={<p>{service.description}</p>}
+        lead={
+          <>
+            <p>{service.description}</p>
+            {isOnRequest(service.slug) ? (
+              <p className="self-start rounded-full border border-accent/40 bg-accent/8 px-3.5 py-1.5 text-sm font-semibold text-accent-soft">
+                {ON_REQUEST_LABEL}
+              </p>
+            ) : null}
+          </>
+        }
         actions={
           <>
             {siteConfig.bookingUrl ? (

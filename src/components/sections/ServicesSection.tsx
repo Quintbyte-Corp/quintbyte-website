@@ -3,7 +3,14 @@ import { Icon } from "@/components/icons/Icon";
 import { Reveal } from "@/components/motion/Reveal";
 import { ArrowLink } from "@/components/ui/Button";
 import { Eyebrow } from "@/components/ui/Eyebrow";
-import { type Service, otherServices, serviceColor, startHereServices } from "@/data/services";
+import {
+  ON_REQUEST_LABEL,
+  type Service,
+  isOnRequest,
+  otherServices,
+  serviceColor,
+  startHereServices,
+} from "@/data/services";
 
 type ServicesSectionProps = {
   /** The services to show; omit to show all of them grouped as "Start here" / "Also available" */
@@ -124,6 +131,11 @@ export function ServiceCard({
         >
           {service.summary}
         </span>
+        {isOnRequest(service.slug) ? (
+          <span className="mt-1.5 self-start rounded-full border border-white/15 px-2.5 py-0.5 text-[11.5px] font-semibold text-mute-3">
+            {ON_REQUEST_LABEL}
+          </span>
+        ) : null}
       </div>
     </Link>
   );

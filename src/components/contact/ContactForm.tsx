@@ -306,10 +306,10 @@ export function ContactForm({
               >
                 Privacy Notice
               </Link>
-              . We use your details only to reply to your enquiry.
+              . We use your details only to reply to your inquiry.
             </>
           ) : (
-            "We use your details only to reply to your enquiry."
+            "We use your details only to reply to your inquiry."
           )}
         </p>
       </div>

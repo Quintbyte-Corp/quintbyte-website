@@ -1,6 +1,7 @@
 /**
- * FAQ answers, word for word from GDE-003 §7. Each question appears on exactly one page,
- * so its FAQPage structured data is never duplicated across the site.
+ * FAQ answers, word for word from GDE-003 §7, with the six held answers as approved in
+ * "Website Open Items: Joao's Answers" (13 Oct 2026). Each question appears on exactly one
+ * page, so its FAQPage structured data is never duplicated across the site.
  *
  * `hold` keeps an answer off the site until its open point is settled. Clear it only
  * when the CEO confirms the fact in writing (GDE-005 §1).
@@ -15,9 +16,6 @@ export type Faq = {
   hold?: string;
 };
 
-const AU_HOURS =
-  "D-04: GDE-003 says Australian hours are covered both 'easily' and 'by arrangement'";
-
 export const faqs: readonly Faq[] = [
   {
     page: "services",
@@ -30,7 +28,6 @@ export const faqs: readonly Faq[] = [
     question: "Where is QuintByte based?",
     answer:
       "QuintByte is based in San Pablo City, Laguna, Philippines. Our team is Filipino, with strong English, a service-first attitude and skills across admin, operations, CRM and web development. We work with clients in the United States, Australia and the Philippines, and cover Philippine and Australian hours easily, with U.S. hours by arrangement.",
-    hold: AU_HOURS,
   },
   {
     page: "services",
@@ -73,14 +70,12 @@ export const faqs: readonly Faq[] = [
     question: "What hours do you work, and which time zones do you cover?",
     answer:
       "Our team is in the Philippines (GMT+8). We cover Philippine and Australian business hours easily, and support U.S. hours by arrangement. We confirm coverage hours in your proposal before work starts.",
-    hold: AU_HOURS,
   },
   {
     page: "contact",
     question: "How do you keep my information and system access secure?",
     answer:
-      "We use the access you grant for the agreed work only. We prefer delegated access over shared passwords, use two-factor authentication, and remove access promptly when work ends. Team members handling client work sign confidentiality agreements.",
-    hold: "GDE-003 §7: confirm these practices before publishing",
+      "Team members handling client work sign confidentiality agreements. We use the access you grant for the agreed work only, and prefer delegated access over shared passwords. Every account uses two-factor authentication, any shared passwords stay in a password manager, and we remove access promptly when work ends.",
   },
   {
     page: "contact",
@@ -92,8 +87,7 @@ export const faqs: readonly Faq[] = [
     page: "contact",
     question: "Is there a minimum commitment or contract length?",
     answer:
-      "Flexible from the start. Pilots and first projects are short and fixed. Ongoing support is billed monthly in advance, with a minimum of 40 hours a month for hourly support.",
-    hold: "GDE-003 §7: confirm the notice period",
+      "Flexible from the start. Pilots and first projects are short and fixed. Ongoing support is billed monthly in advance, with a minimum of 40 hours a month for hourly support. Either side can end ongoing support with 30 days' written notice.",
   },
   {
     page: "services",
@@ -112,14 +106,12 @@ export const faqs: readonly Faq[] = [
     question: "Which countries do you serve?",
     answer:
       "We serve owner-led businesses in the United States, Australia and the Philippines. Our team works from the Philippines, covers Australian business hours easily, and supports U.S. hours by arrangement. If you are elsewhere, send us a message and we will tell you honestly whether we can help.",
-    hold: AU_HOURS,
   },
   {
     page: "contact",
     question: "Which tools and software does your team use?",
     answer:
-      "We work in your systems. Our team regularly uses Google Workspace, Microsoft 365, Salesforce, Canva, and web tools such as React, Next.js and Vercel.",
-    hold: "GDE-003 §7: confirm the tool list",
+      "We work in your systems. Our team regularly uses Google Workspace, Microsoft 365, Salesforce, HubSpot and Canva, plus web tools such as React, Next.js, Vercel, Supabase and Resend.",
   },
 ];
 

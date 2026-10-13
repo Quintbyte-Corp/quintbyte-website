@@ -505,6 +505,19 @@ export const startHereServices: readonly Service[] = startHereSlugs.map((slug) =
   services.find((s) => s.slug === slug)!,
 );
 
+/**
+ * Services delivered only after scoping (CEO decision J3, 13 Oct 2026; GDE-003 §6.1 marks
+ * them "Limited"). They keep their pages but never read as fully available.
+ */
+const onRequestSlugs: readonly ServiceSlug[] = [
+  "marketing-creative-support",
+  "graphic-design-creative-production",
+  "it-technical-support",
+  "human-resources-people-support",
+];
+export const ON_REQUEST_LABEL = "Available on request after scoping";
+export const isOnRequest = (slug: string) => (onRequestSlugs as readonly string[]).includes(slug);
+
 /** "Also available": every other service, in document order */
 export const otherServices: readonly Service[] = services.filter(
   (s) => !startHereSlugs.includes(s.slug),
