@@ -54,8 +54,11 @@ export const team: readonly TeamMember[] = [
   {
     name: "Knight Sabado",
     role: "Co-Founder & Software Engineer",
-    // Second line: from Knight's CV, for Joao's approval (GDE-005 §14)
-    lines: ["Builds and maintains QuintByte's web and software solutions."],
+    // Second line from Knight's CV; needs Joao's approval (GDE-005 §14)
+    lines: [
+      "Builds and maintains QuintByte's web and software solutions.",
+      "Works in React, Next.js, TypeScript and Tailwind CSS, and holds a BS in Information Technology from Pamantasan ng Lungsod ng San Pablo.",
+    ],
     approved: false,
   },
 ];
