@@ -1,10 +1,9 @@
 /*
- * DRAFT, PENDING LAWYER REVIEW (GDE-005 A3). Publish only after the CEO says go.
+ * Final text, published without a lawyer review on the CEO's decision (October 2026).
  *
  * Facts from GDE-003 §1.1 and §3. Governing law is the Republic of the Philippines;
- * the venue (courts of San Pablo City, Laguna) is held back until the lawyer confirms it.
- * Sections 2–6 are a plain-language general website disclaimer for the lawyer to
- * review, as GDE-003 §3 asks.
+ * the venue (courts of San Pablo City, Laguna) is held back until the CEO approves it in
+ * writing. Sections 2–6 are a plain-language general website disclaimer. US spelling.
  */
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -50,15 +49,15 @@ export default function TermsPage() {
 
         <LegalSection id="use" title="3. Using the website">
           <p>
-            Please use the website lawfully. Do not try to disrupt it, gain unauthorised access to
+            Please use the website lawfully. Do not try to disrupt it, gain unauthorized access to
             it, or use the contact form to send spam or unlawful content.
           </p>
         </LegalSection>
 
         <LegalSection id="content" title="4. Our content">
           <p>
-            The text, design and QuintByte name and logo on this website belong to{" "}
-            {siteConfig.legalName}. Please do not copy or reuse them without our written permission.
+            {siteConfig.legalName} owns the text, design and QuintByte name and logo on this
+            website. Please do not copy or reuse them without our written permission.
           </p>
         </LegalSection>
 

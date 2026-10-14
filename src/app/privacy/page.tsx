@@ -1,9 +1,9 @@
 /*
- * DRAFT, PENDING LAWYER REVIEW (GDE-005 A3). Publish only after the CEO says go.
+ * Final text, published without a lawyer review on the CEO's decision (October 2026).
  *
  * Every statement comes from GDE-003 §3 or GDE-005 §5.1 and §13; the analytics provider is
- * Plausible (decision D-06). Held back until confirmed: the marketing-email statement
- * (GDE-003 §3 "[CONFIRM]"). Lawyer to check: US and Australian privacy rules.
+ * Plausible (decision D-06). Held back until the CEO approves it in writing: the
+ * marketing-email statement (GDE-003 §3 "[CONFIRM]"). US spelling throughout.
  */
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -71,33 +71,33 @@ export default function PrivacyPage() {
         </LegalSection>
 
         <LegalSection id="use" title="How we use it">
-          <p>We use your details only to reply to your enquiry. That includes:</p>
+          <p>We use your details only to reply to your inquiry. That includes:</p>
           <ul>
             <li>answering your message and arranging a call if you want one;</li>
-            <li>keeping a record of the enquiry;</li>
+            <li>keeping a record of the inquiry;</li>
             <li>protecting the form from spam and abuse.</li>
           </ul>
         </LegalSection>
 
         <LegalSection id="access" title="Who can see it">
           <p>
-            Inside QuintByte, access to enquiries is limited to our Chief Executive Officer and
+            Inside QuintByte, access to inquiries is limited to our Chief Executive Officer and
             Chief Operating Officer.
           </p>
-          <p>Your enquiry passes through these service providers, which handle it for us:</p>
+          <p>Your inquiry passes through these service providers, which handle it for us:</p>
           <ul>
             <li>Vercel, which hosts this website;</li>
-            <li>Supabase, which stores form enquiries;</li>
+            <li>Supabase, which stores form inquiries;</li>
             <li>Resend, which delivers the emails the form sends;</li>
             <li>Google Workspace, our email;</li>
-            <li>Google Sheets, where we track enquiries.</li>
+            <li>Google Sheets, where we track inquiries.</li>
           </ul>
           <p>Some of these providers may store or process information outside the Philippines.</p>
         </LegalSection>
 
         <LegalSection id="retention" title="How long we keep it">
           <p>
-            We keep enquiries for 24 months, unless you become a client, in which case your
+            We keep inquiries for 24 months, unless you become a client, in which case your
             information is handled under our agreement with you.
           </p>
         </LegalSection>
@@ -113,7 +113,7 @@ export default function PrivacyPage() {
 
         <LegalSection id="security" title="Security">
           <p>
-            This website uses encrypted connections (HTTPS), and enquiries are stored in a database
+            This website uses encrypted connections (HTTPS), and inquiries are stored in a database
             that the public cannot read.
           </p>
         </LegalSection>
