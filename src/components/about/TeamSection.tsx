@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Reveal } from "@/components/motion/Reveal";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { initials, team } from "@/data/team";
@@ -6,8 +7,8 @@ import { initials, team } from "@/data/team";
 const showDrafts = process.env.VERCEL_ENV !== "production";
 
 /**
- * Founders and team cards (GDE-005 C4): initials until headshots and written consent
- * arrive (GDE-005 §14), never placeholder faces. Hidden when no card is approved.
+ * Founders and team cards (GDE-005 C4): the person's own headshot, or initials until it
+ * arrives (GDE-005 §14), never placeholder faces. Hidden when no card is approved.
  */
 export function TeamSection() {
   const members = team.filter((m) => m.approved || showDrafts);
@@ -33,13 +34,24 @@ export function TeamSection() {
               delay={(i % 3) * 0.06}
               className="flex flex-col gap-4 rounded-card border border-white/7 bg-card p-[26px]"
             >
-              <div className="flex items-center gap-4">
-                <span
-                  aria-hidden
-                  className="flex size-14 shrink-0 items-center justify-center rounded-full border border-accent/40 bg-node font-mono text-lg font-bold text-accent"
-                >
-                  {initials(m.name)}
-                </span>
+              <div className="flex flex-col items-start gap-4">
+                {m.photo ? (
+                  <Image
+                    src={m.photo}
+                    alt=""
+                    sizes="192px"
+                    quality={90}
+                    placeholder="blur"
+                    className="size-24 shrink-0 rounded-full border border-accent/40 object-cover"
+                  />
+                ) : (
+                  <span
+                    aria-hidden
+                    className="flex size-24 shrink-0 items-center justify-center rounded-full border border-accent/40 bg-node font-mono text-2xl font-bold text-accent"
+                  >
+                    {initials(m.name)}
+                  </span>
+                )}
                 <div className="flex flex-col gap-0.5">
                   <h3 className="text-[17px] font-bold text-ink">{m.name}</h3>
                   <p className="text-sm text-accent">{m.role}</p>

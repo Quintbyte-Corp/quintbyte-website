@@ -6,6 +6,8 @@ const nextConfig: NextConfig = {
   turbopack: { root: process.cwd() },
   images: {
     formats: ["image/avif", "image/webp"],
+    // 75 is the default; 90 keeps small team headshots sharp
+    qualities: [75, 90],
   },
   async headers() {
     return [
