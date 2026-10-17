@@ -14,6 +14,7 @@ import kurtneyAsegurado from "@/assets/team/kurtney-asegurado.jpg";
  * the card shows in previews only, marked as a draft, so each person can review it.
  *
  * `photo` is a square headshot from src/assets/team; without one the card shows initials.
+ * The order sets the About page chart: the first member heads it, the rest sit below.
  */
 export type TeamMember = {
   name: string;
