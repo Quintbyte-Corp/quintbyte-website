@@ -32,7 +32,7 @@ export const team: readonly TeamMember[] = [
       "Designs the processes, quality checks and reporting behind every engagement.",
     ],
     photo: joaoExconde,
-    approved: false,
+    approved: true,
   },
   {
     name: "Kurtney Asegurado",
@@ -42,7 +42,7 @@ export const team: readonly TeamMember[] = [
       "Has worked as an executive and productivity assistant to U.S.-based executives.",
     ],
     photo: kurtneyAsegurado,
-    approved: false,
+    approved: true,
   },
   {
     name: "Heart Lotitud",
@@ -52,7 +52,7 @@ export const team: readonly TeamMember[] = [
       "Keeps every engagement clearly scoped and properly priced.",
     ],
     photo: heartLotitud,
-    approved: false,
+    approved: true,
   },
   {
     name: "Mark Laurence Bongulto",
@@ -61,18 +61,18 @@ export const team: readonly TeamMember[] = [
       "Builds QuintByte's web and software solutions with React, Next.js, TypeScript, React Native and Laravel.",
       "Has worked on government and enterprise systems.",
     ],
-    approved: false,
+    approved: true,
   },
   {
     name: "Knight Sabado",
     role: "Co-Founder & Software Engineer",
-    // Second line from Knight's CV; needs Joao's approval (GDE-005 §14)
+    // Second line from Knight's CV, approved with the card (16 Oct 2026)
     lines: [
       "Builds and maintains QuintByte's web and software solutions.",
       "Works in React, Next.js, TypeScript and Tailwind CSS, and holds a BS in Information Technology from Pamantasan ng Lungsod ng San Pablo.",
     ],
     photo: knightSabado,
-    approved: false,
+    approved: true,
   },
 ];
 
