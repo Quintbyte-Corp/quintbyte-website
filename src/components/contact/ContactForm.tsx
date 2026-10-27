@@ -58,7 +58,7 @@ async function submitOrReportFailure(prev: ContactState, form: FormData): Promis
 }
 
 const inputClass =
-  "w-full rounded-chip border bg-white px-4 py-3 text-[15px] text-ink-dark placeholder:text-mute-light/70 transition-colors outline-none focus:border-accent-light focus:ring-3 focus:ring-accent/25";
+  "min-h-12 w-full rounded-chip border-2 bg-white px-4 py-3 text-base text-slate transition-colors duration-150 placeholder:text-slate/70 hover:border-slate focus:border-slate";
 
 type FieldProps = {
   name: keyof ContactFields;
@@ -82,33 +82,26 @@ function Field({ name, label, required, error, hint, children }: FieldProps) {
     .join(" ");
   return (
     <div className="flex flex-col gap-2">
-      <label htmlFor={id} className="text-sm font-semibold text-chip">
+      <label htmlFor={id} className="text-base font-extrabold">
         {label}
-        {required ? (
-          <span className="text-mute-light" aria-hidden>
-            {" "}
-            *
-          </span>
-        ) : (
-          <span className="font-normal text-mute-light"> (optional)</span>
-        )}
+        {required ? <span aria-hidden> *</span> : <span className="font-normal"> (optional)</span>}
       </label>
       {children({
         id,
         name,
         "aria-invalid": error ? true : undefined,
         "aria-describedby": describedBy || undefined,
-        className: `${inputClass} ${error ? "border-[#c2410c]" : "border-line-3"}`,
+        className: `${inputClass} ${error ? "border-danger" : "border-bluegray"}`,
       })}
       {hint ? (
-        <p id={`${id}-hint`} className="text-[13px] text-mute-light">
+        <p id={`${id}-hint`} className="text-sm">
           {hint}
         </p>
       ) : null}
       {error ? (
         <p
           id={`${id}-error`}
-          className="flex items-center gap-1.5 text-[13px] font-medium text-[#b23c0a]"
+          className="flex items-center gap-2 text-sm font-extrabold text-danger"
         >
           <SvgIcon d={errorIcon} className="shrink-0 text-base" />
           {error}
@@ -144,16 +137,15 @@ export function ContactForm({
         ref={successRef}
         tabIndex={-1}
         role="status"
-        className="flex flex-col items-start gap-4 rounded-frame border border-line bg-white p-[clamp(24px,4vw,40px)] text-ink-dark outline-none"
+        id="contact-form"
+        className="flex flex-col items-start gap-4 rounded-card border border-bluegray bg-white p-6 outline-none sm:p-8"
       >
-        <span className="flex size-12 items-center justify-center rounded-full bg-accent/15">
-          <SvgIcon d={checkCircle} className="text-[28px] text-accent-light" />
+        <span className="flex size-12 items-center justify-center rounded-full bg-mint">
+          <SvgIcon d={checkCircle} className="text-[28px] text-slate" />
         </span>
         {/* Success wording: GDE-005 §5.1 */}
-        <h2 className="text-2xl font-extrabold tracking-[-0.02em]">
-          Thank you, we have your message.
-        </h2>
-        <p className="text-[17px] leading-[1.6] text-mute-light">
+        <h2 className="type-h3">Thank you, we have your message.</h2>
+        <p className="type-body">
           A member of the QuintByte team will reply within one business day with a few questions or
           times for a short call.
         </p>
@@ -168,20 +160,21 @@ export function ContactForm({
     <form
       action={formAction}
       noValidate
-      className="relative flex flex-col gap-5 rounded-frame border border-line bg-white p-[clamp(24px,4vw,40px)] text-ink-dark"
+      id="contact-form"
+      className="relative flex flex-col gap-6 rounded-card border border-bluegray bg-white p-6 sm:p-8"
     >
       {state.status === "error" ? (
         <p
           ref={errorRef}
           tabIndex={-1}
           role="alert"
-          className="rounded-chip border border-[#f3c7b3] bg-[#fff4ee] px-4 py-3 text-sm font-medium text-[#8a2f08] outline-none"
+          className="rounded-chip border-2 border-danger bg-white px-4 py-3 text-base font-extrabold text-danger outline-none"
         >
           {state.message}
         </p>
       ) : null}
 
-      <div className="grid gap-5 sm:grid-cols-2">
+      <div className="grid gap-6 sm:grid-cols-2">
         <Field name="name" label="Name" required error={errors?.name}>
           {(p) => (
             <input
@@ -207,7 +200,7 @@ export function ContactForm({
         </Field>
       </div>
 
-      <div className="grid gap-5 sm:grid-cols-2">
+      <div className="grid gap-6 sm:grid-cols-2">
         <Field name="email" label="Email" required error={errors?.email}>
           {(p) => (
             <input
@@ -238,7 +231,7 @@ export function ContactForm({
               </select>
               <SvgIcon
                 d={keyboardArrowDown}
-                className="pointer-events-none absolute top-1/2 right-3.5 -translate-y-1/2 text-xl text-mute-light"
+                className="pointer-events-none absolute top-1/2 right-4 -translate-y-1/2 text-xl"
               />
             </div>
           )}
@@ -277,7 +270,7 @@ export function ContactForm({
         }}
       />
 
-      <div className="flex flex-col items-start gap-3 pt-1">
+      <div className="flex flex-col items-start gap-4 pt-2">
         <button
           type="submit"
           disabled={pending}
@@ -296,13 +289,13 @@ export function ContactForm({
           )}
         </button>
         {/* Consent line (GDE-005 §5.1) once the Privacy Notice is published */}
-        <p className="text-[13px] leading-[1.55] text-mute-light">
+        <p className="text-sm">
           {privacyHref ? (
             <>
               By sending this you agree to our{" "}
               <Link
                 href={privacyHref}
-                className="font-semibold text-ink-dark underline decoration-line-3 underline-offset-4 hover:decoration-ink-dark"
+                className="font-extrabold underline decoration-cyan decoration-2 underline-offset-4 hover:decoration-[3px]"
               >
                 Privacy Notice
               </Link>

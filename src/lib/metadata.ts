@@ -29,11 +29,15 @@ export const openGraphBase = {
 } as const;
 
 /**
- * The site-wide share image (app/opengraph-image.tsx). File-based images apply only to
- * their own segment, so inner pages without one point at it explicitly; a segment's own
- * opengraph-image file still takes precedence.
+ * The site-wide 1200 × 630 share image (app/opengraph-image.png, from the QB logo pack).
+ * File-based images apply only to their own segment, so inner pages point at it explicitly.
  */
-const shareImage = { url: "/opengraph-image", width: 1200, height: 630, alt: siteConfig.name };
+const shareImage = {
+  url: "/opengraph-image.png",
+  width: 1200,
+  height: 630,
+  alt: "qb logo with the tagline Think First. Then Execute.",
+};
 
 /**
  * Page metadata with one description used everywhere: standard, Open Graph and Twitter

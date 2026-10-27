@@ -10,8 +10,7 @@
     "typecheck": "next typegen && tsc --noEmit",
     "check:release": "node scripts/check-release.mjs",
     "format": "prettier --write .",
-    "icons": "node scripts/generate-icons.mjs",
-    "logo": "node scripts/generate-logo.mjs"
+    "icons": "node scripts/generate-icons.mjs"
   },
   "dependencies": {
     "next": "16.3.6",

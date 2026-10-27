@@ -46,12 +46,12 @@ export function HeaderNav({ logo, cta, mobileCta }: HeaderNavProps) {
   return (
     <header
       onClick={closeOnLink}
-      className="sticky top-0 z-50 border-b border-accent/10 bg-bg/82 backdrop-blur-[14px]"
+      className="sticky top-0 z-50 border-b border-bluegray/50 bg-white"
     >
-      <div className="shell flex items-center justify-between gap-6 py-[18px]">
+      <div className="shell flex items-center justify-between gap-6 py-4">
         {logo}
 
-        <nav aria-label="Main" className="hidden items-center gap-[34px] nav:flex">
+        <nav aria-label="Main" className="hidden items-center gap-8 nav:flex">
           {siteConfig.nav.map((item) => {
             const active = isActive(pathname, item.href);
             return (
@@ -59,8 +59,10 @@ export function HeaderNav({ logo, cta, mobileCta }: HeaderNavProps) {
                 key={item.href}
                 href={item.href}
                 aria-current={active ? "page" : undefined}
-                className={`text-sm font-medium transition-colors ${
-                  active ? "text-accent" : "text-mute-3 hover:text-white"
+                className={`py-2 text-base text-slate underline decoration-2 underline-offset-8 transition-[text-decoration-color] duration-150 ${
+                  active
+                    ? "font-extrabold decoration-cyan"
+                    : "decoration-transparent hover:decoration-bluegray"
                 }`}
               >
                 {item.label}
@@ -78,7 +80,7 @@ export function HeaderNav({ logo, cta, mobileCta }: HeaderNavProps) {
           aria-expanded={open}
           aria-controls="mobile-menu"
           aria-label={open ? "Close menu" : "Open menu"}
-          className="flex size-11 items-center justify-center rounded-icon border border-white/15 text-ink transition-colors hover:border-accent/60 nav:hidden"
+          className="flex size-12 items-center justify-center rounded-chip border border-bluegray text-slate transition-colors duration-150 hover:border-slate nav:hidden"
         >
           <SvgIcon d={open ? closeIcon : menuIcon} className="text-2xl" />
         </button>
@@ -88,9 +90,9 @@ export function HeaderNav({ logo, cta, mobileCta }: HeaderNavProps) {
         <nav
           id="mobile-menu"
           aria-label="Main"
-          className="animate-menu-in border-t border-white/6 nav:hidden"
+          className="animate-menu-in border-t border-bluegray/50 nav:hidden"
         >
-          <div className="shell flex flex-col gap-1 pt-2 pb-6">
+          <div className="shell flex flex-col pt-2 pb-6">
             {siteConfig.nav.map((item) => {
               const active = isActive(pathname, item.href);
               return (
@@ -98,8 +100,10 @@ export function HeaderNav({ logo, cta, mobileCta }: HeaderNavProps) {
                   key={item.href}
                   href={item.href}
                   aria-current={active ? "page" : undefined}
-                  className={`px-1 py-3.5 text-[17px] font-semibold ${
-                    active ? "text-accent" : "text-ink"
+                  className={`py-3 text-lg text-slate ${
+                    active
+                      ? "font-extrabold underline decoration-cyan decoration-2 underline-offset-8"
+                      : ""
                   }`}
                 >
                   {item.label}

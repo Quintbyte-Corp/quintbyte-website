@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { JetBrains_Mono, Plus_Jakarta_Sans } from "next/font/google";
+import { Nunito_Sans } from "next/font/google";
 import { Plausible } from "@/components/analytics/Plausible";
 import { SiteTracking } from "@/components/analytics/SiteTracking";
 import { Footer } from "@/components/layout/Footer";
@@ -10,16 +10,11 @@ import { siteConfig } from "@/config/site";
 import { openGraphBase } from "@/lib/metadata";
 import "./globals.css";
 
-const jakarta = Plus_Jakarta_Sans({
-  variable: "--font-jakarta",
+/** Nunito Sans: the typeface of the qb tagline, so the site and the logo speak in one voice */
+const nunito = Nunito_Sans({
+  variable: "--font-nunito",
   subsets: ["latin"],
-  display: "swap",
-});
-
-const jetbrains = JetBrains_Mono({
-  variable: "--font-jetbrains",
-  subsets: ["latin"],
-  weight: "500",
+  weight: ["400", "800", "900"],
   display: "swap",
 });
 
@@ -46,22 +41,22 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#05080d",
-  colorScheme: "dark",
+  themeColor: "#ffffff",
+  colorScheme: "light",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${jakarta.variable} ${jetbrains.variable}`}
+      className={nunito.variable}
       // Browser extensions commonly inject attributes on <html>
       suppressHydrationWarning
     >
       <body className="flex min-h-dvh flex-col">
         <a
           href="#main"
-          className="sr-only z-[60] rounded-full bg-accent px-5 py-3 font-bold text-on-accent focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
+          className="sr-only z-[60] rounded-chip bg-slate px-6 py-3 font-extrabold text-white focus:not-sr-only focus:fixed focus:top-4 focus:left-4"
         >
           Skip to content
         </a>

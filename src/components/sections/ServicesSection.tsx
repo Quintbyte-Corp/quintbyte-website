@@ -8,7 +8,6 @@ import {
   type Service,
   isOnRequest,
   otherServices,
-  serviceColor,
   startHereServices,
 } from "@/data/services";
 
@@ -22,7 +21,7 @@ type ServicesSectionProps = {
   id?: string;
 };
 
-/** Dark services grid (README §6) */
+/** Services grid on the near-white ground */
 export function ServicesSection({
   services,
   eyebrow = "Our services",
@@ -32,15 +31,12 @@ export function ServicesSection({
 }: ServicesSectionProps) {
   const titleId = `${id}-title`;
   return (
-    <section id={id} aria-labelledby={titleId} className="border-t border-white/5 bg-bg-2">
-      <div className="shell flex flex-col gap-11 py-[clamp(64px,8vw,104px)]">
-        <Reveal className="flex flex-wrap items-end justify-between gap-5">
-          <div className="flex max-w-[680px] flex-col gap-4">
+    <section id={id} aria-labelledby={titleId} className="border-t border-bluegray/50 bg-paper">
+      <div className="shell flex flex-col gap-12 section-y">
+        <Reveal className="flex flex-wrap items-end justify-between gap-6">
+          <div className="flex max-w-[760px] flex-col gap-4">
             <Eyebrow>{eyebrow}</Eyebrow>
-            <h2
-              id={titleId}
-              className="text-[clamp(30px,3.4vw,46px)] leading-[1.1] font-extrabold tracking-[-0.03em] text-balance"
-            >
+            <h2 id={titleId} className="type-h2 text-balance">
               {title}
             </h2>
           </div>
@@ -57,17 +53,13 @@ export function ServicesSection({
 function GroupedServices() {
   return (
     <div className="flex flex-col gap-12">
-      <div className="flex flex-col gap-5">
-        <h3 className="font-mono text-[13px] font-medium tracking-[0.14em] text-accent uppercase">
-          Start here
-        </h3>
+      <div className="flex flex-col gap-4">
+        <h3 className="type-eyebrow">Start here</h3>
         <ServiceGrid services={startHereServices} heading="h4" />
       </div>
-      <div className="flex flex-col gap-5">
-        <h3 className="font-mono text-[13px] font-medium tracking-[0.14em] text-mute-2 uppercase">
-          Also available
-        </h3>
-        <ul className="grid grid-cols-[repeat(auto-fill,minmax(min(100%,260px),1fr))] gap-3">
+      <div className="flex flex-col gap-4">
+        <h3 className="type-eyebrow">Also available</h3>
+        <ul className="grid grid-cols-[repeat(auto-fill,minmax(min(100%,264px),1fr))] gap-4">
           {otherServices.map((service, i) => (
             <Reveal as="li" key={service.slug} delay={(i % 4) * 0.04} className="flex">
               <ServiceCard service={service} heading="h4" compact />
@@ -89,7 +81,7 @@ export function ServiceGrid({
   heading?: Heading;
 }) {
   return (
-    <ul className="grid grid-cols-[repeat(auto-fill,minmax(min(100%,300px),1fr))] gap-4">
+    <ul className="grid grid-cols-[repeat(auto-fill,minmax(min(100%,296px),1fr))] gap-4">
       {services.map((service, i) => (
         <Reveal as="li" key={service.slug} delay={(i % 3) * 0.06} className="flex">
           <ServiceCard service={service} heading={heading} />
@@ -113,30 +105,34 @@ export function ServiceCard({
       href={`/services/${service.slug}`}
       data-event="service_card_click"
       data-event-label={service.slug}
-      className={`flex w-full rounded-card border border-white/7 bg-card transition-[border-color,transform] duration-200 hover:-translate-y-0.5 hover:border-accent/50 focus-visible:border-accent/50 ${
-        compact ? "items-start gap-3.5 p-[18px]" : "min-h-[170px] flex-col gap-3.5 p-[26px]"
+      className={`group flex w-full rounded-card border border-bluegray bg-white transition-[border-color] duration-150 hover:border-slate ${
+        compact ? "items-start gap-4 p-4" : "min-h-[176px] flex-col gap-4 p-6"
       }`}
     >
-      <Icon
-        name={service.icon}
-        className={compact ? "mt-0.5 shrink-0 text-2xl" : "text-[30px]"}
-        style={{ color: serviceColor(service) }}
-      />
+      <Icon name={service.icon} className={compact ? "mt-0.5 shrink-0 text-2xl" : "text-[32px]"} />
       <div className="flex flex-col gap-1">
-        <Title className={`font-bold text-ink ${compact ? "text-[15px]" : "text-[17px]"}`}>
+        <Title
+          className={`font-extrabold underline decoration-transparent decoration-2 underline-offset-4 transition-[text-decoration-color] duration-150 group-hover:decoration-cyan ${
+            compact ? "text-base leading-6" : "text-lg leading-6"
+          }`}
+        >
           {service.title}
         </Title>
-        <span
-          className={`leading-[1.55] text-pretty text-mute-2 ${compact ? "text-[13px]" : "text-sm"}`}
-        >
+        <span className={`text-pretty ${compact ? "text-sm leading-5" : "text-base leading-6"}`}>
           {service.summary}
         </span>
-        {isOnRequest(service.slug) ? (
-          <span className="mt-1.5 self-start rounded-full border border-white/15 px-2.5 py-0.5 text-[11.5px] font-semibold text-mute-3">
-            {ON_REQUEST_LABEL}
-          </span>
-        ) : null}
+        {isOnRequest(service.slug) ? <OnRequestLabel className="mt-2" /> : null}
       </div>
     </Link>
+  );
+}
+
+/** Honest status label: an outlined square means available only after scoping */
+export function OnRequestLabel({ className = "" }: { className?: string }) {
+  return (
+    <span className={`flex items-center gap-2 text-sm font-extrabold ${className}`}>
+      <span aria-hidden className="size-2 shrink-0 border-[1.5px] border-slate" />
+      {ON_REQUEST_LABEL}
+    </span>
   );
 }

@@ -6,7 +6,7 @@ import { FaqSection } from "@/components/sections/FaqSection";
 import { PageHero } from "@/components/sections/PageHero";
 import { ServicesSection } from "@/components/sections/ServicesSection";
 import { WaysToStart } from "@/components/sections/WaysToStart";
-import { ButtonLink } from "@/components/ui/Button";
+import { ArrowLink, ButtonLink } from "@/components/ui/Button";
 import { absoluteUrl, siteConfig } from "@/config/site";
 import { pageMetadata } from "@/lib/metadata";
 import { services } from "@/data/services";
@@ -39,12 +39,8 @@ export default function ServicesPage() {
         }
         actions={
           <>
-            <ButtonLink href={siteConfig.cta.href} glow arrow>
-              {siteConfig.cta.label}
-            </ButtonLink>
-            <ButtonLink href="/how-it-works" variant="outline-dark">
-              How It Works
-            </ButtonLink>
+            <ButtonLink href={siteConfig.cta.href}>{siteConfig.cta.label}</ButtonLink>
+            <ArrowLink href="/how-it-works">How It Works</ArrowLink>
           </>
         }
       />

@@ -6,19 +6,12 @@ import { JsonLd, breadcrumbSchema, organizationId } from "@/components/seo/JsonL
 import { CtaSection } from "@/components/sections/CtaSection";
 import { PageHero } from "@/components/sections/PageHero";
 import { ProcessSection } from "@/components/sections/ProcessSection";
-import { ServicesSection } from "@/components/sections/ServicesSection";
-import { ButtonLink } from "@/components/ui/Button";
+import { OnRequestLabel, ServicesSection } from "@/components/sections/ServicesSection";
+import { ArrowLink, ButtonLink } from "@/components/ui/Button";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { absoluteUrl, siteConfig } from "@/config/site";
 import { offerFor } from "@/data/offers";
-import {
-  ON_REQUEST_LABEL,
-  getService,
-  isOnRequest,
-  relatedServices,
-  serviceColor,
-  services,
-} from "@/data/services";
+import { getService, isOnRequest, relatedServices, services } from "@/data/services";
 import { metaDescription, pageMetadata } from "@/lib/metadata";
 
 export const dynamicParams = false;
@@ -44,7 +37,6 @@ export default async function ServicePage(props: PageProps<"/services/[slug]">) 
   if (!service) notFound();
 
   const path = `/services/${service.slug}`;
-  const color = serviceColor(service);
   const offer = offerFor(service.slug);
 
   return (
@@ -55,92 +47,65 @@ export default async function ServicePage(props: PageProps<"/services/[slug]">) 
           { name: "Services", href: "/services" },
           { name: service.title, href: path },
         ]}
-        eyebrow={
-          <span className="flex items-center gap-3">
-            <span className="font-mono tracking-normal text-accent">
-              {String(service.number).padStart(2, "0")}
-            </span>
-            {service.category}
-          </span>
-        }
+        eyebrow={`${String(service.number).padStart(2, "0")} · ${service.category}`}
         title={service.title}
         lead={
           <>
             <p>{service.description}</p>
-            {isOnRequest(service.slug) ? (
-              <p className="self-start rounded-full border border-accent/40 bg-accent/8 px-3.5 py-1.5 text-sm font-semibold text-accent-soft">
-                {ON_REQUEST_LABEL}
-              </p>
-            ) : null}
+            {isOnRequest(service.slug) ? <OnRequestLabel /> : null}
           </>
         }
         actions={
           <>
             {siteConfig.bookingUrl ? (
-              <ButtonLink href={siteConfig.bookingUrl} glow arrow>
-                Book a call
-              </ButtonLink>
+              <ButtonLink href={siteConfig.bookingUrl}>Book a call</ButtonLink>
             ) : null}
             {/* The message form opens with this service pre-selected */}
-            <ButtonLink
-              href={`${siteConfig.messageCta.href}?service=${service.slug}`}
-              variant={siteConfig.bookingUrl ? "outline-dark" : "primary"}
-              glow={!siteConfig.bookingUrl}
-              arrow={!siteConfig.bookingUrl}
-            >
-              {siteConfig.messageCta.label}
-            </ButtonLink>
-            <ButtonLink href="/services" variant="outline-dark">
-              All Services
-            </ButtonLink>
+            {siteConfig.bookingUrl ? (
+              <ArrowLink href={`${siteConfig.messageCta.href}?service=${service.slug}`}>
+                {siteConfig.messageCta.label}
+              </ArrowLink>
+            ) : (
+              <ButtonLink href={`${siteConfig.messageCta.href}?service=${service.slug}`}>
+                {siteConfig.messageCta.label}
+              </ButtonLink>
+            )}
+            <ArrowLink href="/services">All Services</ArrowLink>
           </>
         }
         aside={
           <aside
             aria-labelledby="suited-title"
-            className="relative flex flex-col gap-5 overflow-hidden rounded-frame border border-accent/40 bg-node p-[clamp(24px,3vw,36px)] shadow-node"
+            className="flex flex-col gap-4 rounded-card border border-bluegray bg-white p-8"
           >
-            <span
-              aria-hidden
-              className="flex size-16 items-center justify-center rounded-2xl border border-accent/40 bg-card shadow-node"
-            >
-              <Icon name={service.icon} className="text-[34px]" style={{ color }} />
-            </span>
-            <h2
-              id="suited-title"
-              className="text-xs font-bold tracking-[1.4px] text-mute-3 uppercase"
-            >
+            <Icon name={service.icon} className="text-[40px]" />
+            <h2 id="suited-title" className="type-eyebrow">
               Best suited for
             </h2>
-            <p className="text-[clamp(18px,1.7vw,22px)] leading-[1.45] font-semibold text-pretty text-ink">
-              {service.bestSuitedFor}
-            </p>
+            <p className="type-h3 text-pretty">{service.bestSuitedFor}</p>
           </aside>
         }
       />
 
-      <section aria-labelledby="scope-title" className="bg-light text-ink-dark">
-        <div className="shell flex flex-col gap-10 section-y">
-          <Reveal className="flex max-w-[720px] flex-col gap-4">
-            <Eyebrow tone="light">Scope</Eyebrow>
-            <h2
-              id="scope-title"
-              className="text-[clamp(30px,3.4vw,46px)] leading-[1.1] font-extrabold tracking-[-0.03em] text-balance"
-            >
-              Services may include
+      <section aria-labelledby="scope-title" className="bg-paper">
+        <div className="shell flex flex-col gap-12 section-y">
+          <Reveal className="flex max-w-[760px] flex-col gap-4">
+            <Eyebrow>Scope</Eyebrow>
+            <h2 id="scope-title" className="type-h2 text-balance">
+              Services <span className="qb-highlight">may include</span>
             </h2>
-            <p className="text-[17px] leading-[1.6] text-pretty text-mute-light">
+            <p className="type-body text-pretty">
               Every engagement is scoped first. Before work begins, QuintByte confirms the
               responsibilities, expected outputs, access requirements, and delivery conditions.
             </p>
           </Reveal>
-          <ul className="grid grid-cols-[repeat(auto-fill,minmax(min(100%,260px),1fr))] gap-2.5">
+          <ul className="grid grid-cols-[repeat(auto-fill,minmax(min(100%,264px),1fr))] gap-2">
             {service.items.map((item) => (
               <li
                 key={item}
-                className="flex items-start gap-2.5 rounded-chip border border-line bg-white px-4 py-3 text-[15px] leading-snug font-semibold text-chip"
+                className="flex items-start gap-2 rounded-chip border border-bluegray bg-white px-4 py-3 text-base leading-6 font-extrabold"
               >
-                <Icon name="check" className="mt-px shrink-0 text-lg text-accent-light" />
+                <Icon name="check" className="mt-0.5 shrink-0 text-lg" />
                 {item}
               </li>
             ))}
@@ -149,47 +114,34 @@ export default async function ServicePage(props: PageProps<"/services/[slug]">) 
       </section>
 
       {offer ? (
-        <section aria-labelledby="start-title" className="border-t border-white/5 bg-bg">
-          <div className="shell grid grid-cols-[repeat(auto-fit,minmax(min(100%,380px),1fr))] items-start gap-[clamp(32px,5vw,72px)] section-y">
-            <Reveal className="flex flex-col items-start gap-5">
+        <section aria-labelledby="start-title" className="border-t border-bluegray/50 bg-white">
+          <div className="shell grid items-start gap-12 section-y lg:grid-cols-12 lg:gap-16">
+            <Reveal className="flex flex-col items-start gap-4 lg:col-span-5">
               <Eyebrow>How it starts</Eyebrow>
-              <h2
-                id="start-title"
-                className="text-[clamp(30px,3.4vw,46px)] leading-[1.1] font-extrabold tracking-[-0.03em] text-balance"
-              >
+              <h2 id="start-title" className="type-h2 text-balance">
                 {offer.name}
               </h2>
-              <p className="text-[17px] leading-[1.6] text-pretty text-mute">{offer.howItStarts}</p>
-              <ButtonLink
-                href={`${siteConfig.messageCta.href}?service=${service.slug}`}
-                variant="outline-dark"
-                arrow
-              >
+              <p className="type-body text-pretty">{offer.howItStarts}</p>
+              <ArrowLink href={`${siteConfig.messageCta.href}?service=${service.slug}`}>
                 Ask for a quote
-              </ButtonLink>
+              </ArrowLink>
             </Reveal>
-            <Reveal delay={0.08} className="flex flex-col gap-6">
-              <div className="flex flex-col gap-3">
-                <h3 className="text-xs font-bold tracking-[1.4px] text-mute-3 uppercase">
-                  Typical deliverables
-                </h3>
-                <ul className="flex flex-col gap-2.5">
+            <Reveal delay={0.08} className="flex flex-col gap-8 lg:col-span-7">
+              <div className="flex flex-col gap-4">
+                <h3 className="type-eyebrow">Typical deliverables</h3>
+                <ul className="flex flex-col gap-2 type-body">
                   {offer.deliverables.map((item) => (
-                    <li key={item} className="flex items-start gap-2.5 text-[15px] text-ink">
-                      <Icon name="check" className="mt-0.5 shrink-0 text-lg text-accent" />
+                    <li key={item} className="flex items-start gap-2">
+                      <Icon name="check" className="mt-1 shrink-0 text-lg" />
                       {item}
                     </li>
                   ))}
                 </ul>
               </div>
               {offer.scenario ? (
-                <figure className="flex flex-col gap-2 rounded-card border border-white/8 bg-card p-5">
-                  <figcaption className="text-xs font-bold tracking-[1.4px] text-mute-3 uppercase">
-                    Example (illustrative)
-                  </figcaption>
-                  <p className="text-[15px] leading-[1.6] text-pretty text-mute">
-                    {offer.scenario}
-                  </p>
+                <figure className="flex flex-col gap-2 rounded-card border border-bluegray bg-paper p-6">
+                  <figcaption className="type-eyebrow">Example (illustrative)</figcaption>
+                  <p className="text-base leading-6 text-pretty">{offer.scenario}</p>
                 </figure>
               ) : null}
             </Reveal>

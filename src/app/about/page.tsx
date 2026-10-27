@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 import { ModelEquation } from "@/components/about/ModelEquation";
 import { TeamSection } from "@/components/about/TeamSection";
-import { LogoMark } from "@/components/brand/Logo";
+import { Logo } from "@/components/brand/Logo";
 import { Icon, type IconName } from "@/components/icons/Icon";
 import { Reveal } from "@/components/motion/Reveal";
 import { JsonLd, breadcrumbSchema } from "@/components/seo/JsonLd";
 import { CtaSection } from "@/components/sections/CtaSection";
 import { EcosystemSection } from "@/components/sections/EcosystemSection";
 import { PageHero } from "@/components/sections/PageHero";
-import { ButtonLink } from "@/components/ui/Button";
+import { ArrowLink, ButtonLink } from "@/components/ui/Button";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { siteConfig } from "@/config/site";
 import { pageMetadata } from "@/lib/metadata";
@@ -36,7 +36,7 @@ export default function AboutPage() {
         title={
           <>
             One business partner. The right specialists.{" "}
-            <span className="text-accent">Clear accountability.</span>
+            <span className="qb-highlight">Clear accountability.</span>
           </>
         }
         lead={
@@ -47,30 +47,21 @@ export default function AboutPage() {
         }
         actions={
           <>
-            <ButtonLink href={siteConfig.cta.href} glow arrow>
-              {siteConfig.cta.label}
-            </ButtonLink>
-            <ButtonLink href="/services" variant="outline-dark">
-              Explore Services
-            </ButtonLink>
+            <ButtonLink href={siteConfig.cta.href}>{siteConfig.cta.label}</ButtonLink>
+            <ArrowLink href="/services">Explore Services</ArrowLink>
           </>
         }
       />
 
       {/* The model */}
-      <section aria-labelledby="model-title" className="bg-bg-2">
+      <section aria-labelledby="model-title" className="bg-white">
         <div className="shell flex flex-col gap-12 section-y">
           <Reveal className="flex max-w-[760px] flex-col gap-4">
-            <Eyebrow>
-              The QuintByte <span className="text-accent">model</span>
-            </Eyebrow>
-            <h2
-              id="model-title"
-              className="text-[clamp(30px,3.4vw,46px)] leading-[1.1] font-extrabold tracking-[-0.03em] text-balance"
-            >
+            <Eyebrow>The QuintByte model</Eyebrow>
+            <h2 id="model-title" className="type-h2 text-balance">
               Coordinated Business Management Services.
             </h2>
-            <p className="text-[17px] leading-[1.6] text-pretty text-mute">
+            <p className="type-body text-pretty">
               {clientFacingSummary[2]} It is more than traditional VA support: instead of only
               assigning individual tasks, QuintByte can help coordinate an agreed business function.
             </p>
@@ -84,48 +75,43 @@ export default function AboutPage() {
       <EcosystemSection showLink={false} />
 
       {/* What makes QuintByte different */}
-      <section aria-labelledby="different-title" className="bg-light text-ink-dark">
+      <section aria-labelledby="different-title" className="border-y border-bluegray/50 bg-paper">
         <div className="shell split section-y">
-          <Reveal className="flex flex-col gap-5">
-            <Eyebrow tone="light">What makes QuintByte different</Eyebrow>
-            <h2
-              id="different-title"
-              className="text-[clamp(30px,3.4vw,46px)] leading-[1.1] font-extrabold tracking-[-0.03em] text-balance"
-            >
-              One relationship instead of many.
+          <Reveal className="flex flex-col gap-4">
+            <Eyebrow>What makes QuintByte different</Eyebrow>
+            <h2 id="different-title" className="type-h2 text-balance">
+              One relationship <span className="qb-highlight">instead of many.</span>
             </h2>
-            <p className="max-w-[540px] text-[17px] leading-[1.6] text-pretty text-mute-light">
-              {differentiator}
-            </p>
+            <p className="max-w-[560px] type-body text-pretty">{differentiator}</p>
           </Reveal>
 
           <Reveal delay={0.1} className="grid gap-4 sm:grid-cols-2">
-            <div className="flex flex-col gap-4 rounded-frame border border-line bg-white p-6">
-              <h3 className="text-sm font-bold text-mute-light">Coordinating it yourself</h3>
+            <div className="flex flex-col gap-4 rounded-card border border-bluegray bg-white p-6">
+              <h3 className="type-eyebrow">Coordinating it yourself</h3>
               <ul className="flex flex-col gap-2">
                 {separateRoles.map((role) => (
                   <li
                     key={role}
-                    className="rounded-chip border border-dashed border-line-3 px-3.5 py-2.5 text-sm font-semibold text-chip"
+                    className="rounded-chip border border-dashed border-bluegray px-4 py-2 text-base font-extrabold"
                   >
                     {role}
                   </li>
                 ))}
               </ul>
             </div>
-            <div className="flex flex-col gap-5 rounded-frame border border-accent/45 bg-bg p-6 text-ink shadow-[0_0_28px_rgb(34_199_255/0.22)]">
-              <h3 className="text-sm font-bold text-mute-3">With QuintByte</h3>
-              <LogoMark accent="#22c7ff" ink="#eef4f8" className="h-12 w-auto self-start" />
-              <p className="text-[17px] leading-snug font-bold">
+            <div className="flex flex-col gap-4 rounded-card border-2 border-slate bg-white p-6">
+              <h3 className="type-eyebrow">With QuintByte</h3>
+              <Logo file="mark" height={48} className="self-start" />
+              <p className="text-lg leading-6 font-extrabold">
                 One Business Management Services relationship
               </p>
-              <ul className="mt-auto flex flex-col gap-2.5 text-sm text-mute">
+              <ul className="mt-auto flex flex-col gap-2 text-base">
                 {siteConfig.tagline
                   .split(". ")
                   .map((line) => line.replace(/\.$/, ""))
                   .map((line) => (
                     <li key={line} className="flex items-center gap-2">
-                      <Icon name="check_circle" className="shrink-0 text-lg text-accent" />
+                      <Icon name="check_circle" className="shrink-0 text-lg" />
                       {line}
                     </li>
                   ))}
@@ -136,38 +122,29 @@ export default function AboutPage() {
       </section>
 
       {/* Operating principle */}
-      <section
-        aria-labelledby="principle-title"
-        className="border-t border-line-2 bg-white text-ink-dark"
-      >
+      <section aria-labelledby="principle-title" className="bg-white">
         <div className="shell flex flex-col gap-12 section-y">
-          <Reveal className="flex max-w-[720px] flex-col gap-4">
-            <Eyebrow tone="light">How we operate</Eyebrow>
-            <h2
-              id="principle-title"
-              className="text-[clamp(30px,3.4vw,46px)] leading-[1.1] font-extrabold tracking-[-0.03em] text-balance"
-            >
-              Responsible by design.
+          <Reveal className="flex max-w-[760px] flex-col gap-4">
+            <Eyebrow>How we operate</Eyebrow>
+            <h2 id="principle-title" className="type-h2 text-balance">
+              Responsible <span className="qb-highlight">by design.</span>
             </h2>
           </Reveal>
-          <ol className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,260px),1fr))] gap-7">
+          <ol className="grid gap-8 md:grid-cols-3">
             {siteConfig.principle.map((line, i) => (
-              <Reveal as="li" key={line} delay={i * 0.06} className="flex flex-col gap-3.5">
-                <div className="flex items-center gap-3">
-                  <span className="rounded-full border border-line-step px-3.5 py-1.5 font-mono text-2xl font-medium">
+              <Reveal as="li" key={line} delay={i * 0.06} className="flex flex-col gap-4">
+                <div className="flex items-center gap-4">
+                  <span className="flex size-12 shrink-0 items-center justify-center rounded-full border-2 border-slate text-lg font-black">
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <span
-                    aria-hidden
-                    className="h-px flex-1 bg-[repeating-linear-gradient(90deg,var(--color-dash)_0_4px,transparent_4px_8px)]"
-                  />
+                  <span aria-hidden className="h-0.5 flex-1 bg-bluegray" />
                 </div>
-                <Icon name={principleIcons[i]} className="text-[34px]" />
-                <p className="text-xl leading-snug font-bold text-balance">{line}</p>
+                <Icon name={principleIcons[i]} className="text-[32px]" />
+                <p className="type-h3 text-balance">{line}</p>
               </Reveal>
             ))}
           </ol>
-          <p className="max-w-[760px] border-l-2 border-accent-light pl-4 text-sm leading-[1.6] text-mute-light">
+          <p className="max-w-[760px] border-l-2 border-cyan pl-4 text-base leading-6">
             {availabilityNote}
           </p>
         </div>

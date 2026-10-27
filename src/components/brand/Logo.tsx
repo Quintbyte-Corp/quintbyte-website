@@ -1,88 +1,49 @@
-import type { CSSProperties } from "react";
+import Image from "next/image";
 import Link from "next/link";
-import { LOGO_CYAN, mark, wordmark } from "./logo-paths";
-
-type Tone = {
-  /** Colour for the "b" / "quint" parts */
-  accent?: string;
-  /** Colour for the "q" / "byte" parts (black in the official file) */
-  ink?: string;
-};
-
-type MarkProps = Tone & { className?: string; style?: CSSProperties; title?: string };
-
-/** The official "qb" monogram. Monochrome when accent and ink are the same colour. */
-export function LogoMark({
-  className,
-  style,
-  title,
-  accent = LOGO_CYAN,
-  ink = "currentColor",
-}: MarkProps) {
-  return (
-    <svg
-      viewBox={mark.viewBox}
-      className={className}
-      style={style}
-      fillRule="evenodd"
-      role={title ? "img" : undefined}
-      aria-label={title}
-      aria-hidden={title ? undefined : true}
-      focusable="false"
-    >
-      <path d={mark.accent} fill={accent} />
-      <path d={mark.ink} fill={ink} />
-    </svg>
-  );
-}
-
-export function LogoWordmark({
-  className,
-  style,
-  accent = LOGO_CYAN,
-  ink = "currentColor",
-}: MarkProps) {
-  return (
-    <svg
-      viewBox={wordmark.viewBox}
-      className={className}
-      style={style}
-      fillRule="evenodd"
-      aria-hidden
-      focusable="false"
-    >
-      <path d={wordmark.accent} fill={accent} />
-      <path d={wordmark.ink} fill={ink} />
-    </svg>
-  );
-}
 
 /**
- * Horizontal lockup used in the header and footer: mark + wordmark, on dark.
- * `size` is the mark height in px (design: 30px in the nav, 34px in the footer).
+ * The qb logo files from QB_Logo_Pack v1.1, served from public/brand. Never recoloured,
+ * stretched or shadowed (QB Brand Sheet). Ratios come from each file's viewBox.
  */
-export function LogoLockup({ size = 30, className = "" }: { size?: number; className?: string }) {
+const files = {
+  mark: { src: "/brand/qb-mark.svg", ratio: 1012 / 1000 },
+  markReversed: { src: "/brand/qb-mark-reversed.svg", ratio: 1012 / 1000 },
+  tagline: { src: "/brand/qb-tagline-color.svg", ratio: 1395 / 500 },
+  taglineReversed: { src: "/brand/qb-tagline-reversed-short.svg", ratio: 1395 / 500 },
+} as const;
+
+type LogoFile = keyof typeof files;
+
+/** A logo file at a given height in px. Decorative unless it has alt text. */
+export function Logo({
+  file,
+  height,
+  alt = "",
+  className = "",
+}: {
+  file: LogoFile;
+  height: number;
+  alt?: string;
+  className?: string;
+}) {
+  const { src, ratio } = files[file];
   return (
-    <span className={`inline-flex items-center gap-2.5 text-ink ${className}`}>
-      <LogoMark
-        className="w-auto drop-shadow-[0_0_14px_rgb(34_199_255/0.45)]"
-        // Height drives the size; width follows the viewBox aspect ratio.
-        style={{ height: size }}
-      />
-      <LogoWordmark className="w-auto" style={{ height: size * 0.6 }} />
-    </span>
+    <Image
+      src={src}
+      alt={alt}
+      width={Math.round(height * ratio)}
+      height={height}
+      unoptimized
+      className={className}
+    />
   );
 }
 
-export function LogoHomeLink({ size, onClick }: { size?: number; onClick?: () => void }) {
+/** Header: the colour qb mark alone, 32px tall, linking home */
+export function LogoHomeLink() {
   return (
-    <Link
-      href="/"
-      onClick={onClick}
-      aria-label="QuintByte — home"
-      className="inline-flex shrink-0 rounded-md"
-    >
-      <LogoLockup size={size} />
+    <Link href="/" aria-label="QuintByte home" className="flex shrink-0 items-center">
+      <Logo file="mark" height={32} />
     </Link>
   );
 }

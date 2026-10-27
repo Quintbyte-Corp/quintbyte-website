@@ -25,17 +25,14 @@ const options: { title: string; body: string; icon: IconName }[] = [
 /** How engagements can be shaped — used on the Services page */
 export function EngagementSection() {
   return (
-    <section aria-labelledby="engagement-title" className="bg-light text-ink-dark">
+    <section aria-labelledby="engagement-title" className="border-t border-bluegray/50 bg-white">
       <div className="shell flex flex-col gap-12 section-y">
         <Reveal className="flex max-w-[760px] flex-col gap-4">
-          <Eyebrow tone="light">Flexible support</Eyebrow>
-          <h2
-            id="engagement-title"
-            className="text-[clamp(30px,3.4vw,46px)] leading-[1.1] font-extrabold tracking-[-0.03em] text-balance"
-          >
-            Build the right support around your business.
+          <Eyebrow>Flexible support</Eyebrow>
+          <h2 id="engagement-title" className="type-h2 text-balance">
+            Build the right support <span className="qb-highlight">around your business.</span>
           </h2>
-          <p className="text-[17px] leading-[1.6] text-pretty text-mute-light">
+          <p className="type-body text-pretty">
             Instead of offering isolated tasks, QuintByte works as a business support partner. We
             help identify what a client actually needs, define the appropriate scope, assign the
             right specialist or team member, coordinate delivery, and maintain visibility throughout
@@ -43,22 +40,22 @@ export function EngagementSection() {
           </p>
         </Reveal>
 
-        <ul className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,280px),1fr))] gap-4">
+        <ul className="grid gap-4 md:grid-cols-3">
           {options.map((option, i) => (
             <Reveal
               as="li"
               key={option.title}
               delay={i * 0.06}
-              className="flex flex-col gap-3.5 rounded-card border border-line bg-white p-[26px]"
+              className="flex flex-col gap-4 rounded-card border border-bluegray bg-white p-6"
             >
-              <Icon name={option.icon} className="text-[30px] text-accent-light" />
-              <h3 className="text-[17px] font-bold">{option.title}</h3>
-              <p className="text-sm leading-[1.55] text-pretty text-mute-light">{option.body}</p>
+              <Icon name={option.icon} className="text-[32px]" />
+              <h3 className="text-lg leading-6 font-extrabold">{option.title}</h3>
+              <p className="text-base leading-6 text-pretty">{option.body}</p>
             </Reveal>
           ))}
         </ul>
 
-        <p className="max-w-[760px] border-l-2 border-accent-light pl-4 text-sm leading-[1.6] text-mute-light">
+        <p className="max-w-[760px] border-l-2 border-cyan pl-4 text-base leading-6">
           {availabilityNote}
         </p>
       </div>

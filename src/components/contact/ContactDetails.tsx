@@ -2,38 +2,19 @@ import type { ReactNode } from "react";
 import { Icon, type IconName } from "@/components/icons/Icon";
 import { siteConfig } from "@/config/site";
 
-type Tone = "dark" | "light";
-
-const tones: Record<Tone, { item: string; icon: string; link: string }> = {
-  dark: {
-    item: "text-mute-2",
-    icon: "text-accent",
-    link: "font-semibold text-ink transition-colors hover:text-accent",
-  },
-  light: {
-    item: "text-mute-light",
-    icon: "text-accent-light",
-    link: "font-semibold text-ink-dark underline decoration-line-3 underline-offset-4 hover:decoration-ink-dark",
-  },
-};
+const linkClass =
+  "font-extrabold text-slate underline decoration-cyan decoration-2 underline-offset-4 transition-[text-decoration-thickness] duration-150 hover:decoration-[3px]";
 
 /**
  * Public contact block (GDE-005 A1): email and tap-to-call phone as links, then city,
  * hours and the countries served. Shown on /contact and in the footer of every page.
  */
-export function ContactDetails({
-  tone = "dark",
-  className = "",
-}: {
-  tone?: Tone;
-  className?: string;
-}) {
-  const t = tones[tone];
+export function ContactDetails({ className = "" }: { className?: string }) {
   const rows: { icon: IconName; content: ReactNode }[] = [
     {
       icon: "mail",
       content: (
-        <a href={`mailto:${siteConfig.contactEmail}`} className={t.link}>
+        <a href={`mailto:${siteConfig.contactEmail}`} className={linkClass}>
           {siteConfig.contactEmail}
         </a>
       ),
@@ -41,7 +22,7 @@ export function ContactDetails({
     {
       icon: "call",
       content: (
-        <a href={siteConfig.phone.href} className={t.link}>
+        <a href={siteConfig.phone.href} className={linkClass}>
           {siteConfig.phone.display}
         </a>
       ),
@@ -52,10 +33,10 @@ export function ContactDetails({
   ];
 
   return (
-    <address className={`flex flex-col gap-2.5 not-italic ${className}`}>
+    <address className={`flex flex-col gap-2 text-slate not-italic ${className}`}>
       {rows.map((row) => (
-        <p key={row.icon} className={`flex items-start gap-2.5 ${t.item}`}>
-          <Icon name={row.icon} className={`mt-0.5 shrink-0 text-lg ${t.icon}`} />
+        <p key={row.icon} className="flex items-start gap-2">
+          <Icon name={row.icon} className="mt-1 shrink-0 text-lg" />
           <span>{row.content}</span>
         </p>
       ))}

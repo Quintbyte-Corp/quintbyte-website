@@ -3,43 +3,30 @@ import type { ComponentProps, ReactNode } from "react";
 import { SvgIcon } from "@/components/icons/SvgIcon";
 import { arrowForward } from "@/components/icons/ui-paths";
 
-type Variant = "primary" | "outline-dark" | "outline-light";
-type Size = "md" | "sm";
+/**
+ * One button style (brief, principle 6): Deep Slate with white text, at least 48px tall.
+ * `inverse` is the white button used only on the Deep Slate band. Secondary actions are
+ * text links (ArrowLink), so each screen has one button.
+ */
+type Variant = "primary" | "inverse";
 
 const base =
-  "inline-flex items-center justify-center gap-2 rounded-full whitespace-nowrap transition-[background-color,border-color,color,box-shadow] duration-200";
+  "inline-flex min-h-12 items-center justify-center gap-2 rounded-chip px-6 py-3 text-base leading-6 font-extrabold whitespace-nowrap transition-[filter,transform] duration-150 ease-qb hover:brightness-[.92] active:translate-y-px";
 
 const variants: Record<Variant, string> = {
-  primary: "bg-accent font-bold text-on-accent hover:bg-accent-hover hover:text-on-accent",
-  "outline-dark":
-    "border border-white/22 font-semibold text-ink hover:border-accent hover:text-white",
-  "outline-light":
-    "border border-line-3 font-semibold text-ink-dark hover:border-ink-dark hover:text-ink-dark",
-};
-
-const sizes: Record<Size, string> = {
-  md: "px-[26px] py-[15px] text-[15px]",
-  sm: "px-[22px] py-3 text-sm",
+  primary: "bg-slate text-white",
+  inverse: "bg-white text-slate",
 };
 
 type ButtonStyleProps = {
   variant?: Variant;
-  size?: Size;
-  /** Cyan glow used on dark surfaces (hero, nav) */
-  glow?: boolean;
-  /** Trailing arrow, as on every "Talk to QuintByte" button */
+  /** Trailing arrow */
   arrow?: boolean;
   className?: string;
 };
 
-export function buttonClasses({
-  variant = "primary",
-  size = "md",
-  glow = false,
-  className = "",
-}: ButtonStyleProps) {
-  const glowClass = glow ? (size === "sm" ? "shadow-glow" : "shadow-glow-lg") : "";
-  return `${base} ${variants[variant]} ${sizes[size]} ${glowClass} ${className}`;
+export function buttonClasses({ variant = "primary", className = "" }: ButtonStyleProps) {
+  return `${base} ${variants[variant]} ${className}`;
 }
 
 type ButtonLinkProps = ButtonStyleProps & {
@@ -52,13 +39,11 @@ export function ButtonLink({
   href,
   children,
   variant,
-  size,
-  glow,
   arrow,
   className,
   ...props
 }: ButtonLinkProps) {
-  const cls = buttonClasses({ variant, size, glow, className });
+  const cls = buttonClasses({ variant, className });
   const content = (
     <>
       {children}
@@ -77,7 +62,7 @@ export function ButtonLink({
   );
 }
 
-/** Cyan text link with a trailing arrow ("More about QuintByte →", "View All Services →") */
+/** Slate text link with a cyan underline and a trailing arrow ("See how it works →") */
 export function ArrowLink({
   href,
   children,
@@ -87,16 +72,25 @@ export function ArrowLink({
   children: ReactNode;
   className?: string;
 }) {
-  return (
-    <Link
-      href={href}
-      className={`group inline-flex items-center gap-2 text-[15px] font-bold text-accent transition-colors hover:text-[#7fdfff] ${className}`}
-    >
-      {children}
+  const cls = `group inline-flex min-h-12 items-center gap-2 text-base font-extrabold text-slate ${className}`;
+  const content = (
+    <>
+      <span className="underline decoration-cyan decoration-2 underline-offset-4 transition-[text-decoration-thickness] duration-150 group-hover:decoration-[3px]">
+        {children}
+      </span>
       <SvgIcon
         d={arrowForward}
-        className="text-lg transition-transform duration-200 group-hover:translate-x-0.5"
+        className="text-lg transition-transform duration-150 group-hover:translate-x-0.5"
       />
+    </>
+  );
+  return href.startsWith("/") || href.startsWith("#") ? (
+    <Link href={href} className={cls}>
+      {content}
     </Link>
+  ) : (
+    <a href={href} className={cls}>
+      {content}
+    </a>
   );
 }
