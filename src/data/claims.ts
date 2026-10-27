@@ -1,11 +1,11 @@
 /**
  * Three lines in the 24 Oct 2026 copy need the CEO's yes, because the site has to be true
  * on the day it goes live (brief, "Claims to confirm before launch"). Each switch picks
- * the approved line or the brief's fallback; flip one when Joao confirms it.
+ * the approved line or the brief's fallback. All three confirmed by the CEO, 27 Oct 2026.
  */
 export const claims = {
   /** "Yes, even the taxes": only once BIR registration is done and QuintByte is filing */
-  taxesFiled: false,
+  taxesFiled: true,
   /** "We run formal training sessions": the first session (Heart) was booked for Tue 27 Oct */
   trainingHeld: true,
   /** "Five friends": every team member is happy with the word; otherwise "five partners" */
