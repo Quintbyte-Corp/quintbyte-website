@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Icon } from "@/components/icons/Icon";
+import { QBLoop } from "@/components/mascot/QBLoop";
 import { Reveal } from "@/components/motion/Reveal";
 import { JsonLd, breadcrumbSchema } from "@/components/seo/JsonLd";
 import { CtaSection } from "@/components/sections/CtaSection";
@@ -35,6 +36,7 @@ export default function HowItWorksPage() {
           </p>
         }
         actions={<ButtonLink href={siteConfig.cta.href}>{siteConfig.cta.label}</ButtonLink>}
+        aside={<QBLoop className="mx-auto max-w-[720px]" />}
       />
 
       <section aria-labelledby="detail-title" className="bg-paper">
