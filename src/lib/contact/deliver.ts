@@ -95,6 +95,25 @@ export async function recentEnquiryCount(ipHash: string): Promise<number | null>
   }
 }
 
+/**
+ * One tiny read (a HEAD request, no rows transferred) so the Supabase free plan sees
+ * activity and doesn't pause the project (see app/api/keep-alive). True if it answered.
+ */
+export async function pingSupabase(): Promise<boolean> {
+  const env = supabaseEnv();
+  if (!env) return false;
+  try {
+    const res = await fetch(`${env.url}/rest/v1/enquiries?select=id&limit=1`, {
+      method: "HEAD",
+      headers: supabaseHeaders(env.key),
+      cache: "no-store",
+    });
+    return res.ok;
+  } catch {
+    return false;
+  }
+}
+
 async function storeInSupabase(values: ContactFields, meta: SubmissionMeta): Promise<Result> {
   const env = supabaseEnv();
   if (!env) return { ok: false, error: "Supabase not configured" };
