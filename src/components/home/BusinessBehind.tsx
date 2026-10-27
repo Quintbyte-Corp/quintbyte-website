@@ -3,7 +3,7 @@ import { Reveal } from "@/components/motion/Reveal";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { businessChips } from "@/data/home";
 
-/** The problem section: light ground, chips across the full width (brief, step 7) */
+/** The problem section: light ground, chips across the full width. Copy: rebrand brief, 24 Oct 2026 */
 export function BusinessBehind() {
   return (
     <section aria-labelledby="behind-title" className="border-y border-bluegray/50 bg-paper">
@@ -13,9 +13,13 @@ export function BusinessBehind() {
           <h2 id="behind-title" className="type-h2 text-balance">
             Running a business means managing more than the business itself.
           </h2>
+          {/* Kicker: Deep Slate with the section's mint highlight, one step below the heading */}
+          <p className="type-h3">
+            <span className="qb-highlight">Trust us. We know.</span>
+          </p>
           <p className="max-w-[600px] type-body text-pretty">
-            There&rsquo;s always something that needs to be done — and it can quickly become
-            overwhelming.
+            We run a business too, so we know the inbox, payroll and CRM never wait their turn.
+            That&rsquo;s the work we take off your plate.
           </p>
         </Reveal>
 

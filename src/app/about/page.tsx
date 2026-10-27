@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { ModelEquation } from "@/components/about/ModelEquation";
 import { TeamSection } from "@/components/about/TeamSection";
+import { WhyWeExist } from "@/components/about/WhyWeExist";
 import { Logo } from "@/components/brand/Logo";
 import { Icon, type IconName } from "@/components/icons/Icon";
 import { Reveal } from "@/components/motion/Reveal";
@@ -28,6 +29,9 @@ export const metadata: Metadata = pageMetadata({
 
 const principleIcons: IconName[] = ["search", "extension", "task_alt"];
 
+/** What one relationship gives you (formerly the old tagline, retired in the rebrand) */
+const withQuintByte = ["One point of contact", "The right specialists", "Clear accountability"];
+
 export default function AboutPage() {
   return (
     <>
@@ -35,8 +39,7 @@ export default function AboutPage() {
         eyebrow="About QuintByte"
         title={
           <>
-            One business partner. The right specialists.{" "}
-            <span className="qb-highlight">Clear accountability.</span>
+            Think First. <span className="qb-highlight">Then Execute.</span>
           </>
         }
         lead={
@@ -53,13 +56,15 @@ export default function AboutPage() {
         }
       />
 
+      <WhyWeExist />
+
       {/* The model */}
-      <section aria-labelledby="model-title" className="bg-white">
+      <section aria-labelledby="model-title" className="border-t border-bluegray/50 bg-white">
         <div className="shell flex flex-col gap-12 section-y">
           <Reveal className="flex max-w-[760px] flex-col gap-4">
             <Eyebrow>The QuintByte model</Eyebrow>
             <h2 id="model-title" className="type-h2 text-balance">
-              Coordinated Business Management Services.
+              One coordinated service firm.
             </h2>
             <p className="type-body text-pretty">
               {clientFacingSummary[2]} It is more than traditional VA support: instead of only
@@ -102,19 +107,14 @@ export default function AboutPage() {
             <div className="flex flex-col gap-4 rounded-card border-2 border-slate bg-white p-6">
               <h3 className="type-eyebrow">With QuintByte</h3>
               <Logo file="mark" height={48} className="self-start" />
-              <p className="text-lg leading-6 font-extrabold">
-                One Business Management Services relationship
-              </p>
+              <p className="text-lg leading-6 font-extrabold">One accountable relationship</p>
               <ul className="mt-auto flex flex-col gap-2 text-base">
-                {siteConfig.tagline
-                  .split(". ")
-                  .map((line) => line.replace(/\.$/, ""))
-                  .map((line) => (
-                    <li key={line} className="flex items-center gap-2">
-                      <Icon name="check_circle" className="shrink-0 text-lg" />
-                      {line}
-                    </li>
-                  ))}
+                {withQuintByte.map((line) => (
+                  <li key={line} className="flex items-center gap-2">
+                    <Icon name="check_circle" className="shrink-0 text-lg" />
+                    {line}
+                  </li>
+                ))}
               </ul>
             </div>
           </Reveal>

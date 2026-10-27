@@ -5,18 +5,20 @@ import { usePathname } from "next/navigation";
 import { type MouseEvent, type ReactNode, useEffect, useState } from "react";
 import { SvgIcon } from "@/components/icons/SvgIcon";
 import { close as closeIcon, menu as menuIcon } from "@/components/icons/ui-paths";
+import { ButtonLink } from "@/components/ui/Button";
 import { siteConfig } from "@/config/site";
 
 const isActive = (pathname: string, href: string) =>
   href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(`${href}/`);
 
-type HeaderNavProps = { logo: ReactNode; cta: ReactNode; mobileCta: ReactNode };
+type HeaderNavProps = { logo: ReactNode };
 
-export function HeaderNav({ logo, cta, mobileCta }: HeaderNavProps) {
+export function HeaderNav({ logo }: HeaderNavProps) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-  // No button may link to the page it is on (GDE-005 A5): drop the CTA where it points here
-  const showCta = pathname !== siteConfig.cta.href;
+  // No button may link to the page it is on (GDE-005 A5): on the page the CTA points to,
+  // it scrolls to the form instead (rebrand brief, Contact page checks)
+  const ctaHref = pathname === siteConfig.cta.href ? "#contact-form" : siteConfig.cta.href;
   // Close the menu whenever the route changes (derived-state pattern, no effect needed)
   const [lastPath, setLastPath] = useState(pathname);
   if (pathname !== lastPath) {
@@ -72,7 +74,9 @@ export function HeaderNav({ logo, cta, mobileCta }: HeaderNavProps) {
         </nav>
 
         {/* Wrapper owns the visibility so it can't conflict with the button's display */}
-        {showCta ? <div className="hidden nav:block">{cta}</div> : null}
+        <div className="hidden nav:block">
+          <ButtonLink href={ctaHref}>{siteConfig.cta.label}</ButtonLink>
+        </div>
 
         <button
           type="button"
@@ -110,7 +114,9 @@ export function HeaderNav({ logo, cta, mobileCta }: HeaderNavProps) {
                 </Link>
               );
             })}
-            {showCta ? mobileCta : null}
+            <ButtonLink href={ctaHref} className="mt-4 w-full">
+              {siteConfig.cta.label}
+            </ButtonLink>
           </div>
         </nav>
       ) : null}

@@ -18,7 +18,8 @@ const nunito = Nunito_Sans({
   display: "swap",
 });
 
-const defaultTitle = "QuintByte — Business Management Services";
+/** Rebrand brief, step 8 */
+const defaultTitle = "QuintByte (QB) | Think First. Then Execute.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),

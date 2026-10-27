@@ -1,3 +1,4 @@
+import { siteDescription } from "@/data/claims";
 /**
  * Global site configuration: brand lines, navigation, contact and social details.
  *
@@ -63,13 +64,12 @@ export const siteConfig = {
   /** Countries served, as ISO codes for structured data (GDE-003 §1.1) */
   areaServed: ["US", "AU", "PH"],
   url: resolveSiteUrl(),
-  tagline: "One business partner. The right specialists. Clear accountability.",
-  /** BMS Service Description — "Short Client-Facing Version" */
-  description:
-    "QuintByte is a Business Management Services company that helps businesses manage the work behind the business — coordinating the right people, processes, and deliverables under one accountable service relationship.",
-  /** Search and share snippet for the home page; draft for CEO approval (GDE-005 D1) */
-  metaDescription:
-    "QuintByte is a Business Management Services team. Get the right specialists, coordinated under one accountable partner.",
+  /** Always Title Case (QB Brand Sheet v1.1) */
+  tagline: "Think First. Then Execute.",
+  /** Organization description for structured data (rebrand brief, step 8) */
+  description: siteDescription,
+  /** Search and share snippet for the home page (rebrand brief, step 8) */
+  metaDescription: siteDescription,
   /** BMS Service Description — operating principle */
   principle: [
     "Understand the business first.",

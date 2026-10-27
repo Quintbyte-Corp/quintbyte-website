@@ -17,7 +17,7 @@ const options: { title: string; body: string; icon: IconName }[] = [
   },
   {
     title: "A combination of functions",
-    body: "Several functions managed together under one coordinated Business Management Services relationship.",
+    body: "Several functions managed together under one coordinated relationship.",
     icon: "hub",
   },
 ];

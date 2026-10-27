@@ -3,6 +3,9 @@
  *   - no "[CONFIRM", "TODO" or "Lorem ipsum" in any page's visible text, and no "["
  *     in it at all (GDE-005 §10: "Search the site for '[' before each release")
  *   - nothing shaped like a BIR TIN (000-000-000-00000) anywhere in the page source
+ *   - none of the retired positioning ("Business Management Services", "One business
+ *     partner") anywhere in the page source, metadata and structured data included
+ *     (rebrand brief, 24 Oct 2026, step 5)
  *
  * Scans the prerendered HTML in .next/server/app. Pages rendered on request (/contact)
  * have no prerendered HTML: pass the address of a running build to fetch them too:
@@ -29,6 +32,10 @@ const visibleText = (html) =>
     .replace(/&[a-z#0-9]+;/gi, " ");
 
 const TIN = /\b\d{3}-\d{3}-\d{3}-\d{3,5}\b/;
+const RETIRED = [
+  [/Business Management Services/i, '"Business Management Services"'],
+  [/One business partner/i, '"One business partner"'],
+];
 const textRules = [
   [/\[CONFIRM/i, "[CONFIRM marker"],
   [/\bTODO\b/, "TODO"],
@@ -104,6 +111,16 @@ const problems = [];
 for (const { page, html } of pages) {
   if (!page.startsWith("_")) problems.push(...checkMetadata(page, html));
   if (TIN.test(html)) problems.push(`${page}: something shaped like a TIN in the page source`);
+  const source = decode(html);
+  for (const [re, label] of RETIRED) {
+    const m = source.match(re);
+    if (m) {
+      const at = Math.max(0, m.index - 40);
+      problems.push(
+        `${page}: retired ${label} near "…${source.slice(at, at + 90).replace(/\s+/g, " ")}…"`,
+      );
+    }
+  }
   const text = visibleText(html);
   for (const [re, label] of textRules) {
     const m = text.match(re);

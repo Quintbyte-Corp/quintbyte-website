@@ -12,7 +12,7 @@ import { pageMetadata } from "@/lib/metadata";
 import { services } from "@/data/services";
 
 const description =
-  "QuintByte provides flexible Business Management Services designed to help businesses operate more efficiently, stay organized, and access the right support without having to manage multiple separate freelancers or service providers.";
+  "QuintByte is a service firm providing flexible support designed to help businesses operate more efficiently, stay organized, and access the right support without having to manage multiple separate freelancers or service providers.";
 
 export const metadata: Metadata = pageMetadata({
   title: "Services",
@@ -32,8 +32,7 @@ export default function ServicesPage() {
             <p>{description}</p>
             <p>
               Depending on your needs, QuintByte can provide one specific service, a project-based
-              solution, or a combination of functions managed under one coordinated Business
-              Management Services relationship.
+              solution, or a combination of functions managed under one coordinated relationship.
             </p>
           </>
         }
@@ -64,7 +63,7 @@ export default function ServicesPage() {
           {
             "@context": "https://schema.org",
             "@type": "ItemList",
-            name: "QuintByte Business Management Services",
+            name: "QuintByte services",
             itemListElement: services.map((s) => ({
               "@type": "ListItem",
               position: s.number,
@@ -75,8 +74,8 @@ export default function ServicesPage() {
           {
             "@context": "https://schema.org",
             "@type": "Service",
-            name: "Business Management Services",
-            serviceType: "Business Management Services",
+            name: "Business support services",
+            serviceType: "Business support",
             provider: { "@id": organizationId },
             description,
           },

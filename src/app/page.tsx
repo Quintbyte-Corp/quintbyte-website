@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { BusinessBehind } from "@/components/home/BusinessBehind";
 import { Hero } from "@/components/home/Hero";
+import { StaySharp } from "@/components/home/StaySharp";
 import { CtaSection } from "@/components/sections/CtaSection";
 import { EcosystemSection } from "@/components/sections/EcosystemSection";
 import { ProcessSection } from "@/components/sections/ProcessSection";
@@ -19,6 +20,7 @@ export default function HomePage() {
       <WaysToStart />
       <ProcessSection />
       <EcosystemSection />
+      <StaySharp />
       <ServicesSection />
       <CtaSection />
     </>

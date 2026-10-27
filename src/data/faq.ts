@@ -7,6 +7,8 @@
  * when the CEO confirms the fact in writing (GDE-005 §1).
  */
 
+import { toolsAnswer } from "./claims";
+
 export type FaqPage = "services" | "how-it-works" | "contact";
 
 export type Faq = {
@@ -21,7 +23,7 @@ export const faqs: readonly Faq[] = [
     page: "services",
     question: "What does QuintByte do?",
     answer:
-      "QuintByte is a Business Management Services company. We take on the work around your work: executive assistance, CRM and sales support, operations coordination, bookkeeping support and web development. One accountable partner coordinates everything, so you get the right specialists without hiring and managing them yourself.",
+      "QuintByte is a service firm. We take on the work around your work: executive assistance, CRM and sales support, operations coordination, bookkeeping support and web development. One accountable partner coordinates everything, so you get the right specialists without hiring and managing them yourself.",
   },
   {
     page: "contact",
@@ -109,9 +111,9 @@ export const faqs: readonly Faq[] = [
   },
   {
     page: "contact",
-    question: "Which tools and software does your team use?",
-    answer:
-      "We work in your systems. Our team regularly uses Google Workspace, Microsoft 365, Salesforce, HubSpot and Canva, plus web tools such as React, Next.js, Vercel, Supabase and Resend.",
+    // Rebrand brief (24 Oct 2026): replaces the earlier tools question
+    question: "Which tools do you use?",
+    answer: toolsAnswer,
   },
 ];
 

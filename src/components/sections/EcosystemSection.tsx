@@ -18,8 +18,8 @@ export function EcosystemSection({ showLink = true }: { showLink?: boolean }) {
             A complete <span className="qb-highlight">business support ecosystem.</span>
           </h2>
           <p className="max-w-[520px] type-body text-pretty">
-            Instead of coordinating multiple freelancers or providers, you get one business partner
-            with the right specialists, clear processes, and accountable delivery.
+            Instead of coordinating multiple freelancers or providers, you get one service firm with
+            the right specialists, clear processes, and accountable delivery.
           </p>
           {showLink ? <ArrowLink href="/about">More about QuintByte</ArrowLink> : null}
         </Reveal>

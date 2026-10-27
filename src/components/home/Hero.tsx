@@ -1,6 +1,7 @@
 import { ArrowLink, ButtonLink } from "@/components/ui/Button";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { siteConfig } from "@/config/site";
+import { heroParagraph } from "@/data/claims";
 import { CoordinationDiagram } from "./CoordinationDiagram";
 
 /**
@@ -12,17 +13,13 @@ export function Hero() {
     <section id="top" aria-labelledby="hero-title" className="bg-white">
       <div className="shell grid items-center gap-12 py-16 lg:grid-cols-12 lg:gap-16 lg:py-24">
         <div className="flex flex-col items-start gap-6 lg:col-span-6">
-          <Eyebrow as="span">Business Management Services</Eyebrow>
+          <Eyebrow as="span">QuintByte (QB) · A service firm</Eyebrow>
           <h1 id="hero-title" className="type-hero text-balance text-slate">
-            <span className="block">Hire one person.</span>{" "}
-            <span className="qb-highlight">Get a whole company behind them.</span>
+            <span className="block">Hire one person.</span> Get a{" "}
+            <span className="qb-highlight whitespace-nowrap">whole firm</span> behind them.
           </h1>
-          {/* Headline and sub-line: GDE-005 C1 */}
-          <p className="max-w-[560px] type-body text-pretty">
-            QuintByte is a Business Management Services team. Instead of hiring and managing
-            separate freelancers, you get the right specialists coordinated under one accountable
-            partner.
-          </p>
+          {/* Copy: rebrand brief, 24 Oct 2026 (Home: hero) */}
+          <p className="max-w-[560px] type-body text-pretty">{heroParagraph}</p>
           <div className="flex flex-wrap items-center gap-x-8 gap-y-4 pt-2">
             <ButtonLink href={siteConfig.cta.href}>{siteConfig.cta.label}</ButtonLink>
             <ArrowLink href="/how-it-works">See how it works</ArrowLink>

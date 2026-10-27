@@ -11,8 +11,9 @@ import { processSteps } from "@/data/process";
 import { NOT_SURE } from "@/lib/contact/constants";
 import { interestOptions } from "@/lib/contact/schema";
 
+/** Intro: rebrand brief, 24 Oct 2026 (Contact page) */
 const description =
-  "You don't need to know exactly which service you need. Tell us what you're trying to achieve — we'll help define the right support.";
+  "You don't need to pick a service. Describe the goal, and we'll think it through first, then tell you how we'd execute it. We reply within one business day.";
 
 export const metadata: Metadata = pageMetadata({
   title: "Contact",
@@ -37,7 +38,7 @@ export default async function ContactPage(props: PageProps<"/contact">) {
         eyebrow="Contact"
         title={
           <>
-            Talk to <span className="qb-highlight">QuintByte.</span>
+            Tell us what you&rsquo;re trying to <span className="qb-highlight">get done.</span>
           </>
         }
         lead={<p>{description}</p>}

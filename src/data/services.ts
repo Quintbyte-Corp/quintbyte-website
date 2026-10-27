@@ -433,7 +433,7 @@ export const services = [
     category: "Research & Operations",
     summary: "Workflows, KPIs, reporting and cross-functional coordination.",
     description:
-      "This is where QuintByte's BMS model becomes more than traditional VA support. Instead of only assigning individual tasks, QuintByte can help coordinate an agreed business function.",
+      "This is where QuintByte's model becomes more than traditional VA support. Instead of only assigning individual tasks, QuintByte can help coordinate an agreed business function.",
     items: [
       "Business process coordination",
       "Workflow management",

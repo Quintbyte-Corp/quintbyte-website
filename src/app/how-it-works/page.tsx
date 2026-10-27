@@ -25,7 +25,7 @@ export default function HowItWorksPage() {
         eyebrow="How it works"
         title={
           <>
-            Simple for you. <span className="qb-highlight">Structured behind the scenes.</span>
+            Simple for you. <span className="qb-highlight">Structured behind the&nbsp;scenes.</span>
           </>
         }
         lead={

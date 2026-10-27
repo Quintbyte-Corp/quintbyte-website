@@ -18,7 +18,7 @@ export function ProcessSection({
     <>
       Simple for you.
       <br />
-      <span className="qb-highlight">Structured behind the scenes.</span>
+      <span className="qb-highlight">Structured behind the&nbsp;scenes.</span>
     </>
   ),
   body = "We follow a clear process to make sure you get the right support, the right people, and the right results.",
