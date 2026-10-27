@@ -77,6 +77,7 @@ Validated on the server; spam is filtered with a honeypot and a minimum fill tim
 Delivery is configured by environment variables (see `.env.example`):
 
 - **Supabase** (`SUPABASE_URL`, `SUPABASE_SECRET_KEY`) stores enquiries with their campaign source and enforces 5 per IP per hour (hashed with `IP_HASH_SECRET`) — run the files in `supabase/migrations/` in order first.
+- **Keep-alive**: a daily Vercel cron (`vercel.json`) calls `/api/keep-alive`, which makes one tiny Supabase read so the free plan never pauses the project. It needs `CRON_SECRET` in Vercel production; calls without it get 401.
 - **Resend** (`RESEND_API_KEY`, `CONTACT_EMAIL_FROM`, `CONTACT_EMAIL_TO`) emails a notification with reply-to set to the sender, plus an auto-reply when `CONTACT_AUTOREPLY=on`.
 - Both are required: until both are set, the production form asks people to email instead.
 
