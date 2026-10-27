@@ -1,7 +1,7 @@
 import type { CSSProperties } from "react";
 
 /**
- * Hero coordination diagram, from public/brand/hero-coordination-diagram.svg (QB asset
+ * Hero coordination diagram, rebuilt from hero-coordination-diagram.svg in the QB asset
  * pack): five specialists connect to one accountable lead, who connects to you. The
  * connectors draw once (600ms, globals.css ".qb-draw") and are static under reduced
  * motion. Labels must match services offered today (README in the asset pack).
