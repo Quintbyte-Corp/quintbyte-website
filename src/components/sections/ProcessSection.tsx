@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
-import { Icon } from "@/components/icons/Icon";
 import { Reveal } from "@/components/motion/Reveal";
 import { Eyebrow } from "@/components/ui/Eyebrow";
+import { Rail, RailItem } from "@/components/ui/Rail";
 import { processSteps } from "@/data/process";
 
 type ProcessSectionProps = {
@@ -42,25 +42,26 @@ export function ProcessSection({
   );
 }
 
+/** The six steps as one connected rail; Confirm and Review are checkpoints */
 export function ProcessSteps() {
   return (
-    <ol className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,168px),1fr))] gap-8">
+    <Rail count={processSteps.length} row>
       {processSteps.map((step, i) => (
-        <Reveal as="li" key={step.num} delay={i * 0.06} className="flex flex-col gap-4">
-          <div className="flex items-center gap-4">
-            <span className="flex size-12 shrink-0 items-center justify-center rounded-full border-2 border-slate text-lg font-black">
-              <span className="sr-only">Step </span>
-              {step.num}
-            </span>
-            <span aria-hidden className="h-0.5 flex-1 bg-bluegray" />
-          </div>
-          <Icon name={step.icon} className="text-[32px]" />
-          <div className="flex flex-col gap-2">
-            <h3 className="text-lg leading-6 font-extrabold">{step.title}</h3>
-            <p className="text-base leading-6 text-pretty">{step.summary}</p>
-          </div>
-        </Reveal>
+        <RailItem
+          key={step.num}
+          node={step.checkpoint ? "checkpoint" : "step"}
+          delay={i * 0.06}
+          className="flex flex-col gap-2"
+        >
+          <p className="type-eyebrow">
+            <span className="sr-only">Step </span>
+            {step.num}
+            {step.checkpoint ? " · Checkpoint" : null}
+          </p>
+          <h3 className="text-lg leading-6 font-extrabold">{step.title}</h3>
+          <p className="text-base leading-6 text-pretty">{step.summary}</p>
+        </RailItem>
       ))}
-    </ol>
+    </Rail>
   );
 }

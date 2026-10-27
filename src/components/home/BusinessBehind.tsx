@@ -1,7 +1,7 @@
 import { Icon } from "@/components/icons/Icon";
 import { Reveal } from "@/components/motion/Reveal";
 import { Eyebrow } from "@/components/ui/Eyebrow";
-import { businessChips } from "@/data/home";
+import { businessClusters } from "@/data/home";
 
 /** The problem section: light ground, chips across the full width. Copy: rebrand brief, 24 Oct 2026 */
 export function BusinessBehind() {
@@ -23,19 +23,25 @@ export function BusinessBehind() {
           </p>
         </Reveal>
 
+        {/* Grouped problem clusters: four labelled groups of three, one chip style */}
         <ul
-          className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-6"
+          className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-4"
           aria-label="Everyday business work"
         >
-          {businessChips.map((chip, i) => (
-            <Reveal
-              as="li"
-              key={chip.label}
-              delay={(i % 6) * 0.04}
-              className="flex min-h-12 items-center gap-2 rounded-chip border border-bluegray bg-white px-4 py-3 text-base font-extrabold"
-            >
-              <Icon name={chip.icon} className="shrink-0 text-xl" />
-              {chip.label}
+          {businessClusters.map((cluster, i) => (
+            <Reveal as="li" key={cluster.label} delay={i * 0.06} className="flex flex-col gap-4">
+              <h3 className="border-t-2 border-bluegray pt-4 type-eyebrow">{cluster.label}</h3>
+              <ul className="flex flex-col gap-2">
+                {cluster.chips.map((chip) => (
+                  <li
+                    key={chip.label}
+                    className="flex min-h-12 items-center gap-2 rounded-chip border border-bluegray bg-white px-4 py-3 text-base font-extrabold"
+                  >
+                    <Icon name={chip.icon} className="shrink-0 text-xl" />
+                    {chip.label}
+                  </li>
+                ))}
+              </ul>
             </Reveal>
           ))}
         </ul>

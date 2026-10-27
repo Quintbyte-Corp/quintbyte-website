@@ -3,13 +3,8 @@ import { Icon } from "@/components/icons/Icon";
 import { Reveal } from "@/components/motion/Reveal";
 import { ArrowLink } from "@/components/ui/Button";
 import { Eyebrow } from "@/components/ui/Eyebrow";
-import {
-  ON_REQUEST_LABEL,
-  type Service,
-  isOnRequest,
-  otherServices,
-  startHereServices,
-} from "@/data/services";
+import { StatusLabel } from "@/components/ui/StatusLabel";
+import { type Service, otherServices, startHereServices } from "@/data/services";
 
 type ServicesSectionProps = {
   /** The services to show; omit to show all of them grouped as "Start here" / "Also available" */
@@ -59,13 +54,7 @@ function GroupedServices() {
       </div>
       <div className="flex flex-col gap-4">
         <h3 className="type-eyebrow">Also available</h3>
-        <ul className="grid grid-cols-[repeat(auto-fill,minmax(min(100%,264px),1fr))] gap-4">
-          {otherServices.map((service, i) => (
-            <Reveal as="li" key={service.slug} delay={(i % 4) * 0.04} className="flex">
-              <ServiceCard service={service} heading="h4" compact />
-            </Reveal>
-          ))}
-        </ul>
+        <ServiceLedger services={otherServices} />
       </div>
     </div>
   );
@@ -110,7 +99,7 @@ export function ServiceCard({
       }`}
     >
       <Icon name={service.icon} className={compact ? "mt-0.5 shrink-0 text-2xl" : "text-[32px]"} />
-      <div className="flex flex-col gap-1">
+      <div className="flex flex-1 flex-col gap-1">
         <Title
           className={`font-extrabold underline decoration-transparent decoration-2 underline-offset-4 transition-[text-decoration-color] duration-150 group-hover:decoration-cyan ${
             compact ? "text-base leading-6" : "text-lg leading-6"
@@ -121,18 +110,45 @@ export function ServiceCard({
         <span className={`text-pretty ${compact ? "text-sm leading-5" : "text-base leading-6"}`}>
           {service.summary}
         </span>
-        {isOnRequest(service.slug) ? <OnRequestLabel className="mt-2" /> : null}
+        <StatusLabel slug={service.slug} className="mt-auto pt-2" />
       </div>
     </Link>
   );
 }
 
-/** Honest status label: an outlined square means available only after scoping */
-export function OnRequestLabel({ className = "" }: { className?: string }) {
+/**
+ * Scope ledger: services as numbered rows with their status, one line each on wide
+ * screens. Each row links to the service page.
+ */
+export function ServiceLedger({ services }: { services: readonly Service[] }) {
   return (
-    <span className={`flex items-center gap-2 text-sm font-extrabold ${className}`}>
-      <span aria-hidden className="size-2 shrink-0 border-[1.5px] border-slate" />
-      {ON_REQUEST_LABEL}
-    </span>
+    <ul className="border-t border-bluegray">
+      {services.map((service, i) => (
+        <Reveal
+          as="li"
+          key={service.slug}
+          delay={(i % 6) * 0.03}
+          className="border-b border-bluegray"
+        >
+          <Link
+            href={`/services/${service.slug}`}
+            data-event="service_card_click"
+            data-event-label={service.slug}
+            className="group grid gap-x-6 gap-y-2 px-2 py-4 transition-colors duration-150 hover:bg-white sm:grid-cols-[48px_1fr] lg:grid-cols-[48px_minmax(0,2fr)_minmax(0,3fr)_minmax(0,2fr)] lg:items-baseline"
+          >
+            <span className="type-eyebrow" aria-hidden>
+              {String(service.number).padStart(2, "0")}
+            </span>
+            <span className="text-lg leading-6 font-extrabold underline decoration-transparent decoration-2 underline-offset-4 transition-[text-decoration-color] duration-150 group-hover:decoration-cyan">
+              {service.title}
+            </span>
+            <span className="text-base leading-6 text-pretty sm:col-start-2 lg:col-start-auto">
+              {service.summary}
+            </span>
+            <StatusLabel slug={service.slug} className="sm:col-start-2 lg:col-start-auto" />
+          </Link>
+        </Reveal>
+      ))}
+    </ul>
   );
 }

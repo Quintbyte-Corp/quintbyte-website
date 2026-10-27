@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import { ContactDetails } from "@/components/contact/ContactDetails";
 import { ContactForm } from "@/components/contact/ContactForm";
-import { Icon } from "@/components/icons/Icon";
 import { JsonLd, breadcrumbSchema } from "@/components/seo/JsonLd";
 import { FaqSection } from "@/components/sections/FaqSection";
 import { PageHero } from "@/components/sections/PageHero";
 import { Eyebrow } from "@/components/ui/Eyebrow";
+import { Rail, RailItem } from "@/components/ui/Rail";
 import { pageMetadata } from "@/lib/metadata";
 import { processSteps } from "@/data/process";
 import { NOT_SURE } from "@/lib/contact/constants";
@@ -55,21 +55,26 @@ export default async function ContactPage(props: PageProps<"/contact">) {
             <h2 id="next-title" className="type-h3 text-balance">
               Understand the business first.
             </h2>
-            <ol className="flex flex-col gap-6 pt-2">
+            {/* Contact rail: you first (the apricot client node), then the first three steps */}
+            <Rail count={nextSteps.length + 1} className="pt-2">
+              <RailItem node="client" className="flex flex-col gap-1">
+                <h3 className="text-lg leading-6 font-extrabold">You</h3>
+                <p className="text-base leading-6 text-pretty">Describe the goal.</p>
+              </RailItem>
               {nextSteps.map((step) => (
-                <li key={step.num} className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-1">
-                  <span className="row-span-2 flex size-12 items-center justify-center self-start rounded-full border-2 border-slate bg-white text-lg font-black">
+                <RailItem
+                  key={step.num}
+                  node={step.checkpoint ? "checkpoint" : "step"}
+                  className="flex flex-col gap-1"
+                >
+                  <h3 className="text-lg leading-6 font-extrabold">
                     <span className="sr-only">Step </span>
-                    {step.num}
-                  </span>
-                  <h3 className="flex items-center gap-2 pt-2 text-lg leading-6 font-extrabold">
-                    <Icon name={step.icon} className="text-xl" />
-                    {step.title}
+                    {step.num} {step.title}
                   </h3>
                   <p className="text-base leading-6 text-pretty">{step.summary}</p>
-                </li>
+                </RailItem>
               ))}
-            </ol>
+            </Rail>
             <div className="mt-4 flex flex-col gap-4 border-t border-bluegray pt-8">
               <h2 className="type-h3">Contact details</h2>
               <ContactDetails />

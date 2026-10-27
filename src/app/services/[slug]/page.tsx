@@ -6,12 +6,13 @@ import { JsonLd, breadcrumbSchema, organizationId } from "@/components/seo/JsonL
 import { CtaSection } from "@/components/sections/CtaSection";
 import { PageHero } from "@/components/sections/PageHero";
 import { ProcessSection } from "@/components/sections/ProcessSection";
-import { OnRequestLabel, ServicesSection } from "@/components/sections/ServicesSection";
+import { ServicesSection } from "@/components/sections/ServicesSection";
 import { ArrowLink, ButtonLink } from "@/components/ui/Button";
 import { Eyebrow } from "@/components/ui/Eyebrow";
+import { StatusLabel } from "@/components/ui/StatusLabel";
 import { absoluteUrl, siteConfig } from "@/config/site";
 import { offerFor } from "@/data/offers";
-import { getService, isOnRequest, relatedServices, services } from "@/data/services";
+import { getService, relatedServices, services } from "@/data/services";
 import { metaDescription, pageMetadata } from "@/lib/metadata";
 
 export const dynamicParams = false;
@@ -52,7 +53,7 @@ export default async function ServicePage(props: PageProps<"/services/[slug]">) 
         lead={
           <>
             <p>{service.description}</p>
-            {isOnRequest(service.slug) ? <OnRequestLabel /> : null}
+            <StatusLabel slug={service.slug} />
           </>
         }
         actions={
@@ -99,17 +100,20 @@ export default async function ServicePage(props: PageProps<"/services/[slug]">) 
               responsibilities, expected outputs, access requirements, and delivery conditions.
             </p>
           </Reveal>
-          <ul className="grid grid-cols-[repeat(auto-fill,minmax(min(100%,264px),1fr))] gap-2">
-            {service.items.map((item) => (
+          {/* Scope ledger: what the service can include, numbered, two columns on wide screens */}
+          <ol className="grid border-t border-bluegray md:grid-cols-2 md:gap-x-12">
+            {service.items.map((item, i) => (
               <li
                 key={item}
-                className="flex items-start gap-2 rounded-chip border border-bluegray bg-white px-4 py-3 text-base leading-6 font-extrabold"
+                className="grid grid-cols-[40px_1fr] items-baseline gap-2 border-b border-bluegray py-4"
               >
-                <Icon name="check" className="mt-0.5 shrink-0 text-lg" />
-                {item}
+                <span className="type-eyebrow" aria-hidden>
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <span className="text-base leading-6 font-extrabold">{item}</span>
               </li>
             ))}
-          </ul>
+          </ol>
         </div>
       </section>
 

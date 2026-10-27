@@ -197,6 +197,57 @@
   }
 }
 
+/* --------------------------------------------------------------------------
+   Rail: a connected sequence (process, "what happens next"). Vertical by default, a
+   horizontal row from 1024px with .qb-rail-row. Blue-gray connector, 24px nodes
+   (components/ui/Rail.tsx). The line runs from each node to the next one.
+   -------------------------------------------------------------------------- */
+.qb-rail {
+  display: grid;
+  list-style: none;
+}
+.qb-rail > li {
+  position: relative;
+  padding-left: 48px;
+  padding-bottom: 32px;
+}
+.qb-rail > li:last-child {
+  padding-bottom: 0;
+}
+.qb-rail > li:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  left: 11px;
+  top: 24px;
+  bottom: 0;
+  width: 2px;
+  background: var(--color-bluegray);
+}
+.qb-rail-node {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+@media (width >= 64rem) {
+  .qb-rail-row {
+    grid-template-columns: repeat(var(--rail-n, 6), minmax(0, 1fr));
+    column-gap: 32px;
+  }
+  .qb-rail-row > li {
+    padding-left: 0;
+    padding-top: 48px;
+    padding-bottom: 0;
+  }
+  .qb-rail-row > li:not(:last-child)::before {
+    left: 24px;
+    right: -32px;
+    top: 11px;
+    bottom: auto;
+    width: auto;
+    height: 2px;
+  }
+}
+
 /* One-time line draw (hero diagram). Lines carry pathLength="100". */
 .qb-draw {
   stroke-dasharray: 100;

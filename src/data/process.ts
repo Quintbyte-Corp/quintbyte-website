@@ -11,6 +11,8 @@ export type ProcessStep = {
   icon: IconName;
   summary: string;
   detail: string;
+  /** A gate the work must pass before it moves on (shown as a checkpoint on the rail) */
+  checkpoint?: boolean;
 };
 
 export const processSteps: readonly ProcessStep[] = [
@@ -32,6 +34,7 @@ export const processSteps: readonly ProcessStep[] = [
   {
     num: "03",
     title: "Confirm",
+    checkpoint: true,
     icon: "task_alt",
     summary: "We confirm capability, capacity, pricing, and delivery conditions.",
     detail:
@@ -56,6 +59,7 @@ export const processSteps: readonly ProcessStep[] = [
   {
     num: "06",
     title: "Review",
+    checkpoint: true,
     icon: "visibility",
     summary: "We maintain visibility, address issues, and review the work.",
     detail:

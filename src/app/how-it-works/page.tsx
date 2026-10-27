@@ -8,6 +8,7 @@ import { FaqSection } from "@/components/sections/FaqSection";
 import { PageHero } from "@/components/sections/PageHero";
 import { ButtonLink } from "@/components/ui/Button";
 import { Eyebrow } from "@/components/ui/Eyebrow";
+import { Rail, RailItem } from "@/components/ui/Rail";
 import { siteConfig } from "@/config/site";
 import { pageMetadata } from "@/lib/metadata";
 import { processObjective, processSteps } from "@/data/process";
@@ -56,26 +57,26 @@ export default function HowItWorksPage() {
             </ul>
           </Reveal>
 
-          <ol className="flex flex-col lg:col-span-7">
-            {processSteps.map((step, i) => (
-              <Reveal
-                as="li"
-                key={step.num}
-                delay={i * 0.04}
-                className="grid grid-cols-[auto_1fr] gap-x-6 gap-y-2 border-b border-bluegray py-8 first:pt-0 last:border-b-0"
-              >
-                <span className="row-span-2 flex size-12 items-center justify-center self-start rounded-full border-2 border-slate bg-white text-lg font-black">
-                  <span className="sr-only">Step </span>
-                  {step.num}
-                </span>
-                <h3 className="flex items-center gap-2 pt-2 type-h3">
-                  <Icon name={step.icon} className="text-2xl" />
-                  {step.title}
-                </h3>
-                <p className="type-body text-pretty">{step.detail}</p>
-              </Reveal>
-            ))}
-          </ol>
+          <div className="lg:col-span-7">
+            <Rail count={processSteps.length}>
+              {processSteps.map((step, i) => (
+                <RailItem
+                  key={step.num}
+                  node={step.checkpoint ? "checkpoint" : "step"}
+                  delay={i * 0.04}
+                  className="flex flex-col gap-2"
+                >
+                  <p className="type-eyebrow">
+                    <span className="sr-only">Step </span>
+                    {step.num}
+                    {step.checkpoint ? " · Checkpoint" : null}
+                  </p>
+                  <h3 className="type-h3">{step.title}</h3>
+                  <p className="type-body text-pretty">{step.detail}</p>
+                </RailItem>
+              ))}
+            </Rail>
+          </div>
         </div>
       </section>
 
