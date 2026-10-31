@@ -1,35 +1,46 @@
+import Image from "next/image";
 import Link from "next/link";
-import { Icon } from "@/components/icons/Icon";
 import { Reveal } from "@/components/motion/Reveal";
-import { ArrowLink } from "@/components/ui/Button";
+import { ArrowDot, ArrowLink } from "@/components/ui/Button";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { StatusLabel } from "@/components/ui/StatusLabel";
-import { type Service, otherServices, startHereServices } from "@/data/services";
+import { photoFor } from "@/data/photos";
+import { type Service, otherServices, services, startHereServices } from "@/data/services";
 
 type ServicesSectionProps = {
-  /** The services to show; omit to show all of them grouped as "Start here" / "Also available" */
+  /** The services to show as photo cards; omit to show them grouped or as one ledger */
   services?: readonly Service[];
   eyebrow?: string;
   title?: string;
   /** Shows "View All Services →" beside the heading */
   showAllLink?: boolean;
   id?: string;
+  /** "grouped": "Start here" cards, then the rest as a ledger. "ledger": all 14 as rows. */
+  layout?: "grouped" | "ledger";
+  /** Ground colour of the section */
+  tone?: "paper" | "white";
 };
 
-/** Services grid on the near-white ground */
+/** Services: photo cards, a numbered ledger, or both */
 export function ServicesSection({
-  services,
+  services: picked,
   eyebrow = "Our services",
   title = "Comprehensive support for a better running business.",
   showAllLink = true,
   id = "services",
+  layout = "grouped",
+  tone = "paper",
 }: ServicesSectionProps) {
   const titleId = `${id}-title`;
   return (
-    <section id={id} aria-labelledby={titleId} className="border-t border-bluegray/50 bg-paper">
-      <div className="shell flex flex-col gap-12 section-y">
+    <section
+      id={id}
+      aria-labelledby={titleId}
+      className={`section-y ${tone === "paper" ? "border-t border-bluegray/50 bg-paper" : "bg-white"}`}
+    >
+      <div className="shell flex flex-col gap-10 lg:gap-16">
         <Reveal className="flex flex-wrap items-end justify-between gap-6">
-          <div className="flex max-w-[760px] flex-col gap-4">
+          <div className="flex max-w-[900px] flex-col gap-5">
             <Eyebrow>{eyebrow}</Eyebrow>
             <h2 id={titleId} className="type-h2 text-balance">
               {title}
@@ -38,7 +49,13 @@ export function ServicesSection({
           {showAllLink ? <ArrowLink href="/services">View All Services</ArrowLink> : null}
         </Reveal>
 
-        {services ? <ServiceGrid services={services} /> : <GroupedServices />}
+        {picked ? (
+          <ServiceGrid services={picked} />
+        ) : layout === "ledger" ? (
+          <ServiceLedger services={services} />
+        ) : (
+          <GroupedServices />
+        )}
       </div>
     </section>
   );
@@ -47,13 +64,13 @@ export function ServicesSection({
 /** All services: the three entry services first, then the rest (GDE-005 A6) */
 function GroupedServices() {
   return (
-    <div className="flex flex-col gap-12">
-      <div className="flex flex-col gap-4">
-        <h3 className="type-eyebrow">Start here</h3>
+    <div className="flex flex-col gap-14 lg:gap-20">
+      <div className="flex flex-col gap-5">
+        <h3 className="type-eyebrow text-muted">Start here</h3>
         <ServiceGrid services={startHereServices} heading="h4" />
       </div>
-      <div className="flex flex-col gap-4">
-        <h3 className="type-eyebrow">Also available</h3>
+      <div className="flex flex-col gap-5">
+        <h3 className="type-eyebrow text-muted">Also available</h3>
         <ServiceLedger services={otherServices} />
       </div>
     </div>
@@ -70,7 +87,7 @@ export function ServiceGrid({
   heading?: Heading;
 }) {
   return (
-    <ul className="grid grid-cols-[repeat(auto-fill,minmax(min(100%,296px),1fr))] gap-4">
+    <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
       {services.map((service, i) => (
         <Reveal as="li" key={service.slug} delay={(i % 3) * 0.06} className="flex">
           <ServiceCard service={service} heading={heading} />
@@ -80,37 +97,43 @@ export function ServiceGrid({
   );
 }
 
+/** A service as a photo card linking to its page */
 export function ServiceCard({
   service,
   heading: Title = "h3",
-  compact = false,
 }: {
   service: Service;
   heading?: Heading;
-  compact?: boolean;
 }) {
+  const photo = photoFor(service.slug);
   return (
     <Link
       href={`/services/${service.slug}`}
       data-event="service_card_click"
       data-event-label={service.slug}
-      className={`group flex w-full rounded-card border border-bluegray bg-white transition-[border-color] duration-150 hover:border-slate ${
-        compact ? "items-start gap-4 p-4" : "min-h-[176px] flex-col gap-4 p-6"
-      }`}
+      className="group flex w-full flex-col overflow-hidden rounded-card border border-bluegray/60 bg-white transition-[translate,box-shadow] duration-400 ease-qb hover:-translate-y-1.5 hover:shadow-[0_24px_48px_-24px_rgba(51,74,82,0.35)]"
     >
-      <Icon name={service.icon} className={compact ? "mt-0.5 shrink-0 text-2xl" : "text-[32px]"} />
-      <div className="flex flex-1 flex-col gap-1">
-        <Title
-          className={`font-extrabold underline decoration-transparent decoration-2 underline-offset-4 transition-[text-decoration-color] duration-150 group-hover:decoration-cyan ${
-            compact ? "text-base leading-6" : "text-lg leading-6"
-          }`}
-        >
+      {photo ? (
+        <div className="relative aspect-[16/10] overflow-hidden bg-mint">
+          <Image
+            src={photo.src}
+            alt=""
+            fill
+            placeholder="blur"
+            sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+            className="object-cover transition-transform duration-700 ease-qb group-hover:scale-[1.03]"
+          />
+        </div>
+      ) : null}
+      <div className="flex flex-1 flex-col gap-3 p-6 pb-7">
+        <StatusLabel slug={service.slug} />
+        <Title className="text-[clamp(22px,2vw,28px)] leading-[1.15] font-black tracking-[-0.015em]">
           {service.title}
         </Title>
-        <span className={`text-pretty ${compact ? "text-sm leading-5" : "text-base leading-6"}`}>
-          {service.summary}
+        <span className="flex-1 text-base leading-[1.55] text-pretty">{service.summary}</span>
+        <span className="flex items-center gap-2.5 pt-1 font-extrabold">
+          View service <ArrowDot className="size-8" />
         </span>
-        <StatusLabel slug={service.slug} className="mt-auto pt-2" />
       </div>
     </Link>
   );
@@ -122,30 +145,31 @@ export function ServiceCard({
  */
 export function ServiceLedger({ services }: { services: readonly Service[] }) {
   return (
-    <ul className="border-t border-bluegray">
+    <ul className="border-t-2 border-slate">
       {services.map((service, i) => (
-        <Reveal
-          as="li"
-          key={service.slug}
-          delay={(i % 6) * 0.03}
-          className="border-b border-bluegray"
-        >
+        <Reveal as="li" key={service.slug} delay={(i % 6) * 0.03}>
           <Link
             href={`/services/${service.slug}`}
             data-event="service_card_click"
             data-event-label={service.slug}
-            className="group grid gap-x-6 gap-y-2 px-2 py-4 transition-colors duration-150 hover:bg-white sm:grid-cols-[48px_1fr] lg:grid-cols-[48px_minmax(0,2fr)_minmax(0,3fr)_minmax(0,2fr)] lg:items-baseline"
+            className="group grid items-center gap-x-6 gap-y-2 border-b border-bluegray px-3 py-5 transition-[background-color,padding] duration-300 ease-qb hover:bg-mint sm:grid-cols-[48px_1fr] lg:grid-cols-[56px_minmax(0,1.3fr)_minmax(0,1fr)_auto_44px] lg:hover:pl-7"
           >
-            <span className="type-eyebrow" aria-hidden>
+            <span className="text-[13px] font-extrabold tracking-[0.12em]" aria-hidden>
               {String(service.number).padStart(2, "0")}
             </span>
-            <span className="text-lg leading-6 font-extrabold underline decoration-transparent decoration-2 underline-offset-4 transition-[text-decoration-color] duration-150 group-hover:decoration-cyan">
+            <span className="text-[clamp(20px,2.1vw,30px)] leading-[1.15] font-black tracking-[-0.02em]">
               {service.title}
             </span>
-            <span className="text-base leading-6 text-pretty sm:col-start-2 lg:col-start-auto">
+            <span className="text-base leading-[1.5] text-pretty sm:col-start-2 lg:col-start-auto">
               {service.summary}
             </span>
             <StatusLabel slug={service.slug} className="sm:col-start-2 lg:col-start-auto" />
+            <span
+              aria-hidden
+              className="hidden size-11 items-center justify-center rounded-full border border-slate font-extrabold transition-colors duration-300 group-hover:bg-slate group-hover:text-white lg:inline-flex"
+            >
+              →
+            </span>
           </Link>
         </Reveal>
       ))}

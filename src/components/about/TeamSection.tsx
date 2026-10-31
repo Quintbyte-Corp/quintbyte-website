@@ -1,110 +1,100 @@
 import Image from "next/image";
-import type { CSSProperties } from "react";
 import { Reveal } from "@/components/motion/Reveal";
 import { Eyebrow } from "@/components/ui/Eyebrow";
-import { TreeConnectors } from "@/components/ui/TreeConnectors";
 import { initials, team, type TeamMember } from "@/data/team";
 
 /** Previews and local runs show unapproved cards (marked as drafts) for review */
 const showDrafts = process.env.VERCEL_ENV !== "production";
 
 /**
- * Founders and team cards (GDE-005 C4) as an organization chart: the first member in
- * data/team.ts heads it, everyone else sits on the row below. Each card has the person's
- * own headshot, or initials until it arrives (GDE-005 §14), never placeholder faces.
- * The connectors are only drawn on wide screens, where the row is one line.
+ * Founders and team cards (GDE-005 C4): the first member in data/team.ts leads, on a
+ * Deep Slate card; everyone else follows in a grid. Each card has the person's own
+ * headshot, or initials until it arrives (GDE-005 §14), never placeholder faces.
  */
 export function TeamSection() {
   const members = team.filter((m) => m.approved || showDrafts);
   if (members.length === 0) return null;
   const [lead, ...reports] = members;
-  const columns = { "--cols": Math.max(reports.length, 1) } as CSSProperties;
+  if (!lead) return null;
 
   return (
-    <section aria-labelledby="team-title" className="border-t border-bluegray/50 bg-white">
-      <div className="shell flex flex-col section-y">
-        <div className="grid gap-8 lg:grid-cols-4 lg:items-center lg:gap-4">
-          <Reveal className="flex flex-col gap-4">
-            <Eyebrow>Our team</Eyebrow>
-            <h2 id="team-title" className="type-h2 text-balance">
-              The people behind <span className="qb-highlight">QuintByte.</span>
-            </h2>
-          </Reveal>
-          <div className="flex justify-center lg:col-span-2">
-            <MemberCard
-              member={lead}
-              lead
-              className="w-full sm:max-w-[calc((100%-16px)/2)] lg:max-w-[380px]"
-            />
+    <section aria-labelledby="team-title" className="bg-white section-y">
+      <div className="shell flex flex-col gap-5">
+        <Reveal className="mb-6 flex max-w-[900px] flex-col gap-5 lg:mb-10">
+          <Eyebrow>Our team</Eyebrow>
+          <h2 id="team-title" className="type-h2 text-balance">
+            The people behind <span className="qb-highlight">QuintByte.</span>
+          </h2>
+        </Reveal>
+
+        <Reveal className="qb-band grid grid-cols-[auto_1fr] items-center gap-x-8 gap-y-6 rounded-card bg-slate p-7 text-white sm:p-10 lg:p-12">
+          <Avatar member={lead} size="lg" />
+          <div className="flex flex-col gap-2">
+            <h3 className="text-[clamp(28px,3vw,44px)] leading-[1.1] font-black tracking-[-0.02em]">
+              {lead.name}
+            </h3>
+            <p className="type-eyebrow text-mint">{lead.role}</p>
           </div>
-        </div>
+          <p className="col-span-full max-w-[820px] text-lg leading-[1.6] text-pretty lg:text-[21px]">
+            {lead.lines.filter(Boolean).join(" ")}
+          </p>
+          <DraftNote member={lead} />
+        </Reveal>
 
         {reports.length > 0 ? (
-          <>
-            <TreeConnectors count={reports.length} className="hidden lg:block" />
-            <ul
-              style={columns}
-              className="mt-4 grid gap-4 sm:grid-cols-2 lg:mt-0 lg:grid-cols-[repeat(var(--cols),minmax(0,1fr))]"
-            >
-              {reports.map((m, i) => (
-                <MemberCard key={m.name} member={m} as="li" delay={0.08 + (i % 4) * 0.06} />
-              ))}
-            </ul>
-          </>
+          <ul className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,280px),1fr))] gap-5">
+            {reports.map((m, i) => (
+              <Reveal
+                as="li"
+                key={m.name}
+                delay={(i % 4) * 0.06}
+                className="flex flex-col gap-4 rounded-card border border-bluegray/60 bg-white p-7"
+              >
+                <Avatar member={m} />
+                <div className="flex flex-col gap-1">
+                  <h3 className="text-2xl leading-[1.2] font-black tracking-[-0.01em]">{m.name}</h3>
+                  <p className="text-[13px] leading-5 font-extrabold tracking-[0.1em] text-muted uppercase">
+                    {m.role}
+                  </p>
+                </div>
+                <p className="text-base leading-[1.6] text-pretty">
+                  {m.lines.filter(Boolean).join(" ")}
+                </p>
+                <DraftNote member={m} />
+              </Reveal>
+            ))}
+          </ul>
         ) : null}
       </div>
     </section>
   );
 }
 
-function MemberCard({
-  member: m,
-  lead = false,
-  as = "div",
-  delay = 0,
-  className = "",
-}: {
-  member: TeamMember;
-  lead?: boolean;
-  as?: "div" | "li";
-  delay?: number;
-  className?: string;
-}) {
-  return (
-    <Reveal
-      as={as}
-      delay={delay}
-      className={`flex flex-col items-center gap-4 rounded-card bg-white p-6 text-center ${
-        lead ? "border-2 border-slate" : "border border-bluegray"
-      } ${className}`}
+function Avatar({ member: m, size = "md" }: { member: TeamMember; size?: "md" | "lg" }) {
+  const box = size === "lg" ? "size-24 text-3xl" : "size-20 text-2xl";
+  return m.photo ? (
+    <Image
+      src={m.photo}
+      alt=""
+      sizes={size === "lg" ? "192px" : "160px"}
+      quality={90}
+      placeholder="blur"
+      className={`${box} shrink-0 rounded-full object-cover`}
+    />
+  ) : (
+    <span
+      aria-hidden
+      className={`${box} flex shrink-0 items-center justify-center rounded-full bg-mint font-black text-slate`}
     >
-      {m.photo ? (
-        <Image
-          src={m.photo}
-          alt=""
-          sizes="192px"
-          quality={90}
-          placeholder="blur"
-          className="size-24 shrink-0 rounded-full border-2 border-bluegray object-cover"
-        />
-      ) : (
-        <span
-          aria-hidden
-          className="flex size-24 shrink-0 items-center justify-center rounded-full border-2 border-bluegray bg-white text-2xl font-black"
-        >
-          {initials(m.name)}
-        </span>
-      )}
-      <div className="flex flex-col gap-1">
-        <h3 className="text-lg leading-6 font-extrabold">{m.name}</h3>
-        <p className="text-base">{m.role}</p>
-      </div>
-      <p className="text-base leading-6 text-pretty">{m.lines.filter(Boolean).join(" ")}</p>
-      {!m.approved ? (
-        <p className="rounded-chip border border-dashed border-bluegray px-3 py-1 text-xs font-extrabold tracking-[0.12em] uppercase">
-          Draft · awaiting approval
-        </p>
-      ) : null}
-    </Reveal>
+      {initials(m.name)}
+    </span>
   );
+}
+
+function DraftNote({ member: m }: { member: TeamMember }) {
+  return !m.approved ? (
+    <p className="w-fit rounded-full border border-dashed border-bluegray px-3 py-1 text-xs font-extrabold tracking-[0.12em] uppercase">
+      Draft · awaiting approval
+    </p>
+  ) : null;
 }

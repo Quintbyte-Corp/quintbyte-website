@@ -39,11 +39,14 @@ export function Logo({
   );
 }
 
-/** Header: the colour qb mark alone, 32px tall, linking home */
+/** Header: the colour qb mark, 36px tall, with the QuintByte wordmark, linking home */
 export function LogoHomeLink() {
   return (
-    <Link href="/" aria-label="QuintByte home" className="flex shrink-0 items-center">
-      <Logo file="mark" height={32} />
+    <Link href="/" aria-label="QuintByte home" className="flex shrink-0 items-center gap-3">
+      <Logo file="mark" height={36} />
+      <span aria-hidden className="text-lg font-black tracking-[0.02em] text-slate">
+        QuintByte
+      </span>
     </Link>
   );
 }

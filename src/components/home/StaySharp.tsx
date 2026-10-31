@@ -1,12 +1,13 @@
+import Image from "next/image";
 import { Reveal } from "@/components/motion/Reveal";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { trainingParagraph } from "@/data/claims";
+import { pagePhotos } from "@/data/photos";
 
 /**
- * Home: "How we stay sharp" (rebrand brief, 24 Oct 2026), after "A complete business
- * support ecosystem". Heading and paragraph on the left (5 of 12 columns), the four tools
- * as a plain two-column list on the right (7 of 12). No cards, icons or tool logos: the
- * words do the work, and brand logos would need permission.
+ * Home: "How we stay sharp" (rebrand brief, 24 Oct 2026). Heading, paragraph and a photo
+ * on the left (sticky on wide screens), the four tools as a numbered list on the right.
+ * No tool logos: the words do the work, and brand logos would need permission.
  */
 const tools = [
   {
@@ -23,27 +24,47 @@ const tools = [
 
 export function StaySharp() {
   return (
-    <section aria-labelledby="sharp-title" className="border-t border-bluegray/50 bg-white">
-      <div className="shell grid items-start gap-12 section-y lg:grid-cols-12 lg:gap-16">
-        <Reveal className="flex flex-col gap-4 lg:col-span-5">
+    <section aria-labelledby="sharp-title" className="bg-white pb-[clamp(80px,10vw,144px)]">
+      <div className="shell grid grid-cols-[repeat(auto-fit,minmax(min(100%,460px),1fr))] items-start gap-x-20 gap-y-12">
+        <Reveal className="flex flex-col gap-5 lg:sticky lg:top-28">
           <Eyebrow>How we stay sharp</Eyebrow>
           <h2 id="sharp-title" className="type-h2 text-balance">
             We train each other, <span className="qb-highlight">so you don&rsquo;t have to</span>{" "}
             train us.
           </h2>
-          <p className="type-body text-pretty">{trainingParagraph}</p>
+          <p className="max-w-[520px] type-body text-pretty">{trainingParagraph}</p>
+          <div className="relative mt-3 aspect-[16/10] overflow-hidden rounded-card bg-mint">
+            <Image
+              src={pagePhotos.training.src}
+              alt={pagePhotos.training.alt}
+              fill
+              placeholder="blur"
+              sizes="(min-width: 1024px) 45vw, 100vw"
+              className="object-cover"
+            />
+          </div>
         </Reveal>
 
-        <Reveal delay={0.08} className="lg:col-span-7">
-          <dl className="grid gap-x-12 gap-y-8 border-t border-bluegray pt-8 sm:grid-cols-2">
-            {tools.map((tool) => (
-              <div key={tool.label} className="flex flex-col gap-2">
-                <dt className="type-h3">{tool.label}</dt>
-                <dd className="type-body text-pretty">{tool.text}</dd>
-              </div>
-            ))}
-          </dl>
-        </Reveal>
+        <dl className="flex flex-col">
+          {tools.map((tool, i) => (
+            <Reveal
+              key={tool.label}
+              delay={i * 0.06}
+              className="relative flex flex-col gap-2 border-t border-bluegray py-9 pl-[72px]"
+            >
+              <dt className="text-[clamp(28px,3vw,44px)] leading-[1.1] font-black tracking-[-0.025em]">
+                <span
+                  aria-hidden
+                  className="absolute top-[46px] left-0 text-[13px] leading-none font-extrabold tracking-[0.12em]"
+                >
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                {tool.label}
+              </dt>
+              <dd className="max-w-[520px] type-body text-pretty">{tool.text}</dd>
+            </Reveal>
+          ))}
+        </dl>
       </div>
     </section>
   );

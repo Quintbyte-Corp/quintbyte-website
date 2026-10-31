@@ -17,11 +17,13 @@
   --color-bluegray: #96afb8; /* connectors, outlines, dividers. Decorative only */
   --color-apricot: #df9f6e; /* the "You" client node only */
   --color-danger: #b23c0a; /* form errors, 5.6:1 on white */
+  --color-muted: #5b6f76; /* small labels and captions only, 5.3:1 on white */
 
   --font-sans: var(--font-nunito), system-ui, sans-serif;
 
-  --radius-card: 8px;
-  --radius-chip: 4px;
+  --radius-card: 24px;
+  --radius-chip: 12px;
+  --radius-panel: 32px;
 
   --ease-qb: cubic-bezier(0.2, 0.7, 0.2, 1);
   --animate-menu-in: menu-in 150ms cubic-bezier(0.2, 0.7, 0.2, 1);
@@ -33,18 +35,19 @@
   }
 }
 
-/* Content container: max-width 1280, gutters on the 8-point scale */
+/* Content container: max-width 1440, fluid gutters */
 @utility shell {
   width: 100%;
-  max-width: 1280px;
+  max-width: 1440px;
   margin-inline: auto;
-  padding-inline: 24px;
-  @media (width >= 48rem) {
-    padding-inline: 32px;
-  }
-  @media (width >= 64rem) {
-    padding-inline: 48px;
-  }
+  padding-inline: clamp(20px, 4vw, 56px);
+}
+
+/* Full-bleed rounded panel (photos, mint and slate panels): 1600 wide, small side inset */
+@utility panel-wrap {
+  width: 100%;
+  max-width: 1600px;
+  margin-inline: auto;
 }
 
 /* Two-column sections stack on mobile */
@@ -58,37 +61,42 @@
   }
 }
 
-/* Sections sit 64px apart on phones and 96px on desktop */
+/* Sections breathe: 80px on phones, up to 144px on wide screens */
 @utility section-y {
-  padding-block: 64px;
-  @media (width >= 64rem) {
-    padding-block: 96px;
-  }
+  padding-block: clamp(80px, 10vw, 144px);
 }
 
 /* --------------------------------------------------------------------------
    Type scale (brief: "Type scale, 8-point friendly"). Nunito Sans throughout.
    -------------------------------------------------------------------------- */
 @utility type-hero {
-  font-size: 44px;
-  line-height: 48px;
+  font-size: clamp(44px, 7vw, 112px);
+  line-height: 0.98;
   font-weight: 900;
-  letter-spacing: -0.02em;
-  @media (width >= 64rem) {
-    font-size: 72px;
-    line-height: 76px;
-  }
+  letter-spacing: -0.035em;
+}
+
+/* Home headline: the largest type on the site */
+@utility type-display {
+  font-size: clamp(48px, 8.6vw, 136px);
+  line-height: 0.96;
+  font-weight: 900;
+  letter-spacing: -0.035em;
 }
 
 @utility type-h2 {
-  font-size: 32px;
-  line-height: 40px;
+  font-size: clamp(34px, 4.8vw, 72px);
+  line-height: 1.02;
   font-weight: 900;
-  letter-spacing: -0.01em;
-  @media (width >= 64rem) {
-    font-size: 48px;
-    line-height: 56px;
-  }
+  letter-spacing: -0.03em;
+}
+
+/* Closing band headline */
+@utility type-band {
+  font-size: clamp(52px, 10vw, 168px);
+  line-height: 0.92;
+  font-weight: 900;
+  letter-spacing: -0.045em;
 }
 
 @utility type-h3 {
@@ -120,8 +128,13 @@
 
 /* One mint highlight behind slate text per section */
 @utility qb-highlight {
-  background: linear-gradient(transparent 40%, var(--color-mint) 40%);
-  padding-inline: 0.08em;
+  background: linear-gradient(
+    transparent 34%,
+    var(--color-mint) 34%,
+    var(--color-mint) 76%,
+    transparent 76%
+  );
+  padding-inline: 0.1em;
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
 }
@@ -133,7 +146,7 @@
   text-decoration-line: underline;
   text-decoration-color: var(--color-cyan);
   text-decoration-thickness: 2px;
-  text-underline-offset: 4px;
+  text-underline-offset: 6px;
   transition: text-decoration-thickness 150ms var(--ease-qb);
   &:hover {
     text-decoration-thickness: 3px;
@@ -189,10 +202,13 @@
      content is always visible without JavaScript. */
   @media (scripting: enabled) {
     [data-reveal] {
-      transition: opacity 600ms var(--ease-qb) var(--reveal-delay, 0s);
+      transition:
+        opacity 800ms var(--ease-qb) var(--reveal-delay, 0s),
+        translate 900ms var(--ease-qb) var(--reveal-delay, 0s);
     }
     [data-reveal]:not([data-revealed]) {
       opacity: 0;
+      translate: 0 28px;
     }
   }
 }
@@ -222,6 +238,9 @@
   bottom: 0;
   width: 2px;
   background: var(--color-bluegray);
+}
+.qb-rail-dark > li:not(:last-child)::before {
+  background: rgb(255 255 255 / 0.3);
 }
 .qb-rail-node {
   position: absolute;
@@ -277,5 +296,28 @@
   }
   [data-reveal]:not([data-revealed]) {
     opacity: 1;
+    translate: none;
   }
+  .qb-marquee-track {
+    animation: none !important;
+  }
+}
+
+/* Endless chip strip (Home, "The business behind the business"). The list is rendered
+   twice; the track slides by exactly one copy, then repeats. */
+.qb-marquee-track {
+  animation: qb-marquee 60s linear infinite;
+}
+.qb-marquee:hover .qb-marquee-track {
+  animation-play-state: paused;
+}
+@keyframes qb-marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* FAQ disclosure: the plus turns into a cross when open */
+details[open] > summary .qb-plus {
+  rotate: 45deg;
 }

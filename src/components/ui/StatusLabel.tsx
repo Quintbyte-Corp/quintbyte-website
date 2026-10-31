@@ -8,10 +8,12 @@ import { ON_REQUEST_LABEL, isOnRequest } from "@/data/services";
 export function StatusLabel({ slug, className = "" }: { slug: string; className?: string }) {
   const onRequest = isOnRequest(slug);
   return (
-    <span className={`flex items-center gap-2 text-sm leading-5 font-extrabold ${className}`}>
+    <span
+      className={`inline-flex w-fit items-center gap-2 rounded-full border border-bluegray bg-white px-3 py-1.5 text-xs leading-4 font-extrabold tracking-[0.06em] uppercase ${className}`}
+    >
       <span
         aria-hidden
-        className={`size-2 shrink-0 ${onRequest ? "border-[1.5px] border-slate" : "bg-slate"}`}
+        className={`size-2 shrink-0 rounded-full ${onRequest ? "border-[1.5px] border-apricot" : "bg-cyan"}`}
       />
       {onRequest ? ON_REQUEST_LABEL : "Available"}
     </span>

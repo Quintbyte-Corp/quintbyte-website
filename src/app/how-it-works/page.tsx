@@ -1,17 +1,16 @@
 import type { Metadata } from "next";
-import { Icon } from "@/components/icons/Icon";
-import { QBLoop } from "@/components/mascot/QBLoop";
 import { Reveal } from "@/components/motion/Reveal";
 import { JsonLd, breadcrumbSchema } from "@/components/seo/JsonLd";
 import { CtaSection } from "@/components/sections/CtaSection";
 import { FaqSection } from "@/components/sections/FaqSection";
 import { PageHero } from "@/components/sections/PageHero";
+import { ProcessSteps } from "@/components/sections/ProcessSection";
 import { ButtonLink } from "@/components/ui/Button";
 import { Eyebrow } from "@/components/ui/Eyebrow";
-import { Rail, RailItem } from "@/components/ui/Rail";
 import { siteConfig } from "@/config/site";
 import { pageMetadata } from "@/lib/metadata";
-import { processObjective, processSteps } from "@/data/process";
+import { pagePhotos } from "@/data/photos";
+import { processObjective } from "@/data/process";
 
 export const metadata: Metadata = pageMetadata({
   title: "How It Works",
@@ -21,6 +20,8 @@ export const metadata: Metadata = pageMetadata({
 });
 
 export default function HowItWorksPage() {
+  const [objectiveLead, objectiveRest] = processObjective.split(". ");
+
   return (
     <>
       <PageHero
@@ -37,56 +38,51 @@ export default function HowItWorksPage() {
           </p>
         }
         actions={<ButtonLink href={siteConfig.cta.href}>{siteConfig.cta.label}</ButtonLink>}
-        aside={<QBLoop className="mx-auto max-w-[720px]" />}
+        photo={pagePhotos.howItWorks}
       />
 
-      <section aria-labelledby="detail-title" className="bg-paper">
-        <div className="shell grid items-start gap-12 section-y lg:grid-cols-12 lg:gap-16">
-          <Reveal className="flex flex-col gap-4 lg:sticky lg:top-32 lg:col-span-5">
-            <Eyebrow>Six steps</Eyebrow>
-            <h2 id="detail-title" className="type-h2 text-balance">
-              Understand the business <span className="qb-highlight">first.</span>
-            </h2>
-            <ul className="flex flex-col gap-2 type-body">
-              {siteConfig.principle.map((line) => (
-                <li key={line} className="flex items-start gap-2">
-                  <Icon name="check" className="mt-1 shrink-0 text-lg" />
-                  {line}
-                </li>
-              ))}
-            </ul>
-          </Reveal>
-
-          <div className="lg:col-span-7">
-            <Rail count={processSteps.length}>
-              {processSteps.map((step, i) => (
-                <RailItem
-                  key={step.num}
-                  node={step.checkpoint ? "checkpoint" : "step"}
-                  delay={i * 0.04}
-                  className="flex flex-col gap-2"
+      <section aria-labelledby="detail-title" className="bg-white section-y">
+        <div className="shell flex flex-col gap-12 lg:gap-20">
+          <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,420px),1fr))] items-end gap-x-20 gap-y-10">
+            <Reveal className="flex flex-col gap-5">
+              <Eyebrow>Six steps</Eyebrow>
+              <h2 id="detail-title" className="type-h2 text-balance">
+                Understand the business <span className="qb-highlight">first.</span>
+              </h2>
+            </Reveal>
+            <ol className="border-t-2 border-slate">
+              {siteConfig.principle.map((line, i) => (
+                <Reveal
+                  as="li"
+                  key={line}
+                  delay={i * 0.06}
+                  className="grid grid-cols-[56px_1fr] items-baseline gap-4 border-b border-bluegray py-5"
                 >
-                  <p className="type-eyebrow">
-                    <span className="sr-only">Step </span>
-                    {step.num}
-                    {step.checkpoint ? " · Checkpoint" : null}
-                  </p>
-                  <h3 className="type-h3">{step.title}</h3>
-                  <p className="type-body text-pretty">{step.detail}</p>
-                </RailItem>
+                  <span aria-hidden className="text-[13px] font-extrabold tracking-[0.12em]">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span className="text-[clamp(22px,2.2vw,32px)] leading-[1.2] font-black tracking-[-0.02em]">
+                    {line}
+                  </span>
+                </Reveal>
               ))}
-            </Rail>
+            </ol>
           </div>
+
+          <ProcessSteps detailed />
         </div>
       </section>
 
-      <section aria-label="Our objective" className="border-t border-bluegray/50 bg-white">
-        <div className="shell section-y">
+      <section
+        aria-label="Our objective"
+        className="bg-white px-2 pb-[clamp(80px,10vw,144px)] sm:px-4 lg:px-6"
+      >
+        <div className="panel-wrap rounded-[32px] bg-mint px-[clamp(20px,4vw,56px)] py-[clamp(56px,8vw,128px)]">
           <Reveal>
-            <blockquote className="max-w-[1000px] type-h2 text-balance">
+            <blockquote className="mx-auto max-w-[1200px] text-[clamp(30px,4vw,60px)] leading-[1.12] font-black tracking-[-0.025em] text-balance">
+              <span aria-hidden className="mb-8 block h-1 w-12 bg-cyan" />
               <p>
-                {processObjective.split(". ")[0]}.{" "}
-                <span className="qb-highlight">{processObjective.split(". ")[1]}</span>
+                {objectiveLead}. <span className="text-muted">{objectiveRest}</span>
               </p>
             </blockquote>
           </Reveal>

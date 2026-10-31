@@ -21,7 +21,7 @@ export default function HomePage() {
       <ProcessSection />
       <EcosystemSection />
       <StaySharp />
-      <ServicesSection />
+      <ServicesSection layout="ledger" />
       <CtaSection />
     </>
   );

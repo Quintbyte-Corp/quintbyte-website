@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 
 /**
- * Section label: small Deep Slate caps with a short cyan rule above (brief, hero eyebrow).
+ * Section label: small Deep Slate caps led by a short cyan rule.
  * It sits 16px above its heading; the parent's gap sets that distance.
  */
 export function Eyebrow({
@@ -14,8 +14,8 @@ export function Eyebrow({
   className?: string;
 }) {
   return (
-    <Tag className={`flex flex-col items-start gap-2 type-eyebrow text-slate ${className}`}>
-      <span aria-hidden className="block h-[3px] w-8 bg-cyan" />
+    <Tag className={`flex items-center gap-3 type-eyebrow ${className}`}>
+      <span aria-hidden className="block h-0.5 w-8 shrink-0 bg-cyan" />
       <span>{children}</span>
     </Tag>
   );

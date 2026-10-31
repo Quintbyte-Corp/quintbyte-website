@@ -11,11 +11,11 @@ const parts: { label: string; icon: IconName }[] = [
 ];
 
 const tile =
-  "flex items-center gap-4 rounded-card border border-bluegray bg-white px-6 py-4 nav:flex-col nav:justify-center nav:gap-2 nav:px-4 nav:py-6 nav:text-center";
+  "flex items-center gap-4 rounded-[20px] border border-bluegray bg-white px-6 py-4 nav:flex-col nav:justify-center nav:gap-2 nav:px-4 nav:py-6 nav:text-center";
 
 function Operator({ symbol }: { symbol: "+" | "=" }) {
   return (
-    <span aria-hidden className="self-center text-2xl leading-none font-black">
+    <span aria-hidden className="self-center text-2xl leading-none font-black text-current">
       {symbol}
     </span>
   );
@@ -31,7 +31,7 @@ export function ModelEquation() {
     <div
       role="img"
       aria-label="People plus systems plus processes plus specialists plus coordination equals QuintByte"
-      className="flex flex-col gap-2 nav:grid nav:grid-cols-[1fr_auto_1fr_auto_1fr_auto_1fr_auto_1fr_auto_1.35fr] nav:items-stretch nav:gap-4"
+      className="flex flex-col gap-2 text-slate nav:grid nav:grid-cols-[1fr_auto_1fr_auto_1fr_auto_1fr_auto_1fr_auto_1.35fr] nav:items-stretch nav:gap-4"
     >
       {parts.map((part, i) => (
         <Fragment key={part.label}>
@@ -43,7 +43,7 @@ export function ModelEquation() {
         </Fragment>
       ))}
       <Operator symbol="=" />
-      <div className="flex items-center gap-4 rounded-card border-2 border-slate bg-mint px-6 py-4 nav:flex-col nav:justify-center nav:gap-2 nav:text-center">
+      <div className="flex items-center gap-4 rounded-[20px] border-2 border-cyan bg-mint px-6 py-4 nav:flex-col nav:justify-center nav:gap-2 nav:text-center">
         <Logo file="mark" height={40} />
         <span className="flex flex-col">
           <span className="text-lg font-black">QuintByte</span>
