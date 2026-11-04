@@ -66,7 +66,7 @@ export function Hero() {
       </section>
 
       <ScrollPhoto photo={pagePhotos.home} priority>
-        <div className="absolute inset-x-0 bottom-0 flex flex-wrap items-end justify-between gap-4 bg-gradient-to-b from-transparent to-[rgba(31,46,51,0.55)] p-5 sm:p-8 lg:p-10">
+        <div className="flex flex-wrap items-end justify-between gap-4 bg-slate p-5 sm:p-8 lg:p-10">
           <p className="text-[22px] leading-[1.1] font-black text-white sm:text-3xl lg:text-4xl">
             {siteConfig.tagline}
           </p>

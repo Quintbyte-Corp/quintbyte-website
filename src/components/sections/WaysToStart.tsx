@@ -53,7 +53,7 @@ export function WaysToStart({ id = "ways-to-start" }: { id?: string }) {
                         src={photo.src}
                         alt=""
                         fill
-                        placeholder="blur"
+                        unoptimized
                         sizes="(min-width: 1024px) 33vw, 100vw"
                         className="object-cover transition-transform duration-700 ease-qb group-hover:scale-[1.03]"
                       />

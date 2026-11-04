@@ -1,92 +1,115 @@
 import type { StaticImageData } from "next/image";
-import aboutHero from "@/assets/photos/about-hero.jpg";
-import contact from "@/assets/photos/contact.jpg";
-import crmCleanup from "@/assets/photos/crm-cleanup.jpg";
-import execAssistance from "@/assets/photos/exec-assistance.jpg";
-import howHero from "@/assets/photos/how-hero.jpg";
-import opsStarter from "@/assets/photos/ops-starter.jpg";
-import servicesHero from "@/assets/photos/services-hero.jpg";
-import adminOps from "@/assets/photos/svc-admin-ops.jpg";
-import aiAutomation from "@/assets/photos/svc-ai-automation.jpg";
-import bookkeeping from "@/assets/photos/svc-bookkeeping.jpg";
-import customProject from "@/assets/photos/svc-custom-project.jpg";
-import customerService from "@/assets/photos/svc-customer-service.jpg";
-import graphicDesign from "@/assets/photos/svc-graphic-design.jpg";
-import hr from "@/assets/photos/svc-hr.jpg";
-import itSupport from "@/assets/photos/svc-it-support.jpg";
-import marketing from "@/assets/photos/svc-marketing.jpg";
-import researchData from "@/assets/photos/svc-research-data.jpg";
-import website from "@/assets/photos/svc-website.jpg";
-import teamHero from "@/assets/photos/team-hero.jpg";
-import training from "@/assets/photos/training.jpg";
+import about from "@/assets/illustrations/about.svg";
+import contact from "@/assets/illustrations/contact.svg";
+import home from "@/assets/illustrations/home.svg";
+import howItWorks from "@/assets/illustrations/how-it-works.svg";
+import services from "@/assets/illustrations/services.svg";
+import adminOps from "@/assets/illustrations/svc-administrative-operations-support.svg";
+import aiAutomation from "@/assets/illustrations/svc-ai-automation-support.svg";
+import bookkeeping from "@/assets/illustrations/svc-bookkeeping-finance-support.svg";
+import businessOps from "@/assets/illustrations/svc-business-operations-management-support.svg";
+import crm from "@/assets/illustrations/svc-crm-sales-support.svg";
+import customProject from "@/assets/illustrations/svc-custom-project-based-support.svg";
+import customerService from "@/assets/illustrations/svc-customer-service-client-support.svg";
+import execAssistance from "@/assets/illustrations/svc-executive-assistance.svg";
+import graphicDesign from "@/assets/illustrations/svc-graphic-design-creative-production.svg";
+import hr from "@/assets/illustrations/svc-human-resources-people-support.svg";
+import itSupport from "@/assets/illustrations/svc-it-technical-support.svg";
+import marketing from "@/assets/illustrations/svc-marketing-creative-support.svg";
+import researchData from "@/assets/illustrations/svc-research-data-support.svg";
+import website from "@/assets/illustrations/svc-website-digital-solutions.svg";
+import training from "@/assets/illustrations/training.svg";
 import type { ServiceSlug } from "./services";
 
 /**
- * Stock photography (Unsplash licence: free for commercial use, no attribution required).
- * Every photo shows a real scene, never a generated one, and none is presented as the
- * QuintByte team or office.
+ * QuintByte's own flat illustrations in the brand colours (no stock photos, no generated
+ * people). Figures are faceless, so none is presented as a real team member; apricot is
+ * kept for the client ("you"). Each is drawn for its frame: page scenes 16:9 (training
+ * 16:10), contact and service scenes 4:3 with the key content clear of a 16:10 crop.
+ * Real team photos can replace the home and about scenes later.
  */
 export type Photo = { src: StaticImageData; alt: string };
 
 export const pagePhotos = {
-  home: { src: teamHero, alt: "A small team meeting around a table with laptops" },
-  training: { src: training, alt: "A team gathered around a table reviewing work together" },
+  home: {
+    src: home,
+    alt: "Illustration: a client talking with their lead, with the rest of the team connected behind them",
+  },
+  training: {
+    src: training,
+    alt: "Illustration: one team member teaching the others a tool on a screen",
+  },
   services: {
-    src: servicesHero,
-    alt: "Three colleagues working together on laptops at a shared desk",
+    src: services,
+    alt: "Illustration: six kinds of work connected to one lead, with the client below",
   },
   howItWorks: {
-    src: howHero,
-    alt: "A team gathered around a whiteboard during a planning session",
+    src: howItWorks,
+    alt: "Illustration: six steps along one line, starting from the client, with two checkpoints",
   },
-  about: { src: aboutHero, alt: "Two colleagues smiling while working on laptops" },
-  contact: { src: contact, alt: "A woman working on her laptop by a bright window" },
+  about: { src: about, alt: "Illustration: five friends standing together" },
+  contact: {
+    src: contact,
+    alt: "Illustration: a message travelling from a laptop to a checkmark",
+  },
 } satisfies Record<string, Photo>;
 
 export const servicePhotos: Record<ServiceSlug, Photo> = {
   "executive-assistance": {
     src: execAssistance,
-    alt: "A professional working on a laptop while checking his phone",
+    alt: "Illustration: a calendar, a clock and an inbox tray of letters",
   },
   "administrative-operations-support": {
     src: adminOps,
-    alt: "A woman working at a tidy desk with a laptop",
+    alt: "Illustration: loose papers being filed into a cabinet, with a checklist",
   },
-  "crm-sales-support": { src: crmCleanup, alt: "Two colleagues reviewing records on a computer" },
+  "crm-sales-support": {
+    src: crm,
+    alt: "Illustration: a pile of contact cards being sorted into a tidy pipeline",
+  },
   "customer-service-client-support": {
     src: customerService,
-    alt: "A support specialist with a headset working on a laptop",
+    alt: "Illustration: a support specialist with a headset, surrounded by chat messages",
   },
   "marketing-creative-support": {
     src: marketing,
-    alt: "A weekly social media content plan on a whiteboard",
+    alt: "Illustration: a board of planned posts and a megaphone",
   },
   "graphic-design-creative-production": {
     src: graphicDesign,
-    alt: "A designer sketching on a tablet beside colour swatches",
+    alt: "Illustration: shapes on an artboard, a pen path and colour swatches",
   },
   "it-technical-support": {
     src: itSupport,
-    alt: "A technician working on a laptop at a workbench",
+    alt: "Illustration: a laptop with every check passing, a gear and a router",
   },
-  "website-digital-solutions": { src: website, alt: "A laptop showing website code" },
-  "ai-automation-support": { src: aiAutomation, alt: "A hand-drawn workflow diagram on paper" },
+  "website-digital-solutions": {
+    src: website,
+    alt: "Illustration: a website in a browser, its phone layout and the code behind it",
+  },
+  "ai-automation-support": {
+    src: aiAutomation,
+    alt: "Illustration: an automated workflow that ends with a person checking the result",
+  },
   "bookkeeping-finance-support": {
     src: bookkeeping,
-    alt: "A calculator on top of receipts and financial records",
+    alt: "Illustration: a ledger, receipts and a calculator",
   },
-  "human-resources-people-support": { src: hr, alt: "Two people shaking hands across a desk" },
+  "human-resources-people-support": {
+    src: hr,
+    alt: "Illustration: three team profile cards above an onboarding path",
+  },
   "research-data-support": {
     src: researchData,
-    alt: "Charts and reports being reviewed on a desk",
+    alt: "Illustration: a report with charts and a magnifying glass",
   },
   "business-operations-management-support": {
-    src: opsStarter,
-    alt: "A team planning at a whiteboard",
+    src: businessOps,
+    alt: "Illustration: a dashboard with a gauge, key numbers and a process",
   },
   "custom-project-based-support": {
     src: customProject,
-    alt: "A project plan laid out in sticky notes on a wall",
+    alt: "Illustration: a project timeline with a milestone and planning notes",
   },
 };
 

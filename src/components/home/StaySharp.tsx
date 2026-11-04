@@ -38,7 +38,7 @@ export function StaySharp() {
               src={pagePhotos.training.src}
               alt={pagePhotos.training.alt}
               fill
-              placeholder="blur"
+              unoptimized
               sizes="(min-width: 1024px) 45vw, 100vw"
               className="object-cover"
             />

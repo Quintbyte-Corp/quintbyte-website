@@ -62,7 +62,7 @@ export default async function ContactPage(props: PageProps<"/contact">) {
                 src={pagePhotos.contact.src}
                 alt={pagePhotos.contact.alt}
                 fill
-                placeholder="blur"
+                unoptimized
                 sizes="(min-width: 1024px) 35vw, 100vw"
                 className="object-cover"
               />

@@ -5,8 +5,9 @@ import { type ReactNode, useEffect, useRef } from "react";
 import type { Photo } from "@/data/photos";
 
 /**
- * A full-width rounded photo that grows from 92% to full size, and loosens its corners,
- * as it scrolls into view. Static under reduced motion. Optional overlay as children.
+ * A full-width rounded 16:9 illustration that grows from 92% to full size, and loosens its
+ * corners, as it scrolls into view. Static under reduced motion. Optional strip below it
+ * (inside the same rounded frame) as children.
  */
 export function ScrollPhoto({
   photo,
@@ -50,18 +51,20 @@ export function ScrollPhoto({
     <div className="px-2 sm:px-4 lg:px-6">
       <div
         ref={ref}
-        className="relative panel-wrap h-[clamp(320px,56vw,800px)] origin-top overflow-hidden rounded-[32px] bg-mint will-change-transform"
+        className="relative panel-wrap origin-top overflow-hidden rounded-[32px] bg-paper will-change-transform"
       >
-        <Image
-          src={photo.src}
-          alt={photo.alt}
-          fill
-          priority={priority}
-          placeholder="blur"
-          sizes="(min-width: 1600px) 1600px, 100vw"
-          className="object-cover"
-          style={{ objectPosition: position }}
-        />
+        <div className="relative aspect-[16/9]">
+          <Image
+            src={photo.src}
+            alt={photo.alt}
+            fill
+            priority={priority}
+            unoptimized
+            sizes="(min-width: 1600px) 1600px, 100vw"
+            className="object-cover"
+            style={{ objectPosition: position }}
+          />
+        </div>
         {children}
       </div>
     </div>
