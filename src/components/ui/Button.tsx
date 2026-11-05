@@ -11,11 +11,11 @@ import { arrowForward } from "@/components/icons/ui-paths";
 type Variant = "primary" | "inverse";
 
 const base =
-  "inline-flex min-h-12 items-center justify-center gap-2 rounded-chip px-6 py-3 text-base leading-6 font-extrabold whitespace-nowrap transition-[filter,transform] duration-150 ease-qb hover:brightness-[.92] active:translate-y-px";
+  "inline-flex min-h-14 items-center justify-center gap-2 rounded-full px-7 py-3 text-base leading-6 font-extrabold whitespace-nowrap transition-[background-color,transform] duration-200 ease-qb active:translate-y-px";
 
 const variants: Record<Variant, string> = {
-  primary: "bg-slate text-white",
-  inverse: "bg-white text-slate",
+  primary: "bg-slate text-white hover:bg-[#24363c]",
+  inverse: "bg-white text-slate hover:bg-mint",
 };
 
 type ButtonStyleProps = {
@@ -75,7 +75,7 @@ export function ArrowLink({
   const cls = `group inline-flex min-h-12 items-center gap-2 text-base font-extrabold text-slate ${className}`;
   const content = (
     <>
-      <span className="underline decoration-cyan decoration-2 underline-offset-4 transition-[text-decoration-thickness] duration-150 group-hover:decoration-[3px]">
+      <span className="underline decoration-cyan decoration-2 underline-offset-[6px] transition-[text-decoration-thickness] duration-150 group-hover:decoration-[3px]">
         {children}
       </span>
       <SvgIcon
@@ -92,5 +92,17 @@ export function ArrowLink({
     <a href={href} className={cls}>
       {content}
     </a>
+  );
+}
+
+/** The round arrow at the foot of a card ("Ask for a quote →"). Decorative. */
+export function ArrowDot({ className = "" }: { className?: string }) {
+  return (
+    <span
+      aria-hidden
+      className={`inline-flex size-9 shrink-0 items-center justify-center rounded-full bg-slate text-white transition-transform duration-300 ease-qb group-hover:translate-x-1 ${className}`}
+    >
+      <SvgIcon d={arrowForward} className="text-lg" />
+    </span>
   );
 }

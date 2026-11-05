@@ -9,6 +9,7 @@ import { WaysToStart } from "@/components/sections/WaysToStart";
 import { ArrowLink, ButtonLink } from "@/components/ui/Button";
 import { absoluteUrl, siteConfig } from "@/config/site";
 import { pageMetadata } from "@/lib/metadata";
+import { pagePhotos } from "@/data/photos";
 import { services } from "@/data/services";
 
 const description =
@@ -42,13 +43,16 @@ export default function ServicesPage() {
             <ArrowLink href="/how-it-works">How It Works</ArrowLink>
           </>
         }
+        photo={pagePhotos.services}
       />
+      <div aria-hidden className="h-[clamp(64px,8vw,120px)]" />
       <WaysToStart />
       <ServicesSection
         id="all-services"
         eyebrow={`${services.length} service categories`}
         title="The right specialists, coordinated through one partner."
         showAllLink={false}
+        tone="white"
       />
       <EngagementSection />
       <FaqSection page="services" />

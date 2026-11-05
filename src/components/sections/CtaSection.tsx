@@ -1,4 +1,3 @@
-import { Logo } from "@/components/brand/Logo";
 import { Reveal } from "@/components/motion/Reveal";
 import { ButtonLink } from "@/components/ui/Button";
 import { siteConfig } from "@/config/site";
@@ -9,8 +8,8 @@ type CtaSectionProps = {
 };
 
 /**
- * Closing call to action: a full-width Deep Slate band with the reversed tagline lockup
- * on the left and the heading and one white button on the right (brief, step 7).
+ * Closing call to action: a full-width Deep Slate band with the headline at its largest,
+ * then the line and one white button. The footer continues the band below it.
  */
 export function CtaSection({
   title = "Ready to get started?",
@@ -25,31 +24,41 @@ export function CtaSection({
       : null;
 
   return (
-    <section id="get-started" aria-labelledby="cta-title" className="qb-band bg-slate text-white">
-      <div className="shell grid items-center gap-12 section-y lg:grid-cols-12 lg:gap-16">
-        <div className="lg:col-span-5">
-          <Logo file="taglineReversed" height={96} className="h-auto w-full max-w-[268px]" />
-        </div>
-
-        <Reveal className="flex flex-col items-start gap-6 lg:col-span-7">
-          <h2 id="cta-title" className="type-h2 text-balance">
+    <section
+      id="get-started"
+      aria-labelledby="cta-title"
+      className="qb-band overflow-hidden bg-slate pt-[clamp(80px,11vw,168px)] pb-[clamp(64px,8vw,120px)] text-white"
+    >
+      <div className="shell">
+        <Reveal>
+          <h2 id="cta-title" className="type-band text-balance">
             {title}
           </h2>
-          <p className="max-w-[560px] type-body text-pretty">{body}</p>
-          <div className="flex flex-wrap items-center gap-x-8 gap-y-4 pt-2">
-            <ButtonLink href={siteConfig.cta.href} variant="inverse">
+        </Reveal>
+        <div className="mt-10 grid grid-cols-[repeat(auto-fit,minmax(min(100%,420px),1fr))] items-end gap-x-20 gap-y-10 lg:mt-[72px]">
+          <Reveal>
+            <p className="max-w-[600px] text-lg leading-[1.55] text-pretty lg:text-[22px]">
+              {body}
+            </p>
+          </Reveal>
+          <Reveal delay={0.08} className="flex flex-wrap items-center gap-x-7 gap-y-4">
+            <ButtonLink
+              href={siteConfig.cta.href}
+              variant="inverse"
+              className="min-h-[60px] px-8 text-[17px] font-black"
+            >
               {siteConfig.cta.label}
             </ButtonLink>
             {secondary ? (
               <a
                 href={secondary.href}
-                className="inline-flex min-h-12 items-center font-extrabold underline decoration-cyan decoration-2 underline-offset-4 transition-[text-decoration-thickness] duration-150 hover:decoration-[3px]"
+                className="inline-flex min-h-12 items-center font-extrabold underline decoration-cyan decoration-2 underline-offset-[6px] transition-[text-decoration-thickness] duration-150 hover:decoration-[3px]"
               >
                 {secondary.label}
               </a>
             ) : null}
-          </div>
-        </Reveal>
+          </Reveal>
+        </div>
       </div>
     </section>
   );
