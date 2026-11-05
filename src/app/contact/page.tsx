@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { ContactDetails } from "@/components/contact/ContactDetails";
 import { ContactForm } from "@/components/contact/ContactForm";
-import Image from "next/image";
+import { Scene } from "@/components/art/Scene";
 import { JsonLd, breadcrumbSchema } from "@/components/seo/JsonLd";
 import { FaqSection } from "@/components/sections/FaqSection";
 import { PageHero } from "@/components/sections/PageHero";
@@ -58,14 +58,7 @@ export default async function ContactPage(props: PageProps<"/contact">) {
             className="flex min-w-0 flex-[1_1_360px] flex-col gap-6"
           >
             <div className="relative hidden aspect-[4/3] overflow-hidden rounded-[28px] bg-mint sm:block">
-              <Image
-                src={pagePhotos.contact.src}
-                alt={pagePhotos.contact.alt}
-                fill
-                unoptimized
-                sizes="(min-width: 1024px) 35vw, 100vw"
-                className="object-cover"
-              />
+              <Scene name={pagePhotos.contact.scene} label={pagePhotos.contact.alt} />
             </div>
 
             <div className="qb-band flex flex-col gap-3 rounded-[28px] bg-slate p-6 text-white sm:p-9">

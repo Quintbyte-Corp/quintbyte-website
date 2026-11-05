@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { Scene } from "@/components/art/Scene";
 import { Reveal } from "@/components/motion/Reveal";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { trainingParagraph } from "@/data/claims";
@@ -34,14 +34,7 @@ export function StaySharp() {
           </h2>
           <p className="max-w-[520px] type-body text-pretty">{trainingParagraph}</p>
           <div className="relative mt-3 aspect-[16/10] overflow-hidden rounded-card bg-mint">
-            <Image
-              src={pagePhotos.training.src}
-              alt={pagePhotos.training.alt}
-              fill
-              unoptimized
-              sizes="(min-width: 1024px) 45vw, 100vw"
-              className="object-cover"
-            />
+            <Scene name={pagePhotos.training.scene} label={pagePhotos.training.alt} />
           </div>
         </Reveal>
 

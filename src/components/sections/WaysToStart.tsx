@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { Scene } from "@/components/art/Scene";
 import Link from "next/link";
 import { Reveal } from "@/components/motion/Reveal";
 import { ArrowDot } from "@/components/ui/Button";
@@ -49,13 +49,10 @@ export function WaysToStart({ id = "ways-to-start" }: { id?: string }) {
                 >
                   {photo ? (
                     <div className="relative aspect-[4/3] overflow-hidden bg-mint">
-                      <Image
-                        src={photo.src}
-                        alt=""
-                        fill
-                        unoptimized
-                        sizes="(min-width: 1024px) 33vw, 100vw"
-                        className="object-cover transition-transform duration-700 ease-qb group-hover:scale-[1.03]"
+                      <Scene
+                        name={photo.scene}
+                        label=""
+                        className="transition-transform duration-700 ease-qb group-hover:scale-[1.03]"
                       />
                     </div>
                   ) : null}

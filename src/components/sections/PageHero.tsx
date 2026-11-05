@@ -1,7 +1,7 @@
-import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { ScrollPhoto } from "./ScrollPhoto";
+import { Scene } from "@/components/art/Scene";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import type { Photo } from "@/data/photos";
 
@@ -17,12 +17,12 @@ type PageHeroProps = {
   aside?: ReactNode;
   breadcrumbs?: Crumb[];
   /**
-   * A photo: "wide" runs full width below the hero (main pages); "aside" sits in the
+   * An illustration: "wide" runs full width below the hero (main pages); "aside" sits in the
    * right-hand column (service pages)
    */
   photo?: Photo;
   photoLayout?: "wide" | "aside";
-  /** Inline 16:9 artwork shown in the wide frame instead of a photo (How It Works) */
+  /** Custom 16:9 artwork for the wide frame instead of a scene (How It Works) */
   art?: ReactNode;
 };
 
@@ -41,15 +41,7 @@ export function PageHero({
   const side =
     photo && photoLayout === "aside" ? (
       <div className="relative aspect-[4/3] origin-top overflow-hidden rounded-[32px] bg-mint">
-        <Image
-          src={photo.src}
-          alt={photo.alt}
-          fill
-          priority
-          unoptimized
-          sizes="(min-width: 1024px) 45vw, 100vw"
-          className="object-cover"
-        />
+        <Scene name={photo.scene} label={photo.alt} />
       </div>
     ) : (
       aside
@@ -141,7 +133,7 @@ export function PageHero({
         </div>
       </section>
       {art || (photo && photoLayout === "wide") ? (
-        <ScrollPhoto photo={photo} art={art} priority />
+        <ScrollPhoto art={art ?? (photo ? <Scene name={photo.scene} label={photo.alt} /> : null)} />
       ) : null}
     </>
   );

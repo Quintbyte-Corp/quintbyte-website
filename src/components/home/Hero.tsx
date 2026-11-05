@@ -5,6 +5,7 @@ import { siteConfig } from "@/config/site";
 import { heroParagraph } from "@/data/claims";
 import { pagePhotos } from "@/data/photos";
 import { ScrollPhoto } from "@/components/sections/ScrollPhoto";
+import { Scene } from "@/components/art/Scene";
 
 /** The headline, word by word, so each one can rise in on load */
 const headline: { text: string; highlight?: boolean }[] = [
@@ -65,7 +66,7 @@ export function Hero() {
         </div>
       </section>
 
-      <ScrollPhoto photo={pagePhotos.home} priority>
+      <ScrollPhoto art={<Scene name={pagePhotos.home.scene} label={pagePhotos.home.alt} />}>
         <div className="flex flex-wrap items-end justify-between gap-4 bg-slate p-5 sm:p-8 lg:p-10">
           <p className="text-[22px] leading-[1.1] font-black text-white sm:text-3xl lg:text-4xl">
             {siteConfig.tagline}

@@ -355,6 +355,39 @@
   }
 }
 
+/* Brand illustrations (components/art/Scene.tsx): each beat (.qa, --i its turn, the scene's
+   --qa-step apart) builds once when the scene is revealed, then everything stays still.
+   .qa-in rises into place, .qa-pop pops from its centre, .qa-draw draws its lines. Every
+   beat waits paused on its first frame until RevealObserver marks the scene revealed. */
+@media (scripting: enabled) {
+  .qb-scene .qa,
+  .qb-scene .qa-draw path {
+    animation-duration: 560ms;
+    animation-delay: calc(var(--i, 0) * var(--qa-step, 120ms) + 120ms);
+    animation-timing-function: var(--ease-qb);
+    animation-fill-mode: both;
+    animation-play-state: paused;
+  }
+  .qb-scene[data-revealed] .qa,
+  .qb-scene[data-revealed] .qa-draw path {
+    animation-play-state: running;
+  }
+  .qb-scene .qa-in {
+    animation-name: qp-rise;
+  }
+  .qb-scene .qa-pop {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation-name: qp-pop;
+    animation-duration: 360ms;
+  }
+  .qb-scene .qa-draw path {
+    stroke-dasharray: 100;
+    animation-name: qp-draw;
+    animation-duration: 600ms;
+  }
+}
+
 /* Motion is off for anyone who asks for less of it */
 @media (prefers-reduced-motion: reduce) {
   html {
