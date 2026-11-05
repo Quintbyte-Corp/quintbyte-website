@@ -2,7 +2,6 @@ import type { StaticImageData } from "next/image";
 import about from "@/assets/illustrations/about.svg";
 import contact from "@/assets/illustrations/contact.svg";
 import home from "@/assets/illustrations/home.svg";
-import howItWorks from "@/assets/illustrations/how-it-works.svg";
 import services from "@/assets/illustrations/services.svg";
 import adminOps from "@/assets/illustrations/svc-administrative-operations-support.svg";
 import aiAutomation from "@/assets/illustrations/svc-ai-automation-support.svg";
@@ -24,7 +23,7 @@ import type { ServiceSlug } from "./services";
 /**
  * QuintByte's own flat illustrations in the brand colours (no stock photos, no generated
  * people). Figures are faceless, so none is presented as a real team member; apricot is
- * kept for the client ("you"). Each is drawn for its frame: page scenes 16:9 (training
+ * kept for the client ("you"). Each is drawn for its frame: page scenes 16:9 (How It Works is inline, sections/ProcessArt.tsx) (training
  * 16:10), contact and service scenes 4:3 with the key content clear of a 16:10 crop.
  * Real team photos can replace the home and about scenes later.
  */
@@ -42,10 +41,6 @@ export const pagePhotos = {
   services: {
     src: services,
     alt: "Illustration: six kinds of work connected to one lead, with the client below",
-  },
-  howItWorks: {
-    src: howItWorks,
-    alt: "Illustration: six steps along one line, starting from the client, with two checkpoints",
   },
   about: { src: about, alt: "Illustration: five friends standing together" },
   contact: {

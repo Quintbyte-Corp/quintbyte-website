@@ -280,6 +280,81 @@
   }
 }
 
+/* How It Works scene (components/sections/ProcessArt.tsx): builds once, never loops. The
+   rail draws from "you"; each step (--t = when the line reaches it) pops its node, raises
+   its stem, then its card, and checkpoints draw their tick. Every part waits paused on its
+   first frame until RevealObserver marks the scene revealed. */
+@media (scripting: enabled) {
+  .qb-process :is(.qp-draw, .qp-pop, .qp-card) {
+    animation-play-state: paused;
+    animation-fill-mode: both;
+    animation-timing-function: var(--ease-qb);
+  }
+  .qb-process[data-revealed] :is(.qp-draw, .qp-pop, .qp-card) {
+    animation-play-state: running;
+  }
+  .qb-process .qp-draw {
+    stroke-dasharray: 100;
+    animation-name: qp-draw;
+  }
+  .qb-process .qp-rail {
+    animation-duration: 1500ms;
+    animation-delay: 200ms;
+    animation-timing-function: linear;
+  }
+  .qb-process .qp-pop {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation-name: qp-pop;
+    animation-duration: 320ms;
+    animation-delay: var(--t, 0ms);
+  }
+  .qb-process .qp-stem {
+    animation-duration: 300ms;
+    animation-delay: calc(var(--t) + 120ms);
+  }
+  .qb-process .qp-card {
+    animation-name: qp-rise;
+    animation-duration: 600ms;
+    animation-delay: calc(var(--t) + 300ms);
+  }
+  .qb-process .qp-tick {
+    animation-duration: 300ms;
+    animation-delay: calc(var(--t) + 260ms);
+  }
+}
+
+@keyframes qp-draw {
+  from {
+    stroke-dashoffset: 100;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes qp-pop {
+  from {
+    opacity: 0;
+    scale: 0.4;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+@keyframes qp-rise {
+  from {
+    opacity: 0;
+    translate: 0 24px;
+  }
+  to {
+    opacity: 1;
+    translate: none;
+  }
+}
+
 /* Motion is off for anyone who asks for less of it */
 @media (prefers-reduced-motion: reduce) {
   html {

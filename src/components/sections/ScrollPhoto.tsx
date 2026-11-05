@@ -6,16 +6,19 @@ import type { Photo } from "@/data/photos";
 
 /**
  * A full-width rounded 16:9 illustration that grows from 92% to full size, and loosens its
- * corners, as it scrolls into view. Static under reduced motion. Optional strip below it
+ * corners, as it scrolls into view. Static under reduced motion. Shows `photo` as an
+ * image, or `art` (inline SVG that fills the 16:9 box) instead. Optional strip below it
  * (inside the same rounded frame) as children.
  */
 export function ScrollPhoto({
   photo,
+  art,
   priority = false,
   position = "center 40%",
   children,
 }: {
-  photo: Photo;
+  photo?: Photo;
+  art?: ReactNode;
   priority?: boolean;
   position?: string;
   children?: ReactNode;
@@ -54,16 +57,19 @@ export function ScrollPhoto({
         className="relative panel-wrap origin-top overflow-hidden rounded-[32px] bg-paper will-change-transform"
       >
         <div className="relative aspect-[16/9]">
-          <Image
-            src={photo.src}
-            alt={photo.alt}
-            fill
-            priority={priority}
-            unoptimized
-            sizes="(min-width: 1600px) 1600px, 100vw"
-            className="object-cover"
-            style={{ objectPosition: position }}
-          />
+          {art ??
+            (photo ? (
+              <Image
+                src={photo.src}
+                alt={photo.alt}
+                fill
+                priority={priority}
+                unoptimized
+                sizes="(min-width: 1600px) 1600px, 100vw"
+                className="object-cover"
+                style={{ objectPosition: position }}
+              />
+            ) : null)}
         </div>
         {children}
       </div>

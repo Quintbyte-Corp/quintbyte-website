@@ -4,12 +4,12 @@ import { JsonLd, breadcrumbSchema } from "@/components/seo/JsonLd";
 import { CtaSection } from "@/components/sections/CtaSection";
 import { FaqSection } from "@/components/sections/FaqSection";
 import { PageHero } from "@/components/sections/PageHero";
+import { ProcessArt } from "@/components/sections/ProcessArt";
 import { ProcessSteps } from "@/components/sections/ProcessSection";
 import { ButtonLink } from "@/components/ui/Button";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { siteConfig } from "@/config/site";
 import { pageMetadata } from "@/lib/metadata";
-import { pagePhotos } from "@/data/photos";
 import { processObjective } from "@/data/process";
 
 export const metadata: Metadata = pageMetadata({
@@ -38,7 +38,9 @@ export default function HowItWorksPage() {
           </p>
         }
         actions={<ButtonLink href={siteConfig.cta.href}>{siteConfig.cta.label}</ButtonLink>}
-        photo={pagePhotos.howItWorks}
+        art={
+          <ProcessArt label="Illustration: six steps along one line, starting from the client, with two checkpoints" />
+        }
       />
 
       <section aria-labelledby="detail-title" className="bg-white section-y">

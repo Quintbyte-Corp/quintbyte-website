@@ -22,6 +22,8 @@ type PageHeroProps = {
    */
   photo?: Photo;
   photoLayout?: "wide" | "aside";
+  /** Inline 16:9 artwork shown in the wide frame instead of a photo (How It Works) */
+  art?: ReactNode;
 };
 
 /** Opening band for inner pages: white, left-aligned, the hero headline scale */
@@ -34,6 +36,7 @@ export function PageHero({
   breadcrumbs,
   photo,
   photoLayout = "wide",
+  art,
 }: PageHeroProps) {
   const side =
     photo && photoLayout === "aside" ? (
@@ -137,7 +140,9 @@ export function PageHero({
           )}
         </div>
       </section>
-      {photo && photoLayout === "wide" ? <ScrollPhoto photo={photo} priority /> : null}
+      {art || (photo && photoLayout === "wide") ? (
+        <ScrollPhoto photo={photo} art={art} priority />
+      ) : null}
     </>
   );
 }
