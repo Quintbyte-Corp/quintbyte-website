@@ -28,8 +28,12 @@ export type LinkItem = { label: string; href: string };
 
 const socials: SocialLink[] = [
   // Add confirmed profile URLs here; entries with an empty href are not rendered.
-  { network: "facebook", label: "Facebook", href: "" },
-  { network: "linkedin", label: "LinkedIn", href: "" },
+  {
+    network: "facebook",
+    label: "Facebook",
+    href: "https://www.facebook.com/profile.php?id=61596065780761",
+  },
+  { network: "linkedin", label: "LinkedIn", href: "https://www.linkedin.com/company/quintbyte/" },
   { network: "youtube", label: "YouTube", href: "" },
   { network: "x", label: "X", href: "" },
 ];
