@@ -192,7 +192,7 @@ export function greetingName(name: string): string {
 /** Auto-reply to the enquirer; wording from GDE-003 §2.2 */
 function autoReply(values: ContactFields): Promise<Result> {
   const booking = siteConfig.bookingUrl
-    ? `Prefer to talk? Book a 15-minute call here: ${siteConfig.bookingUrl}\n\n`
+    ? `Prefer to talk? Book a short call here: ${siteConfig.bookingUrl}\n\n`
     : "";
   const text = [
     `Mabuhay! Hi ${greetingName(values.name)},`,

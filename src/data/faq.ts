@@ -101,7 +101,7 @@ export const faqs: readonly Faq[] = [
     page: "contact",
     question: "What if I'm not sure which service I need?",
     answer:
-      "That is normal. Book a 15-minute call or send a message about what takes most of your time. We will ask a few questions and suggest one small first step, or tell you honestly if someone else would serve you better.",
+      "That is normal. Book a short call or send a message about what takes most of your time. We will ask a few questions and suggest one small first step, or tell you honestly if someone else would serve you better.",
   },
   {
     page: "contact",
