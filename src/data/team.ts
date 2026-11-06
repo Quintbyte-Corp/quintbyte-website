@@ -47,7 +47,7 @@ export const team: readonly TeamMember[] = [
   },
   {
     name: "Heart Lotitud",
-    role: "Chief Financial Officer",
+    role: "Co-Founder & Chief Financial Officer",
     lines: [
       "Manages finance and controls: pricing, project costing, budgets, cash flow and reporting.",
       "Keeps every engagement clearly scoped and properly priced.",
